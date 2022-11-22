@@ -9,5 +9,5 @@ spring:
     driver?class?name: com.mysql.cj.jdbc.Driver
   cloud:
     nacos:
-      discovery: # nacos???????
+      discovery:
         server-addr: localhost:8848

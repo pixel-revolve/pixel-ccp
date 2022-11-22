@@ -36,7 +36,7 @@ public class PPostController extends ApiController {
      * @param pPost 查询实体
      * @return 所有数据
      */
-    @GetMapping
+    @GetMapping("/selectAll")
     public R selectAll(Page<PPost> page, PPost pPost) {
         return success(this.pPostService.page(page, new QueryWrapper<>(pPost)));
     }
@@ -47,7 +47,7 @@ public class PPostController extends ApiController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("{id}")
+    @GetMapping("/selectOne/{id}")
     public R selectOne(@PathVariable Serializable id) {
         return success(this.pPostService.getById(id));
     }
@@ -58,7 +58,7 @@ public class PPostController extends ApiController {
      * @param pPost 实体对象
      * @return 新增结果
      */
-    @PostMapping
+    @PostMapping("/insert")
     public R insert(@RequestBody PPost pPost) {
         return success(this.pPostService.save(pPost));
     }
@@ -69,7 +69,7 @@ public class PPostController extends ApiController {
      * @param pPost 实体对象
      * @return 修改结果
      */
-    @PutMapping
+    @PutMapping("/update")
     public R update(@RequestBody PPost pPost) {
         return success(this.pPostService.updateById(pPost));
     }
@@ -80,7 +80,7 @@ public class PPostController extends ApiController {
      * @param idList 主键结合
      * @return 删除结果
      */
-    @DeleteMapping
+    @DeleteMapping("/delete")
     public R delete(@RequestParam("idList") List<Long> idList) {
         return success(this.pPostService.removeByIds(idList));
     }

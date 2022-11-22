@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class PAttachment extends Model<PAttachment> {
     
-    private String id;
+    private Long id;
     
     private String userId;
     
@@ -36,11 +36,11 @@ public class PAttachment extends Model<PAttachment> {
     private String isDel;
 
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class PTag extends Model<PTag> {
     //标签ID
-    private String id;
+    private Long id;
     //创建者ID
     private String userId;
     //标签名
@@ -30,11 +30,11 @@ public class PTag extends Model<PTag> {
     private String isDel;
 
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

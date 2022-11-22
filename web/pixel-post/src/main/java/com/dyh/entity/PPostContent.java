@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class PPostContent extends Model<PPostContent> {
     //内容ID
-    private String id;
+    private Long id;
     //POST ID
     private String postId;
     //用户ID
@@ -34,11 +34,11 @@ public class PPostContent extends Model<PPostContent> {
     private String isDel;
 
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
