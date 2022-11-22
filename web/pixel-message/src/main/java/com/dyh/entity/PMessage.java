@@ -13,13 +13,13 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class PMessage extends Model<PMessage> {
     //消息通知ID
-    private String id;
+    private Long id;
     //发送方用户ID
-    private String senderUserId;
+    private Long senderUserId;
     //接收方用户ID
-    private String receiverUserId;
+    private Long receiverUserId;
     //通知类型，1动态，2评论，3回复，4私信，99系统通知
-    private String type;
+    private int type;
     //摘要说明
     private String brief;
     //详细内容
@@ -42,35 +42,35 @@ public class PMessage extends Model<PMessage> {
     private String isDel;
 
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getSenderUserId() {
+    public Long getSenderUserId() {
         return senderUserId;
     }
 
-    public void setSenderUserId(String senderUserId) {
+    public void setSenderUserId(Long senderUserId) {
         this.senderUserId = senderUserId;
     }
 
-    public String getReceiverUserId() {
+    public Long getReceiverUserId() {
         return receiverUserId;
     }
 
-    public void setReceiverUserId(String receiverUserId) {
+    public void setReceiverUserId(Long receiverUserId) {
         this.receiverUserId = receiverUserId;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 
