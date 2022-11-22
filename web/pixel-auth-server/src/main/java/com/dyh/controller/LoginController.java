@@ -18,6 +18,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.concurrent.TimeUnit;
 
 import static com.dyh.constant.RedisConstants.*;
@@ -59,6 +60,11 @@ public class LoginController extends ApiController {
     public R login(@RequestBody LoginFormDTO loginForm) throws JsonProcessingException {
         //远程登录
         return pUserFeignService.login(loginForm);
+    }
+
+    @PostMapping("/logout")
+    public R logout(HttpServletRequest request) {
+        return pUserFeignService.logout(request);
     }
 
 

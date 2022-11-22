@@ -14,6 +14,7 @@ import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -125,6 +126,10 @@ public class PUserController extends ApiController {
         return pUserService.login(loginFormDTO);
     }
 
+    @PostMapping("/logout")
+    public R logout(HttpServletRequest request) {
+        return pUserService.logout(request);
+    }
     /**
      * 获取当前登录用户
      *

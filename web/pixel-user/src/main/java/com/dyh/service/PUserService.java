@@ -24,5 +24,7 @@ public interface PUserService extends IService<PUser> {
     boolean isLogin(HttpServletRequest request);
 
     boolean isDelete(PUser pUser);
+
+    R logout(HttpServletRequest request);
 }
 

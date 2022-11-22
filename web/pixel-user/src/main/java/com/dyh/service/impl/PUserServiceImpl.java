@@ -127,6 +127,15 @@ public class PUserServiceImpl extends ServiceImpl<PUserDao, PUser> implements PU
     }
 
     @Override
+    public R logout(HttpServletRequest request) {
+        // 从请求头中获取token字符串
+        String jwt = request.getHeader("Authorization");
+        String tokenKey = LOGIN_USER_KEY + jwt;
+        stringRedisTemplate.delete(tokenKey);
+        return R.ok("登出成功");
+    }
+
+    @Override
     public boolean isLogin(HttpServletRequest request) {
         // 从请求头中获取token字符串
         String jwt = request.getHeader("Authorization");
@@ -144,5 +153,7 @@ public class PUserServiceImpl extends ServiceImpl<PUserDao, PUser> implements PU
         }
         return true;
     }
+
+
 }
 
