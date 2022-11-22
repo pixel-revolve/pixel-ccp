@@ -15,11 +15,14 @@ public class MvcConfig implements WebMvcConfigurer {
     @Resource
     StringRedisTemplate stringRedisTemplate;
 
+    @Resource
+    LoginInterceptor loginInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // token刷新的拦截器
         registry.addInterceptor(new RefreshTokenInterceptor(stringRedisTemplate)).addPathPatterns("/**").order(0);
         // 登录拦截器
-        registry.addInterceptor(new LoginInterceptor()).excludePathPatterns("/api/pUser/login/**").order(1);
+        registry.addInterceptor(loginInterceptor).excludePathPatterns("/api/pUser/login/**").order(1);
     }
 }

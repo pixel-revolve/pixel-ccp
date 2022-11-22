@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
@@ -29,16 +30,11 @@ import java.io.PrintWriter;
 @Component
 public class LoginInterceptor extends HandlerInterceptorAdapter implements HandlerInterceptor {
 
-    @Autowired
+    @Resource
     private PUserDao userDao;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
-//        // 简单的白名单，登录这个接口直接放行
-//        if("/api/pUser/login".equals(request.getRequestURI())) {
-//            return true;
-//        }
 
         // 判断是否需要拦截（ThreadLocal中是否有用户）
         if (UserHolder.getUser() != null) {
@@ -49,6 +45,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter implements Handl
                 // 将我们之前放到token中的userName给存到上下文对象中
                 String userName = claims.getSubject();
                 QueryWrapper<PUser> queryWrapper = new QueryWrapper<PUser>();
+                queryWrapper.eq("username",userName).eq("is_del",0);
                 PUser pUser = userDao.selectOne(queryWrapper);
                 PUserDTO pUserDTO = new PUserDTO();
                 pUserDTO.setNickname(pUser.getNickname());

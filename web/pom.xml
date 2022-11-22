@@ -13,9 +13,10 @@
     <modules>
         <module>pixel-user</module>
         <module>pixel-common</module>
-
+        <module>pixel-comment</module>
+        <module>pixel-post</module>
+        <module>pixel-message</module>
         <module>pixel-wallet</module>
-
         <module>pixel-auth-server</module>
 
     </modules>

@@ -44,11 +44,11 @@ public class PUserController extends ApiController {
     @GetMapping("/selectAll")
     public R selectAll(Page<PUser> page, PUser pUser) {
 
-        if(pUser.getIsDel()==0) {
-            return success(this.pUserService.page(page, new QueryWrapper<>(pUser)));
-        } else {
-            return R.failed("该用户已经被删除");
-        }
+//        if(pUser.getIsDel()==0) {
+        return success(this.pUserService.page(page, new QueryWrapper<>(pUser)));
+//        } else {
+//            return R.failed("该用户已经被删除");
+//        }
     }
 
     /**
