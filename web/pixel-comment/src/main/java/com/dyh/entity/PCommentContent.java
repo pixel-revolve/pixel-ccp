@@ -13,17 +13,17 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class PCommentContent extends Model<PCommentContent> {
     //内容ID
-    private String id;
+    private Long id;
     //评论ID
-    private String commentId;
+    private Long commentId;
     //用户ID
-    private String userId;
+    private Long userId;
     //内容
     private String content;
     //类型，1标题，2文字段落，3图片地址，4视频地址，5语音地址，6链接地址
-    private String type;
+    private int type;
     //排序，越小越靠前
-    private String sort;
+    private Long sort;
     //创建时间
     private Date createdOn;
     //修改时间
@@ -34,27 +34,27 @@ public class PCommentContent extends Model<PCommentContent> {
     private String isDel;
 
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getCommentId() {
+    public Long getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(String commentId) {
+    public void setCommentId(Long commentId) {
         this.commentId = commentId;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -66,19 +66,19 @@ public class PCommentContent extends Model<PCommentContent> {
         this.content = content;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 
-    public String getSort() {
+    public Long getSort() {
         return sort;
     }
 
-    public void setSort(String sort) {
+    public void setSort(Long sort) {
         this.sort = sort;
     }
 

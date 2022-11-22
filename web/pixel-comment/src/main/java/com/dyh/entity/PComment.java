@@ -13,11 +13,11 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class PComment extends Model<PComment> {
     //评论ID
-    private String id;
+    private Long id;
     //POST ID
-    private String postId;
+    private Long postId;
     //用户ID
-    private String userId;
+    private Long userId;
     //IP地址
     private String ip;
     //IP城市地址
@@ -32,27 +32,27 @@ public class PComment extends Model<PComment> {
     private String isDel;
 
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getPostId() {
+    public Long getPostId() {
         return postId;
     }
 
-    public void setPostId(String postId) {
+    public void setPostId(Long postId) {
         this.postId = postId;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

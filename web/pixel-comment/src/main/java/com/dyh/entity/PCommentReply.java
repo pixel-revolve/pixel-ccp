@@ -13,13 +13,13 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class PCommentReply extends Model<PCommentReply> {
     //回复ID
-    private String id;
+    private Long id;
     //评论ID
-    private String commentId;
+    private Long commentId;
     //用户ID
-    private String userId;
+    private Long userId;
     //@用户ID
-    private String atUserId;
+    private Long atUserId;
     //内容
     private String content;
     //IP地址
@@ -36,35 +36,35 @@ public class PCommentReply extends Model<PCommentReply> {
     private String isDel;
 
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getCommentId() {
+    public Long getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(String commentId) {
+    public void setCommentId(Long commentId) {
         this.commentId = commentId;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public String getAtUserId() {
+    public Long getAtUserId() {
         return atUserId;
     }
 
-    public void setAtUserId(String atUserId) {
+    public void setAtUserId(Long atUserId) {
         this.atUserId = atUserId;
     }
 
