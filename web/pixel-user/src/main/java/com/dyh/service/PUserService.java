@@ -7,6 +7,7 @@ import com.dyh.entity.dto.LoginFormDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 
 /**
  * 用户(PUser)表服务接口
@@ -26,5 +27,11 @@ public interface PUserService extends IService<PUser> {
     boolean isDelete(PUser pUser);
 
     R logout(HttpServletRequest request);
+
+    R sign() throws ParseException;
+
+    R signMonthCount();
+
+    R signContinueCount();
 }
 

@@ -1,5 +1,6 @@
 package com.dyh.controller;
 
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -140,6 +142,21 @@ public class PUserController extends ApiController {
         // 获取当前登录的用户并返回
         PUserDTO user = UserHolder.getUser();
         return R.ok(user);
+    }
+
+    @PostMapping("/sign")
+    public R sign() throws ParseException {
+        return pUserService.sign();
+    }
+
+    @GetMapping("/sign/continue/count")
+    public R signCount() {
+        return pUserService.signContinueCount();
+    }
+
+    @GetMapping("/sign/month/count")
+    public R signMonthCount() {
+        return pUserService.signMonthCount();
     }
 }
 
