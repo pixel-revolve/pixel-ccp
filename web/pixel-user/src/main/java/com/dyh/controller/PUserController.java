@@ -13,9 +13,11 @@ import com.dyh.utils.UserHolder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.List;
@@ -158,5 +160,6 @@ public class PUserController extends ApiController {
     public R signMonthCount() {
         return pUserService.signMonthCount();
     }
+
 }
 

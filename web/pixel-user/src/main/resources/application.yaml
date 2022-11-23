@@ -30,3 +30,9 @@ mybatis-plus:
       logic-delete-field: isDel
       logic-delete-value: 1
       logic-not-delete-value: 0
+
+file:
+  download-path: D:\\myFile\\download\\
+  upload-path: D:\\myFile\\upload\\
+  file-type-array: .png,.jpg,.jpeg,.txt,.zip,.rar,.pdf,.xml,xls
+  max-file-size: 8192
