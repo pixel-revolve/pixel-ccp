@@ -201,7 +201,20 @@ public class PUserServiceImpl extends ServiceImpl<PUserDao, PUser> implements PU
             Long count = record.getCount();
             count = days <=1 ? ++count : 0L;
             record.setCount(count);
-            pSignService.updateById(record);
+            // 防止用户重复签到
+            // 获取本月截止今天为止的所有的签到记录,返回的是一个十进制的数字
+            List<Long> result = stringRedisTemplate.opsForValue().bitField(
+                    key,
+                    BitFieldSubCommands.create()
+                            .get(BitFieldSubCommands.BitFieldType.unsigned(dayOfMonth))
+                            .valueAt(0)
+            );
+            if(result.get(result.toArray().length-1) == 0) {
+                pSignService.updateById(record);
+            } else {
+                return R.failed("不能重复签到");
+            }
+
         }
         return R.ok("签到成功");
     }

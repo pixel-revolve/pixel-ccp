@@ -16,7 +16,7 @@ public final class JwtUtil {
     private final static String secretKey = "pixel";
 
     /**
-     * 过期时间目前设置为2天，这个配置随业务需求而定
+     * 过期时间目前设置为2小时，这个配置随业务需求而定
      */
     private final static Duration expiration = Duration.ofHours(2);
 
