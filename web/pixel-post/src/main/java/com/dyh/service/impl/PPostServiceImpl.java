@@ -1,10 +1,16 @@
 package com.dyh.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.R;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dyh.dao.PPostDao;
 import com.dyh.entity.PPost;
+import com.dyh.entity.vo.PPostVo;
+import com.dyh.feign.PUserFeignService;
 import com.dyh.service.PPostService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,8 +18,10 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.io.Serializable;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.dyh.constant.RedisConstants.*;
 
@@ -31,6 +39,9 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
 
     @Resource
     ObjectMapper objectMapper;
+
+    @Resource
+    PUserFeignService pUserFeignService;
 
     /**
      * 由于被继承的方法返回值为泛型不好擦除于是重新构造并且实现接口方法
@@ -72,6 +83,23 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
         stringRedisTemplate.opsForValue().set(key,objectMapper.writeValueAsString(pPost),CACHE_POST_TTL, TimeUnit.MINUTES);
         // 7.返回
         return R.ok(pPost);
+    }
+
+    /**
+     * 文章首页显示
+     *
+     * @return {@link R}
+     */
+    @Override
+    public R pPostDisplay(Page<PPostVo> page, Wrapper<PPost> queryWrapper) {
+        List<PPostVo> postVos = this.baseMapper.selectPage(new Page<>(page.getCurrent(),page.getSize()), queryWrapper)
+                .getRecords().stream().map((i) ->{
+                    PPostVo pPostVo = BeanUtil.copyProperties(i, PPostVo.class);
+                    pPostVo.setNickname(pUserFeignService.selectNicknameById(pPostVo.getUserId()).getData().toString());
+                    return pPostVo;
+                }).collect(Collectors.toList());
+
+        return R.ok(page.setRecords(postVos));
     }
 
 }

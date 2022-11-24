@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dyh.entity.PPost;
+import com.dyh.entity.vo.PPostVo;
 import com.dyh.service.PPostService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -47,6 +48,18 @@ public class PPostController extends ApiController {
     @GetMapping("/selectAll")
     public R selectAll(Page<PPost> page, PPost pPost) {
         return success(this.pPostService.page(page, new QueryWrapper<>(pPost)));
+    }
+
+    /**
+     * 文章首页展示
+     *
+     * @param page 分页对象
+     * @param pPost 查询实体
+     * @return 所有数据
+     */
+    @GetMapping("/pPostDisplay")
+    public R pPostDisplay(Page<PPostVo> page, PPost pPost) {
+        return success(this.pPostService.pPostDisplay(page, new QueryWrapper<>(pPost)));
     }
 
     /**

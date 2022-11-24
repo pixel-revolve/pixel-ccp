@@ -47,12 +47,7 @@ public class PUserController extends ApiController {
      */
     @GetMapping("/selectAll")
     public R selectAll(Page<PUser> page, PUser pUser) {
-
-//        if(pUser.getIsDel()==0) {
         return success(this.pUserService.page(page, new QueryWrapper<>(pUser)));
-//        } else {
-//            return R.failed("该用户已经被删除");
-//        }
     }
 
     /**
@@ -69,6 +64,18 @@ public class PUserController extends ApiController {
         }
         return success(user);
     }
+
+    /**
+     * 通过主键查询用户名
+     *
+     * @param id 主键
+     * @return 单条数据
+     */
+    @GetMapping("/selectNicknameById/{id}")
+    public R selectNicknameById(@PathVariable Long id) {
+        return this.pUserService.getNicknameById(id);
+    }
+
 
     /**
      * 通过电话查询单条数据

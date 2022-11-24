@@ -76,6 +76,17 @@ public class PUserServiceImpl extends ServiceImpl<PUserDao, PUser> implements PU
     }
 
     @Override
+    public R getNicknameById(Long id) {
+        PUser getUser = this.baseMapper.selectOne(new QueryWrapper<PUser>()
+                .select("nickname").eq("id", id).eq("is_del",0));
+        if (getUser == null){
+            return R.failed("找不到该用户");
+        }
+        return R.ok(getUser.getNickname());
+    }
+
+
+    @Override
     public R createUserByPhone(String phone) {
         PUser user=new PUser();
         user.setPhone(phone);

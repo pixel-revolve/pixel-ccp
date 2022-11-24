@@ -3,6 +3,7 @@ package com.dyh;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dyh.entity.PPost;
+import com.dyh.feign.PUserFeignService;
 import com.dyh.service.impl.PPostServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +15,9 @@ class PixelPostApplicationTests {
 
     @Resource
     PPostServiceImpl pPostService;
+
+    @Resource
+    PUserFeignService userFeignService;
 
 
     @Test
@@ -27,5 +31,7 @@ class PixelPostApplicationTests {
         pPostService.getBaseMapper().selectPage(page,queryWrapper);
         page.getRecords().forEach(System.out::println);
     }
+
+
 
 }

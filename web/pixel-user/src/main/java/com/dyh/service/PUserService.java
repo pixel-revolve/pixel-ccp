@@ -18,6 +18,8 @@ import java.text.ParseException;
 public interface PUserService extends IService<PUser> {
     R getByPhone(String phone);
 
+    R getNicknameById(Long id);
+
     R createUserByPhone(String phone);
 
     R login(LoginFormDTO loginFormDTO) throws JsonProcessingException;
