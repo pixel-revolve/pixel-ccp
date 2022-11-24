@@ -152,6 +152,8 @@ CREATE TABLE `p_post`
     `comment_count`     bigint unsigned NOT NULL DEFAULT '0' COMMENT '评论数',
     `collection_count`  bigint unsigned NOT NULL DEFAULT '0' COMMENT '收藏数',
     `upvote_count`      bigint unsigned NOT NULL DEFAULT '0' COMMENT '点赞数',
+    `watch_count`      bigint unsigned NOT NULL DEFAULT '0' COMMENT '查看数',
+    `abstract`       varchar(255)  NOT NULL DEFAULT '' COMMENT '摘要',
     `visibility`        tinyint unsigned NOT NULL DEFAULT '0' COMMENT '可见性 0公开 1私密 2好友可见',
     `is_top`            tinyint unsigned NOT NULL DEFAULT '0' COMMENT '是否置顶',
     `is_essence`        tinyint unsigned NOT NULL DEFAULT '0' COMMENT '是否精华',

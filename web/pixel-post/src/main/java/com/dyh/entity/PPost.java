@@ -8,34 +8,38 @@ import java.io.Serializable;
  * 冒泡/文章(PPost)表实体类
  *
  * @author makejava
- * @since 2022-11-20 12:35:24
+ * @since 2022-11-24 14:07:03
  */
 @SuppressWarnings("serial")
 public class PPost extends Model<PPost> {
     //主题ID
     private Long id;
     //用户ID
-    private String userId;
+    private Long userId;
     //评论数
-    private String commentCount;
+    private Long commentCount;
     //收藏数
-    private String collectionCount;
+    private Long collectionCount;
     //点赞数
-    private String upvoteCount;
+    private Long upvoteCount;
+    //查看数
+    private Long watchCount;
+    //摘要
+    private String summary;
     //可见性 0公开 1私密 2好友可见
-    private String visibility;
+    private Integer visibility;
     //是否置顶
-    private String isTop;
+    private Integer isTop;
     //是否精华
-    private String isEssence;
+    private Integer isEssence;
     //是否锁定
-    private String isLock;
+    private Integer isLock;
     //最新回复时间
-    private String latestRepliedOn;
+    private Long latestRepliedOn;
     //标签
     private String tags;
     //附件价格(分)
-    private String attachmentPrice;
+    private Long attachmentPrice;
     //IP地址
     private String ip;
     //IP城市地址
@@ -47,7 +51,7 @@ public class PPost extends Model<PPost> {
     //删除时间
     private Date deletedOn;
     //是否删除 0 为未删除、1 为已删除
-    private String isDel;
+    private Integer isDel;
 
 
     public Long getId() {
@@ -58,75 +62,91 @@ public class PPost extends Model<PPost> {
         this.id = id;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public String getCommentCount() {
+    public Long getCommentCount() {
         return commentCount;
     }
 
-    public void setCommentCount(String commentCount) {
+    public void setCommentCount(Long commentCount) {
         this.commentCount = commentCount;
     }
 
-    public String getCollectionCount() {
+    public Long getCollectionCount() {
         return collectionCount;
     }
 
-    public void setCollectionCount(String collectionCount) {
+    public void setCollectionCount(Long collectionCount) {
         this.collectionCount = collectionCount;
     }
 
-    public String getUpvoteCount() {
+    public Long getUpvoteCount() {
         return upvoteCount;
     }
 
-    public void setUpvoteCount(String upvoteCount) {
+    public void setUpvoteCount(Long upvoteCount) {
         this.upvoteCount = upvoteCount;
     }
 
-    public String getVisibility() {
+    public Long getWatchCount() {
+        return watchCount;
+    }
+
+    public void setWatchCount(Long watchCount) {
+        this.watchCount = watchCount;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public Integer getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(String visibility) {
+    public void setVisibility(Integer visibility) {
         this.visibility = visibility;
     }
 
-    public String getIsTop() {
+    public Integer getIsTop() {
         return isTop;
     }
 
-    public void setIsTop(String isTop) {
+    public void setIsTop(Integer isTop) {
         this.isTop = isTop;
     }
 
-    public String getIsEssence() {
+    public Integer getIsEssence() {
         return isEssence;
     }
 
-    public void setIsEssence(String isEssence) {
+    public void setIsEssence(Integer isEssence) {
         this.isEssence = isEssence;
     }
 
-    public String getIsLock() {
+    public Integer getIsLock() {
         return isLock;
     }
 
-    public void setIsLock(String isLock) {
+    public void setIsLock(Integer isLock) {
         this.isLock = isLock;
     }
 
-    public String getLatestRepliedOn() {
+    public Long getLatestRepliedOn() {
         return latestRepliedOn;
     }
 
-    public void setLatestRepliedOn(String latestRepliedOn) {
+    public void setLatestRepliedOn(Long latestRepliedOn) {
         this.latestRepliedOn = latestRepliedOn;
     }
 
@@ -138,11 +158,11 @@ public class PPost extends Model<PPost> {
         this.tags = tags;
     }
 
-    public String getAttachmentPrice() {
+    public Long getAttachmentPrice() {
         return attachmentPrice;
     }
 
-    public void setAttachmentPrice(String attachmentPrice) {
+    public void setAttachmentPrice(Long attachmentPrice) {
         this.attachmentPrice = attachmentPrice;
     }
 
@@ -186,11 +206,11 @@ public class PPost extends Model<PPost> {
         this.deletedOn = deletedOn;
     }
 
-    public String getIsDel() {
+    public Integer getIsDel() {
         return isDel;
     }
 
-    public void setIsDel(String isDel) {
+    public void setIsDel(Integer isDel) {
         this.isDel = isDel;
     }
 

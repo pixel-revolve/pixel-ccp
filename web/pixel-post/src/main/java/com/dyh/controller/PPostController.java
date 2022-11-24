@@ -8,11 +8,15 @@ import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dyh.entity.PPost;
 import com.dyh.service.PPostService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.List;
+
+import static com.dyh.constant.RedisConstants.CACHE_POST_KEY;
 
 /**
  * 冒泡/文章(PPost)表控制层
@@ -23,6 +27,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/pPost")
 public class PPostController extends ApiController {
+
+    @Resource
+    StringRedisTemplate stringRedisTemplate;
+
     /**
      * 服务对象
      */
@@ -42,14 +50,15 @@ public class PPostController extends ApiController {
     }
 
     /**
+     * modified
      * 通过主键查询单条数据
      *
      * @param id 主键
      * @return 单条数据
      */
     @GetMapping("/selectOne/{id}")
-    public R selectOne(@PathVariable Serializable id) {
-        return success(this.pPostService.getById(id));
+    public R selectOne(@PathVariable Long id) throws JsonProcessingException {
+        return this.pPostService.getById(id);
     }
 
     /**
@@ -64,6 +73,7 @@ public class PPostController extends ApiController {
     }
 
     /**
+     * modified
      * 修改数据
      *
      * @param pPost 实体对象
@@ -71,7 +81,15 @@ public class PPostController extends ApiController {
      */
     @PutMapping("/update")
     public R update(@RequestBody PPost pPost) {
-        return success(this.pPostService.updateById(pPost));
+        Long id=pPost.getId();
+        if(id==null){
+            return R.failed("文章id不能为空");
+        }
+        // 1.更新数据库
+        this.pPostService.updateById(pPost);
+        // 2.删除缓存
+        stringRedisTemplate.delete(CACHE_POST_KEY+id);
+        return R.ok("更新成功！");
     }
 
     /**

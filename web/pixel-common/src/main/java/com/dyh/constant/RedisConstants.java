@@ -15,11 +15,11 @@ public class RedisConstants {
 
     public static final Long CACHE_NULL_TTL = 2L;
 
-    public static final Long CACHE_SHOP_TTL = 30L;
-    public static final String CACHE_SHOP_KEY = UNIFORM_PREFIX+"cache:shop:";
+    public static final Long CACHE_POST_TTL = 30L;
+    public static final String CACHE_POST_KEY = UNIFORM_PREFIX+"cache:post:";
 
-    public static final String LOCK_SHOP_KEY = UNIFORM_PREFIX+"lock:shop:";
-    public static final Long LOCK_SHOP_TTL = 10L;
+    public static final String LOCK_POST_KEY = UNIFORM_PREFIX+"lock:post:";
+    public static final Long LOCK_POST_TTL = 10L;
 
     public static final String SECKILL_STOCK_KEY = UNIFORM_PREFIX+"seckill:stock:";
     public static final String BLOG_LIKED_KEY = UNIFORM_PREFIX+"blog:liked:";

@@ -11,3 +11,23 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+  redis:
+    host: 10.15.245.76
+    port: 6379
+    password: dev-2333
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 10
+        min-idle: 1
+        time-between-eviction-runs: 10s
+
+mybatis-plus:
+  configuration:
+    #    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: isDel
+      logic-delete-value: 1
+      logic-not-delete-value: 0

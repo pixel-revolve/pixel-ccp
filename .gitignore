@@ -3,3 +3,6 @@
 target
 *.bkp
 *.dtmp
+.mvn
+.mvnw
+.mvnw.cmd
