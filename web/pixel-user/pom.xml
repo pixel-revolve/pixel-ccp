@@ -25,6 +25,12 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+
         <!--    导入4个jar包，解决jdk9缺失jar包引起的报错-->
         <!--    java.lang.NoClassDefFoundError: javax/xml/bind/DatatypeConverter-->
         <dependency>
