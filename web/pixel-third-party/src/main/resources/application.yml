@@ -1,0 +1,9 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: pixel-third-party
+  cloud:
+    nacos:
+      discovery: # nacos???????
+        server-addr: localhost:8848
