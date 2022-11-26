@@ -15,26 +15,23 @@ public class OSSConfig implements InitializingBean {
 
     // 阿里云账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM用户进行API访问或日常运维，请登录RAM控制台创建RAM用户。
     @Value("${pixel-oss.accessKeyId}")
-    private String accessKeyId = "LTAI5tBCWcPvQfq3BfiMR2bs";
+    private String accessKeyId;
 
     @Value("${pixel-oss.accessKeySecret}")
-    private String accessKeySecret = "hMKnXp2sJZwhJhwLbMes4mws2gGa9z";
+    private String accessKeySecret;
 
     // 填写Bucket名称，例如examplebucket。
     @Value("${pixel-oss.bucketName}")
-    private String bucketName = "pixel-ccp";
-
-    // 填写本地文件的完整路径，例如D:\\localpath\\examplefile.txt。
-    // 如果未指定本地路径，则默认从示例程序所属项目对应本地路径中上传文件。
-    @Value("${pixel-oss.filePath}")
-    private String filePath = "E:\\oss-pixel\\avatar.jpg";
+    private String bucketName;
+    @Value("${pixel-oss.url}")
+    private String url;
 
     public static String ENDPOINT;
     public static String ACCESS_KEY_ID;
     public static String ACCESS_KEY_SECRET;
     public static String BUCKET_NAME;
-    public static String FILE_PATH;
 
+    public static String URL;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -42,6 +39,6 @@ public class OSSConfig implements InitializingBean {
         ACCESS_KEY_ID = accessKeyId;
         ACCESS_KEY_SECRET = accessKeySecret;
         BUCKET_NAME = bucketName;
-        FILE_PATH = filePath;
+        URL = url;
     }
 }

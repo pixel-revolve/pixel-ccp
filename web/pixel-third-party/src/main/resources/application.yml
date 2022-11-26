@@ -5,5 +5,9 @@ spring:
     name: pixel-third-party
   cloud:
     nacos:
-      discovery: # nacos???????
+      discovery:
         server-addr: localhost:8848
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 1000MB
