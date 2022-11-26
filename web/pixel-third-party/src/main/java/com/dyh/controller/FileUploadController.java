@@ -1,5 +1,6 @@
 package com.dyh.controller;
 
+import cn.hutool.core.lang.UUID;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.dyh.config.OSSConfig;
@@ -41,8 +42,8 @@ public class FileUploadController {
         String strDateFormat = "yyyy/MM/dd/HH-ss-mm";
         SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
         String pri = sdf.format(date);
-        String originalFilename = multiFile.getOriginalFilename();
-        String objectName = "avatar/"+pri+"/" + originalFilename;
+        String random = UUID.randomUUID().toString();
+        String objectName = "avatar/"+pri+"/" + random + ".jpg";
         InputStream inputStream = multiFile.getInputStream();
 
         // 创建OSSClient实例。
