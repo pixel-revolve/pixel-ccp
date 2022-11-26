@@ -3,15 +3,24 @@ package com.dyh.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.R;
+import com.baomidou.mybatisplus.extension.enums.ApiErrorCode;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dyh.dao.PPostDao;
 import com.dyh.entity.PPost;
+import com.dyh.entity.PPostContent;
+import com.dyh.entity.PTag;
+import com.dyh.entity.PTagPost;
+import com.dyh.entity.dto.PPostContentDTO;
+import com.dyh.entity.vo.PPostCreateVo;
 import com.dyh.entity.vo.PPostVo;
 import com.dyh.feign.PUserFeignService;
+import com.dyh.service.PPostContentService;
 import com.dyh.service.PPostService;
+import com.dyh.service.PTagPostService;
+import com.dyh.service.PTagService;
+import com.dyh.utils.RedisIdWorker;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -21,8 +30,8 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
+import static com.dyh.constant.PostConstants.POST_PREFIX;
 import static com.dyh.constant.RedisConstants.*;
 
 /**
@@ -42,6 +51,18 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
 
     @Resource
     PUserFeignService pUserFeignService;
+
+    @Resource
+    PPostContentService pPostContentService;
+
+    @Resource
+    PTagService pTagService;
+
+    @Resource
+    PTagPostService pTagPostService;
+
+    @Resource
+    RedisIdWorker redisIdWorker;
 
     /**
      * 由于被继承的方法返回值为泛型不好擦除于是重新构造并且实现接口方法
@@ -100,6 +121,65 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
                 }).collect(Collectors.toList());
 
         return R.ok(page.setRecords(postVos));
+    }
+
+    @Override
+    public R createPost(PPostCreateVo pPostCreateVo) throws JsonProcessingException {
+        // 1.为创建的文章生成分布式ID
+        long postId = redisIdWorker.nextId(POST_PREFIX);
+        // 2.将vo中需要的内容取出
+        List<PPostContentDTO> pPostContentDTOs=pPostCreateVo.getContents();
+        List<String> tags=pPostCreateVo.getTags();
+        Long userId=pPostCreateVo.getUserId();
+
+        // 3.将文章内容存储到数据库
+        pPostContentDTOs.forEach((i)->{
+            PPostContent pPostContent = BeanUtil.copyProperties(i, PPostContent.class);
+            pPostContent.setPostId(postId);
+            pPostContent.setUserId(userId);
+            // 保存文章内容到数据库
+            pPostContentService.save(pPostContent);
+        });
+
+        // 4.将tag关联存储到数据库
+        for (int i = 0; i < tags.size(); i++) {
+            R res = pTagService.getByTag(tags.get(i));
+            if(res.getCode()==ApiErrorCode.FAILED.getCode()){// 如果在查询中出错则直接返回错误信息
+                return res;
+            }
+            // 反序列化得到PTag完整信息
+            PTag getPTag=objectMapper.readValue(objectMapper.writeValueAsString(res.getData()), PTag.class);
+            // 创建并且赋值需要的关联信息
+            PTagPost pTagPost=new PTagPost();
+            pTagPost.setPostId(postId);
+            pTagPost.setTagId(getPTag.getId());
+            // 存储关联信息
+            pTagPostService.save(pTagPost);
+        }
+
+        PPost pPost=new PPost();
+        pPost.setId(postId);
+        pPost.setUserId(userId);
+        pPost.setAttachmentPrice(pPostCreateVo.getAttachmentPrice());
+        pPost.setSummary(pPostCreateVo.getSummary());
+        pPost.setTags(listToString(tags));
+        // 5.保存文章信息
+        save(pPost);
+
+        return R.ok(postId);
+    }
+
+    private String listToString(List<String> list){
+        if(list.size()==0){
+            return "";
+        }
+        StringBuilder res=new StringBuilder();
+        res.append(list.get(0));
+        for (int i = 1; i < list.size(); i++) {
+            res.append(",");
+            res.append(list.get(i));
+        }
+        return res.toString();
     }
 
 }

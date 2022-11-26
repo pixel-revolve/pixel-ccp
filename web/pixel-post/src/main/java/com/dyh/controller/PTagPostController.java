@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.dyh.entity.PTag;
-import com.dyh.service.PTagService;
+import com.dyh.entity.PTagPost;
+import com.dyh.service.PTagPostService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -15,30 +15,30 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 标签(PTag)表控制层
+ * 标签文章关联表(PTagPost)表控制层
  *
  * @author makejava
- * @since 2022-11-20 12:36:57
+ * @since 2022-11-26 10:30:30
  */
 @RestController
-@RequestMapping("/api/pTag")
-public class PTagController extends ApiController {
+@RequestMapping("/api/pTagPost")
+public class PTagPostController extends ApiController {
     /**
      * 服务对象
      */
     @Resource
-    private PTagService pTagService;
+    private PTagPostService pTagPostService;
 
     /**
      * 分页查询所有数据
      *
      * @param page 分页对象
-     * @param pTag 查询实体
+     * @param pTagPost 查询实体
      * @return 所有数据
      */
     @GetMapping("/selectAll")
-    public R selectAll(Page<PTag> page, PTag pTag) {
-        return success(this.pTagService.page(page, new QueryWrapper<>(pTag)));
+    public R selectAll(Page<PTagPost> page, PTagPost pTagPost) {
+        return success(this.pTagPostService.page(page, new QueryWrapper<>(pTagPost)));
     }
 
     /**
@@ -49,41 +49,29 @@ public class PTagController extends ApiController {
      */
     @GetMapping("/selectOne/{id}")
     public R selectOne(@PathVariable Serializable id) {
-        return success(this.pTagService.getById(id));
+        return success(this.pTagPostService.getById(id));
     }
-
-    /**
-     * 通过标签名查询标签
-     *
-     * @param tag 标签
-     * @return {@link R}
-     */
-    @GetMapping("/selectByTag")
-    public R selectByTag(@RequestParam String tag) {
-        return success(this.pTagService.getByTag(tag));
-    }
-
 
     /**
      * 新增数据
      *
-     * @param pTag 实体对象
+     * @param pTagPost 实体对象
      * @return 新增结果
      */
     @PostMapping("/insert")
-    public R insert(@RequestBody PTag pTag) {
-        return success(this.pTagService.save(pTag));
+    public R insert(@RequestBody PTagPost pTagPost) {
+        return success(this.pTagPostService.save(pTagPost));
     }
 
     /**
      * 修改数据
      *
-     * @param pTag 实体对象
+     * @param pTagPost 实体对象
      * @return 修改结果
      */
     @PutMapping("/update")
-    public R update(@RequestBody PTag pTag) {
-        return success(this.pTagService.updateById(pTag));
+    public R update(@RequestBody PTagPost pTagPost) {
+        return success(this.pTagPostService.updateById(pTagPost));
     }
 
     /**
@@ -94,7 +82,7 @@ public class PTagController extends ApiController {
      */
     @DeleteMapping("/delete")
     public R delete(@RequestParam("idList") List<Long> idList) {
-        return success(this.pTagService.removeByIds(idList));
+        return success(this.pTagPostService.removeByIds(idList));
     }
 }
 

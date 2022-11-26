@@ -153,7 +153,7 @@ CREATE TABLE `p_post`
     `collection_count`  bigint unsigned NOT NULL DEFAULT '0' COMMENT '收藏数',
     `upvote_count`      bigint unsigned NOT NULL DEFAULT '0' COMMENT '点赞数',
     `watch_count`      bigint unsigned NOT NULL DEFAULT '0' COMMENT '查看数',
-    `abstract`       varchar(255)  NOT NULL DEFAULT '' COMMENT '摘要',
+    `summary`       varchar(255)  NOT NULL DEFAULT '' COMMENT '摘要',
     `visibility`        tinyint unsigned NOT NULL DEFAULT '0' COMMENT '可见性 0公开 1私密 2好友可见',
     `is_top`            tinyint unsigned NOT NULL DEFAULT '0' COMMENT '是否置顶',
     `is_essence`        tinyint unsigned NOT NULL DEFAULT '0' COMMENT '是否精华',
@@ -172,6 +172,16 @@ CREATE TABLE `p_post`
     KEY                 `idx_visibility` (`visibility`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1080017989 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='冒泡/文章';
 
+-- ----------------------------
+-- Records of p_post
+-- ----------------------------
+INSERT INTO `p_post` VALUES (122263936367067137, 1594320204085702657, 0, 0, 0, 0, '比特币大涨', 0, 0, 0, 0, 0, '区块链', 0, '', '', '2022-11-26 11:26:32', '2022-11-26 11:28:45', NULL, 0);
+INSERT INTO `p_post` VALUES (122266981498880004, 1594320204085702657, 0, 0, 0, 0, '龙卷风', 0, 0, 0, 0, 0, '音乐', 0, '', '', '2022-11-26 11:38:20', '2022-11-26 11:38:20', NULL, 0);
+INSERT INTO `p_post` VALUES (122267101757964293, 1594320204085702657, 0, 0, 0, 0, '晴天', 0, 0, 0, 0, 0, '音乐', 0, '', '', '2022-11-26 11:38:48', '2022-11-26 11:38:48', NULL, 0);
+INSERT INTO `p_post` VALUES (122267230606983174, 1594320204085702657, 0, 0, 0, 0, '反方向的钟', 0, 0, 0, 0, 0, '音乐', 0, '', '', '2022-11-26 11:39:18', '2022-11-26 11:39:18', NULL, 0);
+INSERT INTO `p_post` VALUES (122267423880511495, 1594320204085702657, 0, 0, 0, 0, '流沙', 0, 0, 0, 0, 0, '音乐', 0, '', '', '2022-11-26 11:40:03', '2022-11-26 11:40:03', NULL, 0);
+INSERT INTO `p_post` VALUES (122267986521227272, 1594320204085702657, 0, 0, 0, 0, '泰拉瑞亚新手教程', 0, 0, 0, 0, 0, '游戏', 0, '', '', '2022-11-26 11:42:14', '2022-11-26 11:42:14', NULL, 0);
+INSERT INTO `p_post` VALUES (122268531982073865, 1594320204085702657, 0, 0, 0, 0, '厉不厉害你坤哥', 0, 0, 0, 0, 0, '搞笑', 0, '', '', '2022-11-26 11:44:21', '2022-11-26 11:44:21', NULL, 0);
 -- ----------------------------
 -- Table structure for p_post_attachment_bill
 -- ----------------------------
@@ -231,6 +241,25 @@ CREATE TABLE `p_post_content`
 ) ENGINE=InnoDB AUTO_INCREMENT=180022546 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='冒泡/文章内容';
 
 -- ----------------------------
+-- Records of p_post_content
+-- ----------------------------
+INSERT INTO `p_post_content` VALUES (1596346598583967745, 122265955001696258, 1594320204085702657, '比特币昨日涨幅2.76，亏麻了家人们', 2, 100, '2022-11-26 11:34:22', '2022-11-26 11:34:22', NULL, 0);
+INSERT INTO `p_post_content` VALUES (1596346598609133570, 122265955001696258, 1594320204085702657, 'https://search.bilibili.com?keyword=比特币', 6, 101, '2022-11-26 11:34:22', '2022-11-26 11:34:22', NULL, 0);
+INSERT INTO `p_post_content` VALUES (1596347596207562753, 122266981498880004, 1594320204085702657, '爱像一阵风，吹完它就走', 2, 100, '2022-11-26 11:38:20', '2022-11-26 11:38:20', NULL, 0);
+INSERT INTO `p_post_content` VALUES (1596347596207562754, 122266981498880004, 1594320204085702657, 'https://search.bilibili.com?keyword=龙卷风', 6, 101, '2022-11-26 11:38:20', '2022-11-26 11:38:20', NULL, 0);
+INSERT INTO `p_post_content` VALUES (1596347715485179906, 122267101757964293, 1594320204085702657, '故事的小黄花，从出生的那天就飘着', 2, 100, '2022-11-26 11:38:48', '2022-11-26 11:38:48', NULL, 0);
+INSERT INTO `p_post_content` VALUES (1596347715485179907, 122267101757964293, 1594320204085702657, 'https://search.bilibili.com?keyword=晴天', 6, 101, '2022-11-26 11:38:48', '2022-11-26 11:38:48', NULL, 0);
+INSERT INTO `p_post_content` VALUES (1596347838327955458, 122267230606983174, 1594320204085702657, '穿梭时间的画面的钟，从反方向开始移动', 2, 100, '2022-11-26 11:39:18', '2022-11-26 11:39:18', NULL, 0);
+INSERT INTO `p_post_content` VALUES (1596347838395064322, 122267230606983174, 1594320204085702657, 'https://search.bilibili.com?keyword=晴天', 6, 101, '2022-11-26 11:39:18', '2022-11-26 11:39:18', NULL, 0);
+INSERT INTO `p_post_content` VALUES (1596348027885330433, 122267423880511495, 1594320204085702657, '爱情好像流沙~', 2, 100, '2022-11-26 11:40:03', '2022-11-26 11:40:03', NULL, 0);
+INSERT INTO `p_post_content` VALUES (1596348027948244993, 122267423880511495, 1594320204085702657, 'https://search.bilibili.com?keyword=流沙', 6, 101, '2022-11-26 11:40:03', '2022-11-26 11:40:03', NULL, 0);
+INSERT INTO `p_post_content` VALUES (1596348579536969729, 122267986521227272, 1594320204085702657, '查一下wiki就好了。我来总结一下。不一定对欢迎来反驳\n1.肉山前只会传播草。范围应该是3\n2肉后会开始传播。石块，冰块，沙子和几种沙子的变种。范围也是3\n3.血腥腐化会把淤泥变成泥土，但是绿叶矿在一定的范围内会组织腐化血腥传播\n4.背景墙不知道~', 2, 100, '2022-11-26 11:42:14', '2022-11-26 11:42:14', NULL, 0);
+INSERT INTO `p_post_content` VALUES (1596348579536969730, 122267986521227272, 1594320204085702657, 'https://search.bilibili.com?keyword=泰拉瑞亚新手教程', 6, 101, '2022-11-26 11:42:14', '2022-11-26 11:42:14', NULL, 0);
+INSERT INTO `p_post_content` VALUES (1596349112729477121, 122268531982073865, 1594320204085702657, '只因你太美 oh baby\n你干嘛 哎呦', 2, 100, '2022-11-26 11:44:21', '2022-11-26 11:44:21', NULL, 0);
+INSERT INTO `p_post_content` VALUES (1596349112796585986, 122268531982073865, 1594320204085702657, 'https://search.bilibili.com?keyword=蔡徐坤', 6, 101, '2022-11-26 11:44:21', '2022-11-26 11:44:21', NULL, 0);
+
+
+-- ----------------------------
 -- Table structure for p_post_star
 -- ----------------------------
 DROP TABLE IF EXISTS `p_post_star`;
@@ -269,6 +298,42 @@ CREATE TABLE `p_tag`
 ) ENGINE=InnoDB AUTO_INCREMENT=9000065 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='标签';
 
 -- ----------------------------
+-- Records of p_tag
+-- ----------------------------
+INSERT INTO `p_tag` VALUES (1596334269410603010, 1594320204085702657, '区块链', 0, '2022-11-26 10:45:23', '2022-11-26 10:45:23', NULL, 0);
+INSERT INTO `p_tag` VALUES (1596347151829442561, 1594320204085702657, '后端', 0, '2022-11-26 11:36:34', '2022-11-26 11:36:34', NULL, 0);
+INSERT INTO `p_tag` VALUES (1596347175409819649, 1594320204085702657, '前端', 0, '2022-11-26 11:36:39', '2022-11-26 11:36:39', NULL, 0);
+INSERT INTO `p_tag` VALUES (1596347194376462338, 1594320204085702657, '游戏', 0, '2022-11-26 11:36:44', '2022-11-26 11:36:44', NULL, 0);
+INSERT INTO `p_tag` VALUES (1596347242422214657, 1594320204085702657, '搞笑', 0, '2022-11-26 11:36:55', '2022-11-26 11:36:55', NULL, 0);
+INSERT INTO `p_tag` VALUES (1596347273183240193, 1594320204085702657, '音乐', 0, '2022-11-26 11:37:03', '2022-11-26 11:37:03', NULL, 0);
+
+-- ----------------------------
+-- Table structure for p_tag_post
+-- ----------------------------
+DROP TABLE IF EXISTS `p_tag_post`;
+CREATE TABLE `p_tag_post`(
+     `id`          bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+     `post_id`     bigint unsigned NOT NULL DEFAULT '0' COMMENT '文章ID',
+     `tag_id`     bigint unsigned NOT NULL DEFAULT '0' COMMENT '标签ID',
+     `created_on`  timestamp                                                     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+     `modified_on` timestamp                                                     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+     `deleted_on`  timestamp                                                              DEFAULT NULL COMMENT '删除时间',
+     `is_del`      tinyint unsigned NOT NULL DEFAULT '0' COMMENT '是否删除 0 为未删除、1 为已删除',
+     PRIMARY KEY (`id`) USING BTREE
+)ENGINE=InnoDB AUTO_INCREMENT=10000065 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='标签文章关联表';
+
+
+-- ----------------------------
+-- Records of p_tag_post
+-- ----------------------------
+INSERT INTO `p_tag_post` VALUES (1596344626015404034, 122263936367067137, 1596334269410603010, '2022-11-26 11:26:32', '2022-11-26 11:26:32', NULL, 0);
+INSERT INTO `p_tag_post` VALUES (1596347596207562755, 122266981498880004, 1596347273183240193, '2022-11-26 11:38:20', '2022-11-26 11:38:20', NULL, 0);
+INSERT INTO `p_tag_post` VALUES (1596347715552288769, 122267101757964293, 1596347273183240193, '2022-11-26 11:38:48', '2022-11-26 11:38:48', NULL, 0);
+INSERT INTO `p_tag_post` VALUES (1596347838457978881, 122267230606983174, 1596347273183240193, '2022-11-26 11:39:18', '2022-11-26 11:39:18', NULL, 0);
+INSERT INTO `p_tag_post` VALUES (1596348027948244994, 122267423880511495, 1596347273183240193, '2022-11-26 11:40:03', '2022-11-26 11:40:03', NULL, 0);
+INSERT INTO `p_tag_post` VALUES (1596348579536969731, 122267986521227272, 1596347194376462338, '2022-11-26 11:42:14', '2022-11-26 11:42:14', NULL, 0);
+INSERT INTO `p_tag_post` VALUES (1596349112796585987, 122268531982073865, 1596347242422214657, '2022-11-26 11:44:21', '2022-11-26 11:44:21', NULL, 0);
+-- ----------------------------
 -- Table structure for p_user
 -- ----------------------------
 DROP TABLE IF EXISTS `p_user`;
@@ -293,6 +358,12 @@ CREATE TABLE `p_user`
     UNIQUE KEY `idx_username` (`username`) USING BTREE,
     UNIQUE KEY `idx_phone` (`phone`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=100058 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户';
+
+-- ----------------------------
+-- Records of p_user
+-- ----------------------------
+INSERT INTO `p_user` VALUES (1594320204085702657, 'user_d19zgsiw51', '120190931746947074', '13770511673', '', '', '', 1, '', 0, 0, '2022-11-20 21:22:12', '2022-11-20 21:22:12', NULL, 0);
+INSERT INTO `p_user` VALUES (1594330052483444737, 'user_gytbcm5r9i', '120201016330158084', '13838411438', '', '', '', 1, '', 0, 0, '2022-11-20 22:01:20', '2022-11-20 22:01:20', NULL, 0);
 
 -- ----------------------------
 -- Table structure for p_wallet_recharge

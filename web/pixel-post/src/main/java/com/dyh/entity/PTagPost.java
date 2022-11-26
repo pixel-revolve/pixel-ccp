@@ -5,25 +5,19 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 
 /**
- * 冒泡/文章内容(PPostContent)表实体类
+ * 标签文章关联表(PTagPost)表实体类
  *
  * @author makejava
- * @since 2022-11-26 10:18:43
+ * @since 2022-11-26 10:30:30
  */
 @SuppressWarnings("serial")
-public class PPostContent extends Model<PPostContent> {
-    //内容ID
+public class PTagPost extends Model<PTagPost> {
+    //主键
     private Long id;
-    //POST ID
+    //文章ID
     private Long postId;
-    //用户ID
-    private Long userId;
-    //内容
-    private String content;
-    //类型，1标题，2文字段落，3图片地址，4视频地址，5语音地址，6链接地址，7附件资源，8收费资源
-    private Integer type;
-    //排序，越小越靠前
-    private Integer sort;
+    //标签ID
+    private Long tagId;
     //创建时间
     private Date createdOn;
     //修改时间
@@ -50,36 +44,12 @@ public class PPostContent extends Model<PPostContent> {
         this.postId = postId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getTagId() {
+        return tagId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
+    public void setTagId(Long tagId) {
+        this.tagId = tagId;
     }
 
     public Date getCreatedOn() {

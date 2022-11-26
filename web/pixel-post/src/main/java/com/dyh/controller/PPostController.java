@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dyh.entity.PPost;
+import com.dyh.entity.vo.PPostCreateVo;
 import com.dyh.entity.vo.PPostVo;
 import com.dyh.service.PPostService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -83,6 +84,12 @@ public class PPostController extends ApiController {
     @PostMapping("/insert")
     public R insert(@RequestBody PPost pPost) {
         return success(this.pPostService.save(pPost));
+    }
+
+
+    @PostMapping("/createPost")
+    public R createPost(@RequestBody PPostCreateVo pPostCreateVo) throws JsonProcessingException {
+        return this.pPostService.createPost(pPostCreateVo);
     }
 
     /**
