@@ -14,6 +14,7 @@ import com.dyh.entity.PTag;
 import com.dyh.entity.PTagPost;
 import com.dyh.entity.dto.PPostContentDTO;
 import com.dyh.entity.vo.PPostCreateVo;
+import com.dyh.entity.vo.PPostDetailVo;
 import com.dyh.entity.vo.PPostVo;
 import com.dyh.feign.PUserFeignService;
 import com.dyh.service.PPostContentService;
@@ -167,6 +168,28 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
         save(pPost);
 
         return R.ok(postId);
+    }
+
+    @Override
+    public R pPostDetail(Long id) {
+        // 1.通过id查询到文章
+        PPost getPPost = this.baseMapper.selectById(id);
+        if(getPPost==null){
+            return R.failed("查询不到该文章");
+        }
+        // 2.提取组装文章基本信息
+        PPostDetailVo pPostDetailVo = BeanUtil.copyProperties(getPPost, PPostDetailVo.class);
+        // 3.获取文章内容信息
+        R<List<PPostContent>> res = pPostContentService.getByPostId(id);
+        if(res.getCode()==ApiErrorCode.FAILED.getCode()){// 如果获取文章内容失败
+            return res;
+        }
+        List<PPostContent> contents = res.getData();
+        // 4.将文章内容转换成DTO
+        List<PPostContentDTO> contentDTOS = contents.stream().map(i -> BeanUtil.copyProperties(i, PPostContentDTO.class)).collect(Collectors.toList());
+        pPostDetailVo.setContents(contentDTOS);
+        // 5.返回文章细节
+        return R.ok(pPostDetailVo);
     }
 
     private String listToString(List<String> list){

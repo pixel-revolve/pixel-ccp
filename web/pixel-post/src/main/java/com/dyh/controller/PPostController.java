@@ -76,6 +76,17 @@ public class PPostController extends ApiController {
     }
 
     /**
+     * 通过主键查询文章详情
+     *
+     * @param id 主键
+     * @return 单条数据
+     */
+    @GetMapping("/pPostDetail/{id}")
+    public R pPostDetail(@PathVariable Long id) throws JsonProcessingException {
+        return this.pPostService.pPostDetail(id);
+    }
+
+    /**
      * 新增数据
      *
      * @param pPost 实体对象

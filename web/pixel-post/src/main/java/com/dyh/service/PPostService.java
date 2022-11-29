@@ -23,6 +23,8 @@ public interface PPostService extends IService<PPost> {
 
     R createPost(PPostCreateVo pPostCreateVo) throws JsonProcessingException;
 
+    R pPostDetail(Long id);
+
 }
 
 

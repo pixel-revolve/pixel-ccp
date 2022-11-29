@@ -53,6 +53,18 @@ public class PPostContentController extends ApiController {
     }
 
     /**
+     * 通过文章id查询文章对应内容
+     *
+     * @param postId 主键
+     * @return 单条数据
+     */
+    @GetMapping("/selectByPostId/{postId}")
+    public R selectByPostId(@PathVariable Long postId) {
+        return this.pPostContentService.getByPostId(postId);
+    }
+
+
+    /**
      * 新增数据
      *
      * @param pPostContent 实体对象
