@@ -98,6 +98,13 @@ public class PPostController extends ApiController {
     }
 
 
+    /**
+     * 创作文章
+     *
+     * @param pPostCreateVo p创建后签证官
+     * @return {@link R}
+     * @throws JsonProcessingException json处理异常
+     */
     @PostMapping("/createPost")
     public R createPost(@RequestBody PPostCreateVo pPostCreateVo) throws JsonProcessingException {
         return this.pPostService.createPost(pPostCreateVo);
@@ -132,6 +139,12 @@ public class PPostController extends ApiController {
     @DeleteMapping("/delete")
     public R delete(@RequestParam("idList") List<Long> idList) {
         return success(this.pPostService.removeByIds(idList));
+    }
+
+
+    @PostMapping("/likePost/{id}")
+    public R likePost(@PathVariable Long id){
+        return pPostService.likePost(id);
     }
 }
 

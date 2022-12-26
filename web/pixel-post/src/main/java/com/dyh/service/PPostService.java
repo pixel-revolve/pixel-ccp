@@ -25,6 +25,8 @@ public interface PPostService extends IService<PPost> {
 
     R pPostDetail(Long id);
 
+    R likePost(Long id);
+
 }
 
 

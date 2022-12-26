@@ -19,6 +19,7 @@
         <module>pixel-wallet</module>
         <module>pixel-auth-server</module>
         <module>pixel-third-party</module>
+        <module>pixel-gateway</module>
 
     </modules>
 

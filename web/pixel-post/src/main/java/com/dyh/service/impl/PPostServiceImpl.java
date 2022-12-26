@@ -192,6 +192,12 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
         return R.ok(pPostDetailVo);
     }
 
+    @Override
+    public R likePost(Long id) {
+        
+        return null;
+    }
+
     private String listToString(List<String> list){
         if(list.size()==0){
             return "";
