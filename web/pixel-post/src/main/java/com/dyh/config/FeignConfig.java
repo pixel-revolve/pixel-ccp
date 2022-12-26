@@ -14,7 +14,7 @@ import java.util.Map;
 
 @Slf4j
 @Configuration
-public class FeignConfiguration implements RequestInterceptor {
+public class FeignConfig implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate requestTemplate) {

@@ -142,6 +142,12 @@ public class PPostController extends ApiController {
     }
 
 
+    /**
+     * 点赞文章
+     *
+     * @param id id
+     * @return {@link R}
+     */
     @PostMapping("/likePost/{id}")
     public R likePost(@PathVariable Long id){
         return pPostService.likePost(id);

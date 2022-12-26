@@ -76,7 +76,6 @@ public class PUserController extends ApiController {
         return this.pUserService.getNicknameById(id);
     }
 
-
     /**
      * 通过电话查询单条数据
      *
@@ -86,6 +85,17 @@ public class PUserController extends ApiController {
     @GetMapping("/selectByPhone/{phone}")
     public R selectByPhone(@PathVariable String phone){
         return this.pUserService.getByPhone(phone);
+    }
+
+    /**
+     * 通过用户名查询单条数据
+     *
+     * @param username 用户名
+     * @return {@link R}
+     */
+    @GetMapping("/selectByUsername/{username}")
+    public R selectByUsername(@PathVariable String username){
+        return this.pUserService.getByUsername(username);
     }
 
     /**

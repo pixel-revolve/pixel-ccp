@@ -28,7 +28,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.redis.connection.BitFieldSubCommands;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -67,8 +66,7 @@ public class PUserServiceImpl extends ServiceImpl<PUserDao, PUser> implements PU
     public R getByPhone(String phone) {
         PUser getUser = this.baseMapper.selectOne(new QueryWrapper<PUser>()
                 .eq("phone", phone));
-        boolean delete = isDelete(getUser);
-        if (getUser == null || delete){
+        if (getUser == null){
             return R.failed("找不到该用户");
         }
 
@@ -76,9 +74,20 @@ public class PUserServiceImpl extends ServiceImpl<PUserDao, PUser> implements PU
     }
 
     @Override
+    public R getByUsername(String username) {
+        PUser getUser=this.baseMapper.selectOne(new QueryWrapper<PUser>()
+                .eq("username",username));
+        if(getUser == null){
+            return R.failed("找不到该用户");
+        }
+        return R.ok(getUser);
+    }
+
+
+    @Override
     public R getNicknameById(Long id) {
         PUser getUser = this.baseMapper.selectOne(new QueryWrapper<PUser>()
-                .select("nickname").eq("id", id).eq("is_del",0));
+                .select("nickname").eq("id", id));
         if (getUser == null){
             return R.failed("找不到该用户");
         }
@@ -115,12 +124,6 @@ public class PUserServiceImpl extends ServiceImpl<PUserDao, PUser> implements PU
         PUser getUser = query().eq("phone", phone).one();
         //Object getUser=pUserFeignService.selectByPhone(phone).getData();
 
-        // 判断该用户是否已经被删除
-        boolean delete = isDelete(getUser);
-        if(delete) {
-            return R.failed("该用户已经被删除");
-        }
-
         // 5.判断用户是否存在
         if (getUser == null) {
             // 6.不存在，创建新用户并保存
@@ -129,9 +132,7 @@ public class PUserServiceImpl extends ServiceImpl<PUserDao, PUser> implements PU
         PUser user = getUser;
 
         // 7.保存用户信息到 redis中
-        // 7.1.随机生成token，作为登录令牌
-        String token = UUID.randomUUID().toString(true);
-        // 改成jwt方式登录
+        // 7.1. 改成jwt方式登录
         String jwt = JwtUtil.generate(getUser.getUsername());
         // 7.2.将User对象转为HashMap存储
         PUserDTO userDTO = BeanUtil.copyProperties(user, PUserDTO.class);
@@ -140,7 +141,6 @@ public class PUserServiceImpl extends ServiceImpl<PUserDao, PUser> implements PU
                         .setIgnoreNullValue(true)
                         .setFieldValueEditor((fieldName, fieldValue) -> fieldValue.toString()));
         // 7.3.存储用户数据到redis
-//        String tokenKey = LOGIN_USER_KEY + token;
         String tokenKey = LOGIN_USER_KEY + jwt;
         stringRedisTemplate.opsForHash().putAll(tokenKey, userMap);
         // 7.4.设置token有效期
@@ -242,6 +242,8 @@ public class PUserServiceImpl extends ServiceImpl<PUserDao, PUser> implements PU
         PSign record = pSignService.getOne(queryWrapper);
         return R.ok(record.getCount());
     }
+
+
 
     /**
      * 获取当月累计签到次数

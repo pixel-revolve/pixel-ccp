@@ -53,7 +53,7 @@ public class LoginController extends ApiController {
         // 5.发送验证码
         log.debug("发送短信验证码成功，验证码：{}", code);
         // 6.返回ok
-        return success("发送验证码成功！");
+        return success(code);
     }
 
     @PostMapping("/login")

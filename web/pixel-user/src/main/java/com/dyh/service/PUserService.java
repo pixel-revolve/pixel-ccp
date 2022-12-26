@@ -35,5 +35,7 @@ public interface PUserService extends IService<PUser> {
     R signMonthCount();
 
     R signContinueCount();
+
+    R getByUsername(String username);
 }
 
