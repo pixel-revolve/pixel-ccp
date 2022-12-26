@@ -84,5 +84,17 @@ public class PPostCollectionController extends ApiController {
     public R delete(@RequestParam("idList") List<Long> idList) {
         return success(this.pPostCollectionService.removeByIds(idList));
     }
+
+    /**
+     * 收藏文章
+     *
+     * @param id id
+     * @return {@link R}
+     */
+    @PostMapping("/collectPost/{id}")
+    public R collectPost(@PathVariable Long id){
+        return pPostCollectionService.collectPost(id);
+    }
+
 }
 

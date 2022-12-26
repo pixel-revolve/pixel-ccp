@@ -1,5 +1,6 @@
 package com.dyh.service;
 
+import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dyh.entity.PPostCollection;
 
@@ -10,6 +11,10 @@ import com.dyh.entity.PPostCollection;
  * @since 2022-11-20 12:36:42
  */
 public interface PPostCollectionService extends IService<PPostCollection> {
+
+    R collectPost(Long id);
+
+    R selectByUserIdAndPostId(Long userId,Long postId);
 
 }
 

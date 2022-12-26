@@ -8,16 +8,16 @@ import java.io.Serializable;
  * 冒泡/文章收藏(PPostCollection)表实体类
  *
  * @author makejava
- * @since 2022-11-20 12:36:42
+ * @since 2022-12-26 20:31:45
  */
 @SuppressWarnings("serial")
 public class PPostCollection extends Model<PPostCollection> {
     //收藏ID
     private Long id;
     //POST ID
-    private String postId;
+    private Long postId;
     //用户ID
-    private String userId;
+    private Long userId;
     //创建时间
     private Date createdOn;
     //修改时间
@@ -25,7 +25,7 @@ public class PPostCollection extends Model<PPostCollection> {
     //删除时间
     private Date deletedOn;
     //是否删除 0 为未删除、1 为已删除
-    private String isDel;
+    private Integer isDel;
 
 
     public Long getId() {
@@ -36,19 +36,19 @@ public class PPostCollection extends Model<PPostCollection> {
         this.id = id;
     }
 
-    public String getPostId() {
+    public Long getPostId() {
         return postId;
     }
 
-    public void setPostId(String postId) {
+    public void setPostId(Long postId) {
         this.postId = postId;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -76,11 +76,11 @@ public class PPostCollection extends Model<PPostCollection> {
         this.deletedOn = deletedOn;
     }
 
-    public String getIsDel() {
+    public Integer getIsDel() {
         return isDel;
     }
 
-    public void setIsDel(String isDel) {
+    public void setIsDel(Integer isDel) {
         this.isDel = isDel;
     }
 

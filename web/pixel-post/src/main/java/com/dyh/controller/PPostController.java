@@ -152,5 +152,6 @@ public class PPostController extends ApiController {
     public R likePost(@PathVariable Long id){
         return pPostService.likePost(id);
     }
+
 }
 
