@@ -14,6 +14,7 @@ import com.dyh.entity.PPostContent;
 import com.dyh.entity.PTag;
 import com.dyh.entity.PTagPost;
 import com.dyh.entity.dto.PPostContentDTO;
+import com.dyh.entity.dto.PUserDTO;
 import com.dyh.entity.vo.PPostCreateVo;
 import com.dyh.entity.vo.PPostDetailVo;
 import com.dyh.entity.vo.PPostVo;
@@ -116,14 +117,17 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
      */
     @Override
     public R pPostDisplay(Page<PPostVo> page, Wrapper<PPost> queryWrapper) {
-        List<PPostVo> postVos = this.baseMapper.selectPage(new Page<>(page.getCurrent(),page.getSize()), queryWrapper)
+        Page<PPost> pPostPage = new Page<>(page.getCurrent(), page.getSize());
+        List<PPostVo> postVos = this.baseMapper.selectPage(pPostPage, queryWrapper)
                 .getRecords().stream().map((i) ->{
                     PPostVo pPostVo = BeanUtil.copyProperties(i, PPostVo.class);
                     pPostVo.setNickname(pUserFeignService.selectNicknameById(pPostVo.getUserId()).getData().toString());
                     return pPostVo;
                 }).collect(Collectors.toList());
-
-        return R.ok(page.setRecords(postVos));
+        page.setTotal(pPostPage.getTotal());
+        page.setPages(pPostPage.getPages());
+        page.setRecords(postVos);
+        return R.ok(page);
     }
 
     @Override
@@ -212,13 +216,13 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
         }else{
             //4.如果已点赞，取消点赞
             //4.1 数据库点赞数-1
-            boolean isSuccess = update().setSql("liked = liked - 1").eq("id", id).update();
+            boolean isSuccess = update().setSql("upvote_count = upvote_count - 1").eq("id", id).update();
             //4.2 把用户从Redis的set集合移除
             if(isSuccess){
                 stringRedisTemplate.opsForSet().remove(key,userId.toString());
             }
         }
-        return null;
+        return R.ok("点赞成功");
     }
 
     private String listToString(List<String> list){
