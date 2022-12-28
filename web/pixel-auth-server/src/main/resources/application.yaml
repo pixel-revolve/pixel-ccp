@@ -5,14 +5,14 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/pixel_ccp?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2b8
     username: root
-    password: wht123456
+    password: 123456
     driver‐class‐name: com.mysql.cj.jdbc.Driver
   cloud:
     nacos:
       discovery: # nacos客户端注册发现
         server-addr: localhost:8848
   redis:
-    host: 101.34.50.125
+    host: localhost
     port: 6379
     password: dev-2333
     lettuce:

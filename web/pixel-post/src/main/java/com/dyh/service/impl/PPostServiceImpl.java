@@ -36,6 +36,7 @@ import java.util.stream.Collectors;
 
 import static com.dyh.constant.PostConstants.POST_PREFIX;
 import static com.dyh.constant.RedisConstants.*;
+import static com.dyh.constant.RedisConstants.POST_LIKED_KEY;
 
 /**
  * 冒泡/文章(PPost)表服务实现类
@@ -195,16 +196,16 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
     }
 
     @Override
-    public R likePost(Long id) {
+    public R likePost(Long postId) {
         // 1.获取登录用户
         Long userId = UserHolder.getUser().getId();
         // 2.判断当前登录用户是否已经点赞
-        String key = BLOG_LIKED_KEY + id;
+        String key = POST_LIKED_KEY + postId;
         Boolean isMember = stringRedisTemplate.opsForSet().isMember(key, userId.toString());
         if(BooleanUtil.isFalse(isMember)){
             //3.如果未点赞，可以点赞
             //3.1 数据库点赞数+1
-            boolean isSuccess = update().setSql("upvote_count = upvote_count + 1").eq("id", id).update();
+            boolean isSuccess = update().setSql("upvote_count = upvote_count + 1").eq("id", postId).update();
             //3.2 保存用户到Redis的set集合
             if(isSuccess){
                 stringRedisTemplate.opsForSet().add(key,userId.toString());
@@ -212,13 +213,14 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
         }else{
             //4.如果已点赞，取消点赞
             //4.1 数据库点赞数-1
-            boolean isSuccess = update().setSql("liked = liked - 1").eq("id", id).update();
+            boolean isSuccess = update().setSql("upvote_count = upvote_count - 1").eq("id", postId).update();
             //4.2 把用户从Redis的set集合移除
             if(isSuccess){
                 stringRedisTemplate.opsForSet().remove(key,userId.toString());
             }
+            return R.ok("点赞取消");
         }
-        return null;
+        return R.ok("点赞成功");
     }
 
     private String listToString(List<String> list){
