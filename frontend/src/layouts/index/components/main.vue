@@ -55,15 +55,15 @@
         <a-card size="small" title="全站榜单" class="card2">
           <template #extra><a href="#">更多</a></template>
           <p>
-            <a-avatar src="https://joeschmoe.io/api/v1/random" style="margin-right: 15px"/>
+            <a-avatar :src="imgUrl1" style="margin-right: 15px"/>
             帮闺蜜找靠谱男票，hc多多
           </p>
           <p>
-            <a-avatar src="https://joeschmoe.io/api/v1/random" style="margin-right: 15px"/>
+            <a-avatar :src="imgUrl2" style="margin-right: 15px"/>
             讯飞太让人失望了
           </p>
           <p>
-            <a-avatar src="https://joeschmoe.io/api/v1/random" style="margin-right: 15px"/>
+            <a-avatar :src="imgUrl3" style="margin-right: 15px"/>
             邮储银行总行面试
           </p>
         </a-card>
@@ -90,10 +90,12 @@ import 'animate.css'
 import relativeTime from 'dayjs/plugin/relativeTime';
 import {onMounted, ref, reactive} from "vue";
 import {useRouter} from "vue-router";
-
+import {getImgUrl} from '../../../utils/imgUtil.ts'
 dayjs.extend(relativeTime);
+const imgUrl1 = ref(getImgUrl())
+const imgUrl2 = ref(getImgUrl())
+const imgUrl3 = ref(getImgUrl())
 
-const records = ref([])
 const router = useRouter();
 const state = reactive({
   rootSubmenuKeys: ['playground', 'topic', 'dynamic'],

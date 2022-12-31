@@ -20,7 +20,7 @@
       <el-icon style="margin-right: 40px">
         <bell-filled style="font-size: 26px;color: #1DA57A"/>
       </el-icon>
-      <a-avatar :size="64" style="color: #1DA57A" src="https://joeschmoe.io/api/v1/random" @click="">
+      <a-avatar :size="64" style="color: #1DA57A" :src="imgUrl" @click="">
       </a-avatar>
     </div>
   </div>
@@ -31,7 +31,10 @@ import {BellFilled} from '@ant-design/icons-vue';
 import {onMounted, ref} from "vue";
 import 'animate.css'
 import {useUserStore} from "../../../store/userStore";
+import {getImgUrl} from "../../../utils/imgUtil.ts";
+const imgUrl = ref(getImgUrl())
 const userStore = useUserStore();
+
 
 const value = ref('')
 onMounted(()=>{
