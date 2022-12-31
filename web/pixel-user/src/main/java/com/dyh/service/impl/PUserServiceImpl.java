@@ -17,6 +17,7 @@ import static com.dyh.constant.UserConstants.USER_NICKNAME_PREFIX;
 
 import com.dyh.entity.dto.LoginFormDTO;
 import com.dyh.entity.dto.PUserDTO;
+import com.dyh.entity.vo.PUserMeVo;
 import com.dyh.service.PSignService;
 import com.dyh.service.PUserService;
 import com.dyh.utils.JwtUtil;
@@ -81,6 +82,17 @@ public class PUserServiceImpl extends ServiceImpl<PUserDao, PUser> implements PU
             return R.failed("找不到该用户");
         }
         return R.ok(getUser);
+    }
+
+    @Override
+    public R me() {
+        Long id = UserHolder.getUser().getId();
+        PUser getUser = this.baseMapper.selectById(id);
+        if(getUser==null){
+            return R.failed("找不到该用户");
+        }
+        PUserMeVo pUserMeVo = BeanUtil.copyProperties(getUser, PUserMeVo.class);
+        return R.ok(pUserMeVo);
     }
 
 

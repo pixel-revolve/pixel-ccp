@@ -127,17 +127,16 @@ public class PUserController extends ApiController {
         return success(this.pUserService.removeByIds(idList));
     }
 
-    // toDO: 实现逻辑删除
-
     @PostMapping("/login")
     public R login(@RequestBody LoginFormDTO loginFormDTO) throws JsonProcessingException {
-        return pUserService.login(loginFormDTO);
+        return this.pUserService.login(loginFormDTO);
     }
 
     @PostMapping("/logout")
     public R logout(HttpServletRequest request) {
-        return pUserService.logout(request);
+        return this.pUserService.logout(request);
     }
+
     /**
      * 获取当前登录用户
      *
@@ -146,23 +145,22 @@ public class PUserController extends ApiController {
     @GetMapping("/me")
     public R me(){
         // 获取当前登录的用户并返回
-        PUserDTO user = UserHolder.getUser();
-        return R.ok(user);
+        return this.pUserService.me();
     }
 
     @PostMapping("/sign")
     public R sign() throws ParseException {
-        return pUserService.sign();
+        return this.pUserService.sign();
     }
 
     @GetMapping("/sign/continue/count")
     public R signCount() {
-        return pUserService.signContinueCount();
+        return this.pUserService.signContinueCount();
     }
 
     @GetMapping("/sign/month/count")
     public R signMonthCount() {
-        return pUserService.signMonthCount();
+        return this.pUserService.signMonthCount();
     }
 
 }
