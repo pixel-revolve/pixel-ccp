@@ -1,6 +1,5 @@
 package com.dyh.controller;
 
-import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
@@ -11,17 +10,13 @@ import com.dyh.entity.dto.PUserDTO;
 import com.dyh.service.PUserService;
 import com.dyh.utils.UserHolder;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 用户(PUser)表控制层
@@ -58,11 +53,7 @@ public class PUserController extends ApiController {
      */
     @GetMapping("/selectOne/{id}")
     public R selectOne(@PathVariable Serializable id) {
-        PUser user = this.pUserService.getById(id);
-        if(user.getIsDel() == 1) {
-            return failed("该用户已经被删除");
-        }
-        return success(user);
+        return success(this.pUserService.getById(id));
     }
 
     /**
@@ -122,10 +113,6 @@ public class PUserController extends ApiController {
      */
     @PutMapping("/update")
     public R update(@RequestBody PUser pUser) {
-
-        if(pUser.getIsDel()==1) {
-            return failed("该用户已经被删除");
-        }
         return success(this.pUserService.updateById(pUser));
     }
 

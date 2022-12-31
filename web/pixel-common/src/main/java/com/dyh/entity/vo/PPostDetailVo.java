@@ -14,6 +14,8 @@ public class PPostDetailVo {
     private Long userId;
     //用户昵称
     private String nickname;
+    //用户头像
+    private String avatar;
     //评论数
     private Long commentCount;
     //收藏数

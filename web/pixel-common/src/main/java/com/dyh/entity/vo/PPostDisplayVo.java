@@ -5,13 +5,15 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class PPostVo {
+public class PPostDisplayVo {
     //主题ID
     private Long id;
     //用户ID
     private Long userId;
     //用户昵称
     private String nickname;
+    //用户头像
+    private String avatar;
     //评论数
     private Long commentCount;
     //收藏数

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dyh.entity.PPost;
 import com.dyh.entity.vo.PPostCreateVo;
-import com.dyh.entity.vo.PPostVo;
+import com.dyh.entity.vo.PPostDisplayVo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
@@ -19,7 +19,7 @@ public interface PPostService extends IService<PPost> {
 
     R getById(Long id) throws JsonProcessingException;
 
-    R pPostDisplay(Page<PPostVo> page, Wrapper<PPost> queryWrapper);
+    R pPostDisplay(Page<PPostDisplayVo> page, Wrapper<PPost> queryWrapper);
 
     R createPost(PPostCreateVo pPostCreateVo) throws JsonProcessingException;
 

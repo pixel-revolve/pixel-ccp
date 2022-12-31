@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.enums.ApiErrorCode;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -14,9 +15,10 @@ import com.dyh.entity.PPostContent;
 import com.dyh.entity.PTag;
 import com.dyh.entity.PTagPost;
 import com.dyh.entity.dto.PPostContentDTO;
+import com.dyh.entity.po.PUser;
 import com.dyh.entity.vo.PPostCreateVo;
 import com.dyh.entity.vo.PPostDetailVo;
-import com.dyh.entity.vo.PPostVo;
+import com.dyh.entity.vo.PPostDisplayVo;
 import com.dyh.feign.PUserFeignService;
 import com.dyh.service.PPostContentService;
 import com.dyh.service.PPostService;
@@ -116,16 +118,32 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
      * @return {@link R}
      */
     @Override
-    public R pPostDisplay(Page<PPostVo> page, Wrapper<PPost> queryWrapper) {
-        List<PPostVo> postVos = this.baseMapper.selectPage(new Page<>(page.getCurrent(),page.getSize()), queryWrapper)
+    public R pPostDisplay(Page<PPostDisplayVo> page, Wrapper<PPost> queryWrapper) {
+        Page<PPost> pPostPage = new Page<>(page.getCurrent(), page.getSize());
+        List<PPostDisplayVo> postVos = this.baseMapper.selectPage(pPostPage, queryWrapper)
                 .getRecords().stream().map((i) ->{
-                    PPostVo pPostVo = BeanUtil.copyProperties(i, PPostVo.class);
-                    pPostVo.setNickname(pUserFeignService.selectNicknameById(pPostVo.getUserId()).getData().toString());
-                    return pPostVo;
+                    PPostDisplayVo pPostDisplayVo = BeanUtil.copyProperties(i, PPostDisplayVo.class);
+                    PUser getUser = null;
+                    try {
+                        getUser = objectMapper.readValue(objectMapper.writeValueAsString(pUserFeignService.selectOne(pPostDisplayVo.getUserId()).getData()), PUser.class);
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                    if(getUser==null){
+                        pPostDisplayVo.setNickname("default");
+                        pPostDisplayVo.setAvatar("default");
+                        return pPostDisplayVo;
+                    }
+                    pPostDisplayVo.setNickname(getUser.getNickname());
+                    pPostDisplayVo.setAvatar(getUser.getAvatar());
+                    return pPostDisplayVo;
                 }).collect(Collectors.toList());
-
-        return R.ok(page.setRecords(postVos));
+        page.setTotal(pPostPage.getTotal());
+        page.setPages(pPostPage.getPages());
+        page.setRecords(postVos);
+        return R.ok(page);
     }
+
 
     @Override
     public R createPost(PPostCreateVo pPostCreateVo) throws JsonProcessingException {
@@ -191,6 +209,18 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
         // 4.将文章内容转换成DTO
         List<PPostContentDTO> contentDTOS = contents.stream().map(i -> BeanUtil.copyProperties(i, PPostContentDTO.class)).collect(Collectors.toList());
         pPostDetailVo.setContents(contentDTOS);
+
+        PUser getUser = null;
+        try {
+            getUser = objectMapper.readValue(objectMapper.writeValueAsString(pUserFeignService.selectOne(getPPost.getUserId()).getData()), PUser.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        if(getUser==null){
+            return R.failed("未找到该作者");
+        }
+        pPostDetailVo.setAvatar(getUser.getAvatar());
+        pPostDetailVo.setNickname(getUser.getNickname());
         // 5.返回文章细节
         return R.ok(pPostDetailVo);
     }
@@ -218,9 +248,12 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
             if(isSuccess){
                 stringRedisTemplate.opsForSet().remove(key,userId.toString());
             }
-            return R.ok("点赞取消");
+            PPost getPPost = this.baseMapper.selectOne(new QueryWrapper<PPost>().select("upvote_count").eq("id", postId));
+            return R.ok(getPPost.getUpvoteCount());
         }
-        return R.ok("点赞成功");
+
+        PPost getPPost = this.baseMapper.selectOne(new QueryWrapper<PPost>().select("upvote_count").eq("id", postId));
+        return R.ok(getPPost.getUpvoteCount());
     }
 
     private String listToString(List<String> list){

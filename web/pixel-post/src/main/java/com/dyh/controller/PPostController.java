@@ -8,14 +8,13 @@ import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dyh.entity.PPost;
 import com.dyh.entity.vo.PPostCreateVo;
-import com.dyh.entity.vo.PPostVo;
+import com.dyh.entity.vo.PPostDisplayVo;
 import com.dyh.service.PPostService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.io.Serializable;
 import java.util.List;
 
 import static com.dyh.constant.RedisConstants.CACHE_POST_KEY;
@@ -59,7 +58,7 @@ public class PPostController extends ApiController {
      * @return 所有数据
      */
     @GetMapping("/pPostDisplay")
-    public R pPostDisplay(Page<PPostVo> page, PPost pPost) {
+    public R pPostDisplay(Page<PPostDisplayVo> page, PPost pPost) {
         return success(this.pPostService.pPostDisplay(page, new QueryWrapper<>(pPost)));
     }
 
