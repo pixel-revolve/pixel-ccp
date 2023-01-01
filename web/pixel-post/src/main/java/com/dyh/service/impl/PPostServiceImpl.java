@@ -249,11 +249,11 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
                 stringRedisTemplate.opsForSet().remove(key,userId.toString());
             }
             PPost getPPost = this.baseMapper.selectOne(new QueryWrapper<PPost>().select("upvote_count").eq("id", postId));
-            return R.ok(getPPost.getUpvoteCount());
+            return R.ok(getPPost.getUpvoteCount()).setMsg("取消点赞");
         }
 
         PPost getPPost = this.baseMapper.selectOne(new QueryWrapper<PPost>().select("upvote_count").eq("id", postId));
-        return R.ok(getPPost.getUpvoteCount());
+        return R.ok(getPPost.getUpvoteCount()).setMsg("成功点赞");
     }
 
     private String listToString(List<String> list){
