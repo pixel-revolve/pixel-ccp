@@ -32,3 +32,12 @@ export const createArticleRequest = async (pPostArticleVO: PPostCreateVo) => {
     return await myAxios.post(ARTICLE_PREFIX + "/createPost", pPostArticleVO);
 }
 
+export const getArticleDetailByIdRequest = async (id: string) => {
+    return await myAxios.get(ARTICLE_PREFIX + `/pPostDetail/${id}`);
+}
+
+export const changeIsLikeByIdRequest = async (id: string) => {
+    return await myAxios.post(ARTICLE_PREFIX + `/likePost/${id}`);
+}
+
+

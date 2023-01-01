@@ -1,7 +1,7 @@
 <template>
   <a-card style="display: flex;width: 50vw;flex-direction: column;">
     <div style="display: flex;width: 500px;align-items: center">
-      <a-avatar src="https://joeschmoe.io/api/v1/random"/>
+      <a-avatar :src="imgUrl"/>
     </div>
     <div style="margin-top: 20px;display: flex;width: 500px;align-items: center">
       <div style="font-size: 15px">
@@ -87,11 +87,12 @@ import {onMounted, ref} from "vue";
 import {listTags} from "../../../apis/tagApis";
 import {message} from "ant-design-vue";
 import {createArticleRequest, uploadImageInArticle} from "../../../apis/articleApi";
+import {getImgUrl} from "../../../utils/imgUtil.ts";
 
 interface Option {
   value: string;
 }
-
+const imgUrl = ref(getImgUrl())
 const isUploadLink = ref(false)
 const httpBody = ref('')
 const httpChoose = ref('https://')

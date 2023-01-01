@@ -20,6 +20,7 @@ import {onMounted, ref} from "vue";
 import {listPageArticleVoRequest} from "../../apis/articleApi.ts";
 import SummaryArticle from './components/summaryArticle.vue'
 import {message} from "ant-design-vue";
+import {getImgUrl} from "../../utils/imgUtil.ts";
 
 const records = ref([])
 const current = ref(10)
@@ -27,9 +28,12 @@ onMounted(async () => {
   try{
     const result = await listPageArticleVoRequest(1, 10);
     records.value = result.data.data.data.records
-    console.log(result.data.data.data.records)
+    console.log(JSON.stringify(records.value))
+    records.value.forEach(record =>{
+      record.imgUrl = getImgUrl()
+    })
   }catch (e){
-    message.error("获取评论失败")
+    message.error("获取文章失败")
   }
 
 })

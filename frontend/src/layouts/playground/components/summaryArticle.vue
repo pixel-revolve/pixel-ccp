@@ -22,7 +22,7 @@
     </template>
     <template #author><a style="font-size: 15px;margin-right: 20px;">{{ record.nickname }}</a></template>
     <template #avatar>
-      <a-avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo"/>
+      <a-avatar :src="record.imgUrl" alt="Han Solo"/>
     </template>
     <template #content>
       <p style="font-size: 18px;">
@@ -51,11 +51,11 @@ import {
 import { ref,defineProps} from 'vue'
 import relativeTime from 'dayjs/plugin/relativeTime';
 import {useRouter} from "vue-router";
+import {getImgUrl} from "../../../utils/imgUtil.ts";
 dayjs.extend(relativeTime);
 const router = useRouter();
 const data = defineProps(['record']);
 const record = ref(data.record)
-
 
 const likes = ref<number>(0);
 const dislikes = ref<number>(0);
@@ -63,7 +63,14 @@ const action = ref<string>();
 
 
 const goToDetail = () =>{
-  router.push("/index/article/detail")
+  console.log("id是："+record.value.id)
+  router.push({
+    path:"/index/article/detail",
+    query:{
+      'id':record.value.id,
+      'nickname':record.value.nickname
+    }
+  })
 }
 
 const like = () => {

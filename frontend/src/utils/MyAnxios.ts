@@ -14,6 +14,8 @@ myAxios.interceptors.request.use(function (config) {
     if(useUserStore().getAuthorization()){
         // @ts-ignore
         config.headers.Authorization =  useUserStore().getAuthorization()
+        // @ts-ignore
+        console.log("Authorization:"+ config.headers.Authorization)
         return config;
     }
     // 在发送请求之前做些什么
@@ -36,6 +38,7 @@ myAxios.interceptors.response.use(function (response) {
         if(status === 403){
             //开启登录
             useUserStore().isShowModal = true
+            useUserStore().setAuthorization("");
             return Promise.reject(error);
         }
     }
