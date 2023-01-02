@@ -130,10 +130,6 @@ const handleClick = (e:any)=> {
     }
   }
 
-  .middle {
-
-  }
-
   .right {
     display: flex;
     flex-direction: column;

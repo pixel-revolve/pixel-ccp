@@ -5,7 +5,7 @@ const baseURL_TEMP = import.meta.env.DEV ? import.meta.env.VITE_BASE_URL : impor
 
 const myAxios = axios.create({
     baseURL: baseURL_TEMP,
-    timeout: 5000,
+    timeout: 1000,
     headers: {'X-Custom-Header': 'foobar'}
 });
 
@@ -18,6 +18,7 @@ myAxios.interceptors.request.use(function (config) {
         console.log("Authorization:"+ config.headers.Authorization)
         return config;
     }
+    // config.headers.Authorization =  ''
     // 在发送请求之前做些什么
     return config;
 }, function (error) {
@@ -38,7 +39,7 @@ myAxios.interceptors.response.use(function (response) {
         if(status === 403){
             //开启登录
             useUserStore().isShowModal = true
-            useUserStore().setAuthorization("");
+            useUserStore().clearToken();
             return Promise.reject(error);
         }
     }

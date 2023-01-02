@@ -28,10 +28,34 @@
 </template>
 
 <script setup>
-import {ref, watch, defineProps} from "vue";
+import {ref, watch, defineProps, onMounted} from "vue";
 import {getCodeUsingPhone, loginByPhone} from "../apis/authApis.ts";
 import {message, notification} from "ant-design-vue";
 import {useUserStore} from "../store/userStore.ts";
+import {getCurrentUserRequest} from "../apis/userApis.ts";
+
+const userStore = useUserStore();
+onMounted(async () => {
+  if (userStore.getAuthorization() === '') {
+    return;
+  }
+  try {
+    const res = await getCurrentUserRequest();
+    if(res.data.code === 0){
+      userStore.setNickname(res.data.data.nickname)
+      userStore.setAvatar(res.data.data.avatar)
+      userStore.setUserId(res.data.data.id)
+      userStore.setEmail(res.data.data.email)
+      userStore.setPhone(res.data.data.phone)
+      userStore.setUsername(res.data.data.username)
+      console.log("登录的用户信息:"+JSON.stringify(res.data.data))
+    }
+  }catch (e){
+    message.error("无法获取当前用户")
+  }
+
+})
+
 const isLoginVisiblePass = defineProps(['isLoginVisible']);
 const isLoginVisible = ref(true)
 //开关自己
@@ -39,9 +63,10 @@ watch(() => isLoginVisiblePass.isLoginVisible, (value) => {
   console.log('登录组件watch:' + value)
   isLoginVisible.value = value
 }, {immediate: true})
+
 const phoneNumber = ref('')
 const code = ref('')
-const userStore = useUserStore();
+
 const getCode = async () => {
   try {
     const result = await getCodeUsingPhone(phoneNumber.value);
@@ -56,18 +81,17 @@ const getCode = async () => {
     message.error("发送验证码失败")
   }
 }
-const login = async () =>{
+const login = async () => {
   try {
-    const result = await loginByPhone(phoneNumber.value,code.value);
-    if(result.data.code === 0){
+    const result = await loginByPhone(phoneNumber.value, code.value);
+    if (result.data.code === 0) {
       userStore.setIsShowModal(false);
       userStore.setAuthorization(result.data.data)
       message.info("登录成功" + "token:" + userStore.getAuthorization())
     }
-  }catch (e){
+  } catch (e) {
     message.error("登录出错")
   }
-
 }
 
 </script>

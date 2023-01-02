@@ -1,33 +1,33 @@
 const routes = [
     {
-      path: "/",
-      redirect:'/index/playground'
+        path: "/",
+        redirect: '/index/playground'
     },
     {
-        path:"/index",
+        path: "/index",
         component: import("../layouts/index/IndexPage.vue"),
-        children:[
+        children: [
             {
-                path:'playground',
-                component:import("../layouts/playground/PlaygroundPage.vue"),
+                path: 'playground',
+                component: import("../layouts/playground/PlaygroundPage.vue"),
             },
             {
-                path:'article/detail',
-                component:import("../layouts/articleDetail/ArticleDetailPage.vue"),
+                path: 'article/detail',
+                component: import("../layouts/articleDetail/ArticleDetailPage.vue"),
             },
             {
-                path:'topic',
-                component:import("../layouts/topic/TopicPage.vue")
+                path: 'topic',
+                component: import("../layouts/topic/TopicPage.vue")
             },
             {
-                path:'dynamic',
-                component:import("../layouts/dynamic/DynamicPage.vue")
+                path: 'dynamic',
+                component: import("../layouts/dynamic/DynamicPage.vue")
             }
         ]
     },
     {
         path: "/test",
-        component:import("../layouts/TestPage.vue")
+        component: import("../layouts/TestPage.vue")
     }
 ]
 

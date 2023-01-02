@@ -16,25 +16,32 @@
       />
     </div>
 
-    <div class="right animate__animated animate__fadeInRight">
+    <div class="right animate__animated animate__fadeInRight" @click="gotoUserInfo">
       <el-icon style="margin-right: 40px">
         <bell-filled style="font-size: 26px;color: #1DA57A"/>
       </el-icon>
-      <a-avatar :size="64" style="color: #1DA57A" :src="imgUrl" @click="">
-      </a-avatar>
+      <a-avatar :size="64" style="color: #1DA57A" :src="imgUrl" @click=""/>
+      <span style="color:#3db389;">{{nickName}}</span>
     </div>
+    <user-info ref="userInfo"/>
   </div>
 </template>
+
 
 <script setup lang="ts">
 import {BellFilled} from '@ant-design/icons-vue';
 import {onMounted, ref} from "vue";
 import 'animate.css'
 import {useUserStore} from "../../../store/userStore";
-import {getImgUrl} from "../../../utils/imgUtil.ts";
-const imgUrl = ref(getImgUrl())
-const userStore = useUserStore();
+import {useRouter} from "vue-router";
+import UserInfo from "./userInfo.vue";
 
+const userStore = useUserStore();
+const imgUrl = ref(userStore.getAvatar())
+const nickName = ref(userStore.getNickname())
+const router = useRouter()
+
+const userInfo = ref<any>(null)
 
 const value = ref('')
 onMounted(()=>{
@@ -43,6 +50,11 @@ onMounted(()=>{
 const showLogin = ()=>{
   userStore.setIsShowModal(true)
 }
+
+const gotoUserInfo = () =>{
+  userInfo.value.showDrawer();
+}
+
 const onSearch = () => {
 
 }

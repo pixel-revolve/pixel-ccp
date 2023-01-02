@@ -95,5 +95,17 @@ public class PPostCollectionController extends ApiController {
     public R collectPost(@PathVariable Long id){
         return pPostCollectionService.collectPost(id);
     }
+
+
+    /**
+     * 是否已经收藏
+     *
+     * @param userId postId
+     * @return {@link R}
+     */
+    @PostMapping("/isCollect")
+    public R isCollect(@RequestParam("userId") Long userId,@RequestParam("postId") Long postId){
+        return pPostCollectionService.selectByUserIdAndPostId(userId, postId);
+    }
 }
 

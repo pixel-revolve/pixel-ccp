@@ -22,7 +22,7 @@
     </template>
     <template #author><a style="font-size: 15px;margin-right: 20px;">{{ record.nickname }}</a></template>
     <template #avatar>
-      <a-avatar :src="record.imgUrl" alt="Han Solo"/>
+      <a-avatar :src="record.avatar" alt="Han Solo"/>
     </template>
     <template #content>
       <p style="font-size: 18px;">

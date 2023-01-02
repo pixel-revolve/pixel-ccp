@@ -3,6 +3,7 @@ import axios from "axios";
 
 const ARTICLE_PREFIX = "/api/pPost"
 const ARTICLE_UPLOAD_PREFIX = "/file/upload"
+const ARTICLE_COLLECTION_PREFIX = "/api/pPostCollection"
 
 
 export const listPageArticleVoRequest = async (current: number, size: number) => {
@@ -39,5 +40,17 @@ export const getArticleDetailByIdRequest = async (id: string) => {
 export const changeIsLikeByIdRequest = async (id: string) => {
     return await myAxios.post(ARTICLE_PREFIX + `/likePost/${id}`);
 }
+
+export const checkIsLikedByIdRequest = async (id: string) => {
+    return await myAxios.get(ARTICLE_PREFIX + `/isLiked/${id}`);
+}
+
+export const insertCollectionRequest = async (postId: string,userId:string) => {
+    return await myAxios.post(ARTICLE_COLLECTION_PREFIX + '/insert',{
+        'postId':postId,
+        'userId':userId
+    });
+}
+
 
 

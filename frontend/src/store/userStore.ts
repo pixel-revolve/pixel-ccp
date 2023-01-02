@@ -9,7 +9,11 @@ const useUserStore = defineStore('userStore', {
                 username: '',
                 authorization: '',
                 isShowModal:false,
-                userId:-1
+                userId:-1,
+                nickName:'',
+                avatar:'',
+                phone:'',
+                email:''
             }
         ),
     actions:{
@@ -18,6 +22,36 @@ const useUserStore = defineStore('userStore', {
         },
         getUserId(){
             return this.userId;
+        },
+        setPhone(phone:string){
+            this.phone = phone
+        },
+        getPhone(){
+            return this.phone;
+        },
+        setEmail(email:string){
+            this.email = email
+        },
+        getEmail(){
+            return this.email;
+        },
+        setAvatar(avatar:string){
+            this.avatar = avatar
+        },
+        getAvatar(){
+            return this.avatar;
+        },
+        getUsername(){
+            return this.username;
+        },
+        setUsername(username:string){
+            this.username = username
+        },
+        getNickname(){
+          return this.nickName;
+        },
+        setNickname(nickname:string){
+          this.nickName = nickname
         },
         setIsShowModal(isShowModal:boolean){
             this.isShowModal = isShowModal
