@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+import java.util.List;
+
 import static com.dyh.constant.RedisConstants.POST_COLLECTED_KEY;
 
 /**
@@ -41,7 +43,8 @@ public class PPostCollectionServiceImpl extends ServiceImpl<PPostCollectionDao, 
             if(getPPostCollection!=null){
                 // 3.1.1.在数据库删除该收藏关系
                 this.baseMapper.deleteById(getPPostCollection.getId());
-                return R.ok("取消收藏");
+                List<PPostCollection> postCollections = this.baseMapper.selectList(new QueryWrapper<PPostCollection>().eq("post_id", postId));
+                return R.ok(postCollections.size()).setMsg("取消收藏");
             }
             PPostCollection pPostCollection = new PPostCollection();
             pPostCollection.setPostId(postId);
@@ -61,9 +64,11 @@ public class PPostCollectionServiceImpl extends ServiceImpl<PPostCollectionDao, 
             this.baseMapper.deleteById(getPPostCollection.getId());
             // 4.2.在redis集合中删除掉该用户
             stringRedisTemplate.opsForSet().remove(key,userId.toString());
-            return R.ok("取消收藏");
+            List<PPostCollection> postCollections = this.baseMapper.selectList(new QueryWrapper<PPostCollection>().eq("post_id", postId));
+            return R.ok(postCollections.size()).setMsg("取消收藏");
         }
-        return R.ok("收藏成功");
+        List<PPostCollection> postCollections = this.baseMapper.selectList(new QueryWrapper<PPostCollection>().eq("post_id", postId));
+        return R.ok(postCollections.size()).setMsg("收藏成功");
     }
 
     @Override
