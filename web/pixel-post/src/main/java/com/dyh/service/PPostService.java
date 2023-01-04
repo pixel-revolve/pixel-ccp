@@ -27,6 +27,7 @@ public interface PPostService extends IService<PPost> {
 
     R likePost(Long id);
 
+    R postLikeRank();
 }
 
 

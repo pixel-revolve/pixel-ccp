@@ -151,5 +151,16 @@ public class PPostController extends ApiController {
     public R likePost(@PathVariable Long id){
         return pPostService.likePost(id);
     }
+
+
+    /**
+     * 文章点赞榜单
+     *
+     * @return {@link R}
+     */
+    @GetMapping("/postLikeRank")
+    public R postLikeRank(){
+        return pPostService.postLikeRank();
+    }
 }
 

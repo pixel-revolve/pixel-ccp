@@ -19,6 +19,7 @@ import com.dyh.entity.po.PUser;
 import com.dyh.entity.vo.PPostCreateVo;
 import com.dyh.entity.vo.PPostDetailVo;
 import com.dyh.entity.vo.PPostDisplayVo;
+import com.dyh.entity.vo.PPostLikeRankVo;
 import com.dyh.feign.PUserFeignService;
 import com.dyh.service.PPostContentService;
 import com.dyh.service.PPostService;
@@ -28,12 +29,20 @@ import com.dyh.utils.RedisIdWorker;
 import com.dyh.utils.UserHolder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 import static com.dyh.constant.PostConstants.POST_PREFIX;
@@ -69,6 +78,7 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
 
     @Resource
     RedisIdWorker redisIdWorker;
+
 
     /**
      * 由于被继承的方法返回值为泛型不好擦除于是重新构造并且实现接口方法
@@ -254,6 +264,42 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
 
         PPost getPPost = this.baseMapper.selectOne(new QueryWrapper<PPost>().select("upvote_count").eq("id", postId));
         return R.ok(getPPost.getUpvoteCount()).setMsg("成功点赞");
+    }
+
+    @Override
+    public R postLikeRank() {
+        // 1.首先从redis中查询出榜单的前十名
+        Set<String> postIds = stringRedisTemplate.opsForZSet().reverseRange(POST_LIKE_RANK_KEY, 0, 9);
+
+        List<PPostLikeRankVo> pPostLikeRankVos=new ArrayList<>();
+        if(CollectionUtils.isEmpty(postIds)){
+            // 2.redis中不存在 从数据库中读取
+            List<PPostLikeRankVo> getPPostLikeRankVos = this.baseMapper.selectPostLikeRankInTen();
+            if(CollectionUtils.isEmpty(getPPostLikeRankVos)){
+                return R.failed("文章集为空");
+            }
+            // 2.1.给redis补上缓存的排名数据
+            getPPostLikeRankVos.forEach((i)->{
+                stringRedisTemplate.opsForZSet().add(POST_LIKE_RANK_KEY,i.getId().toString(),i.getUpvoteCount());
+            });
+            pPostLikeRankVos=getPPostLikeRankVos;
+        }else{
+            // 3.redis中存在 根据取出的 postIds 组装内容
+            long sequence=0L;
+            for (String postId:
+                 postIds) {
+                PPostLikeRankVo getPPostLikeRankVo = this.baseMapper.selectPPostLikeRankVoById(Long.valueOf(postId));
+                if(getPPostLikeRankVo==null){
+                    // 3.1.如果该文章在数据库中不存在，则在redis中移除
+                    stringRedisTemplate.opsForZSet().remove(POST_LIKE_RANK_KEY, postId);
+                    continue;
+                }
+                getPPostLikeRankVo.setSequence(++sequence);
+                pPostLikeRankVos.add(getPPostLikeRankVo);
+            }
+        }
+
+        return R.ok(pPostLikeRankVos);
     }
 
     private String listToString(List<String> list){

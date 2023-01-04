@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dyh.dao.PPostDao">
+    <resultMap id="postLikeRankResultMap" type="com.dyh.entity.vo.PPostLikeRankVo">
+        <id column="id" property="id"/>
+        <result column="upvote_count" property="upvoteCount"/>
+        <result column="sequence" property="sequence"/>
+        <result column="title" property="title"/>
+    </resultMap>
+
+    <select id="selectPostLikeRankInTen" resultMap="postLikeRankResultMap">
+        select plr.`id`,
+               plr.`upvote_count`,
+                if(
+                    ppc.`type`=1,
+                    ppc.`content`,
+                    plr.`summary`) as title,
+               @row := @row + 1 as sequence
+        from (select @row := 0) as rowTemptable,
+             (select `id`,`upvote_count`,`summary` from pixel_ccp.p_post ORDER BY `upvote_count` desc limit 10) as plr
+        left join (select `post_id`,`content`,`type` from pixel_ccp.p_post_content where type=1) as ppc on ppc.`post_id`=plr.`id`
+    </select>
+
+    <select id="selectPPostLikeRankVoById" resultType="com.dyh.entity.vo.PPostLikeRankVo">
+        select plr.id,
+               plr.upvote_count,
+               if(
+                           ppc.`type`=1,
+                           ppc.`content`,
+                           plr.`summary`) as title
+        from pixel_ccp.p_post as plr
+        left join (select `post_id`,`content`,`type` from pixel_ccp.p_post_content where type=1) as ppc on ppc.`post_id`=plr.`id`
+        where plr.id=#{id}
+        limit 1
+    </select>
+
+</mapper>

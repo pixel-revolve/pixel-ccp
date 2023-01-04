@@ -26,6 +26,7 @@ public class RedisConstants {
     public static final String SECKILL_STOCK_KEY = UNIFORM_PREFIX+"seckill:stock:";
     public static final String POST_LIKED_KEY = UNIFORM_PREFIX+"post:liked:";
     public static final String POST_COLLECTED_KEY = UNIFORM_PREFIX+"post:collected:";
+    public static final String POST_LIKE_RANK_KEY=UNIFORM_PREFIX+"post:rank:like:";
     public static final String FEED_KEY = UNIFORM_PREFIX+"feed:";
     public static final String SHOP_GEO_KEY = UNIFORM_PREFIX+"shop:geo:";
     public static final String USER_SIGN_KEY = UNIFORM_PREFIX+"sign:";
