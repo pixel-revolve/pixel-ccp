@@ -107,5 +107,6 @@ public class PPostCollectionController extends ApiController {
     public R isCollect(@RequestParam("userId") Long userId,@RequestParam("postId") Long postId){
         return pPostCollectionService.selectByUserIdAndPostId(userId, postId);
     }
+
 }
 

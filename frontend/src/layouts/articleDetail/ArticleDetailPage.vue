@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 50vw;border: 1px solid #deede7;border-radius: 6px;padding: 2s5px">
+  <div style="width: 50vw;border: 1px solid #deede7;border-radius: 6px;padding: 25px">
     <a-comment>
       <template #actions>
         <span key="comment-nested-reply-to"><a-button type="dashed" size="small">回复</a-button></span>
@@ -199,9 +199,10 @@ const like = async () => {
 const insertCollection = async () =>{
   const userId = userStore.getUserId();
   try {
-    const res = await insertCollectionRequest(articleId.value,userId);
+    const res = await insertCollectionRequest(articleId.value);
     if(res.data.code === 0){
       console.log(res.data.data)
+      articleDetail.value.collectionCount = res.data.data
     }
   }catch (e){
     message.error("收藏失败")

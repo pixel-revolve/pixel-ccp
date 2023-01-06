@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.dyh.constant.RedisConstants.POST_COLLECTED_KEY;
 
@@ -29,6 +30,8 @@ public class PPostCollectionServiceImpl extends ServiceImpl<PPostCollectionDao, 
     @Resource
     StringRedisTemplate stringRedisTemplate;
 
+
+
     @Override
     public R collectPost(Long postId) {
         // 1.获取登录用户
@@ -43,8 +46,8 @@ public class PPostCollectionServiceImpl extends ServiceImpl<PPostCollectionDao, 
             if(getPPostCollection!=null){
                 // 3.1.1.在数据库删除该收藏关系
                 this.baseMapper.deleteById(getPPostCollection.getId());
-                List<PPostCollection> postCollections = this.baseMapper.selectList(new QueryWrapper<PPostCollection>().eq("post_id", postId));
-                return R.ok(postCollections.size()).setMsg("取消收藏");
+                long size = this.baseMapper.selectCount(new QueryWrapper<PPostCollection>().eq("post_id", postId));
+                return R.ok(size).setMsg("取消收藏");
             }
             PPostCollection pPostCollection = new PPostCollection();
             pPostCollection.setPostId(postId);
@@ -64,8 +67,8 @@ public class PPostCollectionServiceImpl extends ServiceImpl<PPostCollectionDao, 
             this.baseMapper.deleteById(getPPostCollection.getId());
             // 4.2.在redis集合中删除掉该用户
             stringRedisTemplate.opsForSet().remove(key,userId.toString());
-            List<PPostCollection> postCollections = this.baseMapper.selectList(new QueryWrapper<PPostCollection>().eq("post_id", postId));
-            return R.ok(postCollections.size()).setMsg("取消收藏");
+            long size = this.baseMapper.selectCount(new QueryWrapper<PPostCollection>().eq("post_id", postId));
+            return R.ok(size).setMsg("取消收藏");
         }
         List<PPostCollection> postCollections = this.baseMapper.selectList(new QueryWrapper<PPostCollection>().eq("post_id", postId));
         return R.ok(postCollections.size()).setMsg("收藏成功");
@@ -78,6 +81,14 @@ public class PPostCollectionServiceImpl extends ServiceImpl<PPostCollectionDao, 
             return R.failed("未找到该收藏关系");
         }
         return R.ok(getPPostCollection);
+    }
+
+    @Override
+    public long countCollectionNumberByPostId(Long postId) {
+        QueryWrapper<PPostCollection> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("post_id",postId);
+        Integer count = this.baseMapper.selectCount(queryWrapper);
+        return Optional.ofNullable(count).orElse(0);
     }
 }
 

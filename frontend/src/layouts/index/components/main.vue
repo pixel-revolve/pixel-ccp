@@ -52,19 +52,11 @@
             </a-button>
           </div>
         </a-card>
-        <a-card size="small" title="全站榜单" class="card2">
+        <a-card size="small" title="热门话题" class="card2">
           <template #extra><a href="#">更多</a></template>
-          <p>
-            <a-avatar :src="imgUrl1" style="margin-right: 15px"/>
-            帮闺蜜找靠谱男票，hc多多
-          </p>
-          <p>
-            <a-avatar :src="imgUrl2" style="margin-right: 15px"/>
-            讯飞太让人失望了
-          </p>
-          <p>
-            <a-avatar :src="imgUrl3" style="margin-right: 15px"/>
-            邮储银行总行面试
+          <p v-for="(data,index) in postLikeList" :key="index" style="display: flex;justify-content: space-between">
+            <div style="color: #1DA57A"> # {{data.title}} </div>
+            <div><like-outlined style="margin-right: 5px"/>{{data.upvoteCount}}</div>
           </p>
         </a-card>
         <div class="card3">
@@ -84,17 +76,31 @@ import dayjs from 'dayjs';
 import {
   FileTextOutlined,
   FileTextTwoTone,
-  MailOutlined
+  MailOutlined,
+    LikeOutlined
 } from '@ant-design/icons-vue';
 import 'animate.css'
 import relativeTime from 'dayjs/plugin/relativeTime';
 import {onMounted, ref, reactive} from "vue";
 import {useRouter} from "vue-router";
 import {getImgUrl} from '../../../utils/imgUtil.ts'
+import {postLikeRank} from "../../../apis/articleApi.ts";
+import {message} from "ant-design-vue";
 dayjs.extend(relativeTime);
-const imgUrl1 = ref(getImgUrl())
-const imgUrl2 = ref(getImgUrl())
-const imgUrl3 = ref(getImgUrl())
+
+const postLikeList = ref([]);
+
+onMounted(async ()=>{
+  try {
+    const res = await postLikeRank();
+    if(res.data.code === 0){
+      postLikeList.value = res.data.data
+    }
+  }catch (e){
+    message.error("获取热点榜单失败");
+  }
+
+})
 
 const router = useRouter();
 const state = reactive({

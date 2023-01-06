@@ -15,5 +15,7 @@ public interface PPostCollectionService extends IService<PPostCollection> {
     R collectPost(Long id);
 
     R selectByUserIdAndPostId(Long userId,Long postId);
+
+    long countCollectionNumberByPostId(Long postId);
 }
 

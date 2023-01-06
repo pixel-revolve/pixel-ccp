@@ -45,11 +45,12 @@ export const checkIsLikedByIdRequest = async (id: string) => {
     return await myAxios.get(ARTICLE_PREFIX + `/isLiked/${id}`);
 }
 
-export const insertCollectionRequest = async (postId: string,userId:string) => {
-    return await myAxios.post(ARTICLE_COLLECTION_PREFIX + '/insert',{
-        'postId':postId,
-        'userId':userId
-    });
+export const insertCollectionRequest = async (id:string) => {
+    return await myAxios.post(ARTICLE_COLLECTION_PREFIX + `/collectPost/${id}`);
+}
+
+export const postLikeRank = async () => {
+    return await myAxios.get(ARTICLE_PREFIX + '/postLikeRank');
 }
 
 

@@ -9,11 +9,9 @@ import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.enums.ApiErrorCode;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.dyh.dao.PPostCollectionDao;
 import com.dyh.dao.PPostDao;
-import com.dyh.entity.PPost;
-import com.dyh.entity.PPostContent;
-import com.dyh.entity.PTag;
-import com.dyh.entity.PTagPost;
+import com.dyh.entity.*;
 import com.dyh.entity.dto.PPostContentDTO;
 import com.dyh.entity.po.PUser;
 import com.dyh.entity.vo.PPostCreateVo;
@@ -21,10 +19,7 @@ import com.dyh.entity.vo.PPostDetailVo;
 import com.dyh.entity.vo.PPostDisplayVo;
 import com.dyh.entity.vo.PPostLikeRankVo;
 import com.dyh.feign.PUserFeignService;
-import com.dyh.service.PPostContentService;
-import com.dyh.service.PPostService;
-import com.dyh.service.PTagPostService;
-import com.dyh.service.PTagService;
+import com.dyh.service.*;
 import com.dyh.utils.RedisIdWorker;
 import com.dyh.utils.UserHolder;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -75,6 +70,9 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
 
     @Resource
     PTagPostService pTagPostService;
+
+    @Resource
+    PPostCollectionService postCollectionService;
 
     @Resource
     RedisIdWorker redisIdWorker;
