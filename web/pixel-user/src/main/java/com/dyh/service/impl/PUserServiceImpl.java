@@ -2,7 +2,6 @@ package com.dyh.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.R;

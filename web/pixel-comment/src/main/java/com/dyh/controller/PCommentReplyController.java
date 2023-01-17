@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dyh.entity.PCommentReply;
+import com.dyh.entity.vo.PCommentReplyVo;
 import com.dyh.service.PCommentReplyService;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,7 @@ public class PCommentReplyController extends ApiController {
     /**
      * 分页查询所有数据
      *
-     * @param page 分页对象
+     * @param page          分页对象
      * @param pCommentReply 查询实体
      * @return 所有数据
      */
@@ -84,5 +85,9 @@ public class PCommentReplyController extends ApiController {
     public R delete(@RequestParam("idList") List<Long> idList) {
         return success(this.pCommentReplyService.removeByIds(idList));
     }
-}
 
+    @PostMapping("/replyComment")
+    public R replyComment(@RequestBody PCommentReplyVo pCommentReplyVo){
+        return this.pCommentReplyService.replyComment(pCommentReplyVo);
+    }
+}

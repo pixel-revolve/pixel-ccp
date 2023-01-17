@@ -7,10 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+import static com.dyh.constant.CommentConstants.COMMENT_PREFIX;
 import static com.dyh.constant.UserConstants.USERNAME_PREFIX;
 
 @SpringBootTest
@@ -34,7 +33,7 @@ public class PixelUserApplicationTests {
 
     @Test
     void testRedisId(){
-        long nextId = redisIdWorker.nextId(USERNAME_PREFIX);
+        long nextId = redisIdWorker.nextId(COMMENT_PREFIX);
         System.out.println(nextId);
     }
 }

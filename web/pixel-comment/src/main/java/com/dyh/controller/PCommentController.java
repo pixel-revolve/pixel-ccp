@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dyh.entity.PComment;
+import com.dyh.entity.vo.PCommentPostVo;
 import com.dyh.service.PCommentService;
 import org.springframework.web.bind.annotation.*;
 
@@ -83,6 +84,17 @@ public class PCommentController extends ApiController {
     @DeleteMapping("/delete")
     public R delete(@RequestParam("idList") List<Long> idList) {
         return success(this.pCommentService.removeByIds(idList));
+    }
+
+    /**
+     * 文章评论/发布评论
+     *
+     * @param pCommentPostVo p评论后签证官
+     * @return {@link R}
+     */
+    @PostMapping("/postComment")
+    public R postComment(@RequestBody PCommentPostVo pCommentPostVo){
+        return this.pCommentService.postComment(pCommentPostVo);
     }
 }
 

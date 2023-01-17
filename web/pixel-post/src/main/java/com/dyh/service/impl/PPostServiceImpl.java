@@ -40,6 +40,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
+import static com.dyh.constant.PostConstants.POST_CONTENT_PREFIX;
 import static com.dyh.constant.PostConstants.POST_PREFIX;
 import static com.dyh.constant.RedisConstants.*;
 import static com.dyh.constant.RedisConstants.POST_LIKED_KEY;
@@ -84,6 +85,7 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
      * @param id id
      * @return {@link R}
      */
+    @Override
     public R getById(Long id) throws JsonProcessingException {
         String key=CACHE_POST_KEY+id;
 
@@ -167,20 +169,21 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
             PPostContent pPostContent = BeanUtil.copyProperties(i, PPostContent.class);
             pPostContent.setPostId(postId);
             pPostContent.setUserId(userId);
+            pPostContent.setId(redisIdWorker.nextId(POST_CONTENT_PREFIX));
             // 保存文章内容到数据库
             pPostContentService.save(pPostContent);
         });
 
         // 4.将tag关联存储到数据库
-        for (int i = 0; i < tags.size(); i++) {
-            R res = pTagService.getByTag(tags.get(i));
-            if(res.getCode()==ApiErrorCode.FAILED.getCode()){// 如果在查询中出错则直接返回错误信息
+        for (String tag : tags) {
+            R res = pTagService.getByTag(tag);
+            if (res.getCode() == ApiErrorCode.FAILED.getCode()) {// 如果在查询中出错则直接返回错误信息
                 return res;
             }
             // 反序列化得到PTag完整信息
-            PTag getPTag=objectMapper.readValue(objectMapper.writeValueAsString(res.getData()), PTag.class);
+            PTag getPTag = objectMapper.readValue(objectMapper.writeValueAsString(res.getData()), PTag.class);
             // 创建并且赋值需要的关联信息
-            PTagPost pTagPost=new PTagPost();
+            PTagPost pTagPost = new PTagPost();
             pTagPost.setPostId(postId);
             pTagPost.setTagId(getPTag.getId());
             // 存储关联信息

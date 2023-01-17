@@ -23,6 +23,11 @@
     <description>微服务公共的依赖，bean，工具类等</description>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>2.6.0</version>
+        </dependency>
         <!--jwt-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
