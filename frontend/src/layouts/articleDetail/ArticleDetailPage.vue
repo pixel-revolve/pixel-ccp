@@ -1,9 +1,6 @@
 <template>
   <div style="width: 50vw;border: 1px solid #deede7;border-radius: 6px;padding: 25px">
     <a-comment>
-      <template #actions>
-        <span key="comment-nested-reply-to"><a-button type="dashed" size="small">回复</a-button></span>
-      </template>
       <template #author>
         <a>{{ articleDetail.nickname }}</a>
         <span style="margin-left: 20px">
@@ -60,9 +57,36 @@
         </div>
       </template>
     </a-comment>
+
+
+  </div>
+
+  <div style="margin-top: 20px">
+    <a-card>
+      <div style="font-weight: 800;font-size: 18px">
+        评论
+      </div>
+      <div style="margin-top: 10px;display: flex;">
+        <a-avatar :src="userAvatar" size="large" style="margin-right: 8px"/>
+        <a-textarea :rows="4" placeholder="注意评论不超过给300字噢~" :maxlength="300" v-model:value="replyContent"/>
+
+      </div>
+      <div style="margin-top: 10px;display: flex;justify-content: space-between;align-items: center">
+        <div style="display: flex;flex-direction:row;align-items: center">
+          <div style="margin-right: 8px;margin-left: 5px">
+            <picture-filled />
+          </div>
+          <div style="font-size: 16px">
+            图片
+          </div>
+        </div>
+        <span><a-button size="large" type="primary" @click="sendReply">发布评论</a-button></span>
+      </div>
+    </a-card>
   </div>
 
 </template>
+
 
 <script setup lang="ts">
 import {computed, onMounted, reactive, ref} from "vue";
@@ -75,15 +99,19 @@ import {
 } from "../../apis/articleApi.ts";
 import {message} from "ant-design-vue";
 import {getImgUrl} from "../../utils/imgUtil.ts";
-import {LikeFilled, LikeOutlined,CommentOutlined,MoneyCollectOutlined} from '@ant-design/icons-vue';
+import {LikeFilled, LikeOutlined,CommentOutlined,MoneyCollectOutlined,PicRightOutlined,PictureFilled} from '@ant-design/icons-vue';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from "dayjs";
 import {useUserStore} from "../../store/userStore.ts";
+import {publishCommentRequest} from "../../apis/commentApis";
 dayjs.extend(relativeTime);
 
 const userStore = useUserStore();
 const articleId = ref();
 const route = useRoute();
+const userAvatar = ref(userStore.getAvatar())
+const replyContent = ref('')
+
 
 const styles = ref({
   title: {
@@ -207,6 +235,32 @@ const insertCollection = async () =>{
   }catch (e){
     message.error("收藏失败")
   }
+}
+
+
+const sendReply =async () =>{
+  let sendReplyBody = {
+    postId:articleId.value,
+    userId:userStore.getUserId(),
+    contents:[
+      {
+        content:replyContent.value,
+        type:2,
+        sort:100
+      }
+    ]
+  }
+
+  try {
+    const res = await publishCommentRequest(sendReplyBody)
+    if(res.data.code === 0){
+      message.info("发布成功")
+      replyContent.value = ""
+    }
+  }catch (e){
+    message.error("发布评论失败")
+  }
+
 }
 
 
