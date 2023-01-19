@@ -14,5 +14,7 @@ import com.dyh.entity.vo.PCommentPostVo;
 public interface PCommentService extends IService<PComment> {
 
     R postComment(PCommentPostVo pCommentPostVo);
+
+    R displayComment(Long postId);
 }
 

@@ -1,22 +1,34 @@
 package com.dyh.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dyh.dao.PCommentDao;
 import com.dyh.entity.PComment;
 import com.dyh.entity.PCommentContent;
+import com.dyh.entity.PCommentReply;
 import com.dyh.entity.dto.PCommentContentDTO;
+import com.dyh.entity.dto.PCommentReplyDTO;
+import com.dyh.entity.dto.PPostContentDTO;
+import com.dyh.entity.vo.PCommentDisplayVo;
 import com.dyh.entity.vo.PCommentPostVo;
+import com.dyh.feign.PUserFeignService;
 import com.dyh.service.PCommentContentService;
+import com.dyh.service.PCommentReplyService;
 import com.dyh.service.PCommentService;
 import com.dyh.utils.RedisIdWorker;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static com.dyh.constant.CommentConstants.*;
+import static com.dyh.constant.CommentConstants.COMMENT_CONTENT_PREFIX;
+import static com.dyh.constant.CommentConstants.COMMENT_PREFIX;
 
 /**
  * 评论(PComment)表服务实现类
@@ -32,6 +44,12 @@ public class PCommentServiceImpl extends ServiceImpl<PCommentDao, PComment> impl
 
     @Resource
     PCommentContentService pCommentContentService;
+
+    @Resource
+    PCommentReplyService pCommentReplyService;
+
+    @Resource
+    PUserFeignService pUserFeignService;
 
     @Override
     public R postComment(PCommentPostVo pCommentPostVo) {
@@ -63,6 +81,41 @@ public class PCommentServiceImpl extends ServiceImpl<PCommentDao, PComment> impl
         save(pComment);
 
         return R.ok(commentId);
+    }
+
+    @Override
+    public R displayComment(Long postId) {
+        // 1.首先根据 postId 查询出来文章下的所有评论
+        List<PComment> getComments = this.baseMapper.selectList(new QueryWrapper<PComment>().eq("post_id", postId));
+        if (CollectionUtils.isEmpty(getComments)){
+            return R.failed("评论为空");
+        }
+        // 2.将评论下的所有回复和内容查出并组装
+        List<PCommentDisplayVo> res = getComments.stream().map(comment -> {
+            Long commentId = comment.getId();
+            // 2.1.获得当前评论下的所有回复
+            List<PCommentReplyDTO> replies = pCommentReplyService.getBaseMapper().selectList(new QueryWrapper<PCommentReply>().eq("comment_id", commentId))
+                    .stream().map(reply -> {
+                        Long userId = reply.getUserId();
+                        Long atUserId = reply.getAtUserId();
+                        String nickname = pUserFeignService.selectNicknameById(userId).getData().toString();
+                        String atNickname = pUserFeignService.selectNicknameById(atUserId).getData().toString();
+                        PCommentReplyDTO pCommentReplyDTO = BeanUtil.copyProperties(reply, PCommentReplyDTO.class);
+                        pCommentReplyDTO.setNickname(nickname);
+                        pCommentReplyDTO.setAtNickname(atNickname);
+                        return pCommentReplyDTO;
+                    }).collect(Collectors.toList());
+            // 2.2.获得当前评论的所有内容
+            List<PCommentContentDTO> contents = pCommentContentService.getByCommentId(commentId).getData()
+                    .stream().map(content -> BeanUtil.copyProperties(content, PCommentContentDTO.class))
+                    .collect(Collectors.toList());
+            PCommentDisplayVo pCommentDisplayVo = BeanUtil.copyProperties(comment, PCommentDisplayVo.class);
+            // 2.3.组装并且返回
+            pCommentDisplayVo.setContents(contents);
+            pCommentDisplayVo.setReplies(replies);
+            return pCommentDisplayVo;
+        }).collect(Collectors.toList());
+        return R.ok(res);
     }
 }
 

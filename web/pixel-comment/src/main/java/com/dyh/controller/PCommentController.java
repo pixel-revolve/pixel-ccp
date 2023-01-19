@@ -96,5 +96,15 @@ public class PCommentController extends ApiController {
     public R postComment(@RequestBody PCommentPostVo pCommentPostVo){
         return this.pCommentService.postComment(pCommentPostVo);
     }
+
+    /**
+     * 评论展示
+     *
+     * @return {@link R}
+     */
+    @GetMapping("/displayComment/{postId}")
+    public R displayComment(@PathVariable Long postId){
+        return this.pCommentService.displayComment(postId);
+    }
 }
 
