@@ -16,6 +16,10 @@ public class PCommentDisplayVo {
     private Long postId;
     //用户ID
     private Long userId;
+    //昵称
+    private String nickname;
+    //头像
+    private String avatar;
     //IP地址
     private String ip;
     //IP城市地址

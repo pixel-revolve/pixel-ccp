@@ -11,6 +11,7 @@ import com.dyh.entity.PCommentReply;
 import com.dyh.entity.dto.PCommentContentDTO;
 import com.dyh.entity.dto.PCommentReplyDTO;
 import com.dyh.entity.dto.PPostContentDTO;
+import com.dyh.entity.po.PUser;
 import com.dyh.entity.vo.PCommentDisplayVo;
 import com.dyh.entity.vo.PCommentPostVo;
 import com.dyh.feign.PUserFeignService;
@@ -18,6 +19,8 @@ import com.dyh.service.PCommentContentService;
 import com.dyh.service.PCommentReplyService;
 import com.dyh.service.PCommentService;
 import com.dyh.utils.RedisIdWorker;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -50,6 +53,9 @@ public class PCommentServiceImpl extends ServiceImpl<PCommentDao, PComment> impl
 
     @Resource
     PUserFeignService pUserFeignService;
+
+    @Resource
+    ObjectMapper objectMapper;
 
     @Override
     public R postComment(PCommentPostVo pCommentPostVo) {
@@ -93,6 +99,14 @@ public class PCommentServiceImpl extends ServiceImpl<PCommentDao, PComment> impl
         // 2.将评论下的所有回复和内容查出并组装
         List<PCommentDisplayVo> res = getComments.stream().map(comment -> {
             Long commentId = comment.getId();
+            Long commentUserId = comment.getUserId();
+            PUser getUser=null;
+            // 2.0.获取发评论的用户的信息
+            try {
+                getUser = objectMapper.readValue(objectMapper.writeValueAsString(pUserFeignService.selectOne(commentUserId).getData()), PUser.class);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
             // 2.1.获得当前评论下的所有回复
             List<PCommentReplyDTO> replies = pCommentReplyService.getBaseMapper().selectList(new QueryWrapper<PCommentReply>().eq("comment_id", commentId))
                     .stream().map(reply -> {
@@ -113,6 +127,9 @@ public class PCommentServiceImpl extends ServiceImpl<PCommentDao, PComment> impl
             // 2.3.组装并且返回
             pCommentDisplayVo.setContents(contents);
             pCommentDisplayVo.setReplies(replies);
+            assert getUser != null;
+            pCommentDisplayVo.setNickname(getUser.getNickname());
+            pCommentDisplayVo.setAvatar(getUser.getAvatar());
             return pCommentDisplayVo;
         }).collect(Collectors.toList());
         return R.ok(res);
