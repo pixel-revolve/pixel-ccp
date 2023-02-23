@@ -30,11 +30,6 @@ public interface PUserService extends IService<PUser> {
 
     R logout(HttpServletRequest request);
 
-    R sign() throws ParseException;
-
-    R signMonthCount();
-
-    R signContinueCount();
 
     R getByUsername(String username);
 

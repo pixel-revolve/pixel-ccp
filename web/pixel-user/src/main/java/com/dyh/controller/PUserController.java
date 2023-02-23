@@ -148,20 +148,5 @@ public class PUserController extends ApiController {
         return this.pUserService.me();
     }
 
-    @PostMapping("/sign")
-    public R sign() throws ParseException {
-        return this.pUserService.sign();
-    }
-
-    @GetMapping("/sign/continue/count")
-    public R signCount() {
-        return this.pUserService.signContinueCount();
-    }
-
-    @GetMapping("/sign/month/count")
-    public R signMonthCount() {
-        return this.pUserService.signMonthCount();
-    }
-
 }
 

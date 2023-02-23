@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ import java.util.List;
  * @since 2022-11-23 14:10:42
  */
 @RestController
-@RequestMapping("pSign")
+@RequestMapping("/api/pSign")
 public class PSignController extends ApiController {
     /**
      * 服务对象
@@ -51,5 +52,45 @@ public class PSignController extends ApiController {
         return success(this.pSignService.updateById(pSign));
     }
 
+
+    /**
+     * 用户签到
+     *
+     * @return {@link R}
+     */
+    @PostMapping("/sign")
+    public R sign(){
+        return this.pSignService.sign();
+    }
+
+    /**
+     * 用户签到（MySQL）
+     *
+     * @return {@link R}
+     */
+    @PostMapping("/signWithMySQL")
+    public R signWithMySQL(){
+        return this.pSignService.signWithMySQL();
+    }
+
+    /**
+     * 用户连续签到次数
+     *
+     * @return {@link R}
+     */
+    @GetMapping("/sign/continue/count")
+    public R signCount() {
+        return this.pSignService.signContinueCount();
+    }
+
+    /**
+     * 用户本月签到次数
+     *
+     * @return {@link R}
+     */
+    @GetMapping("/sign/month/count")
+    public R signMonthCount() {
+        return this.pSignService.signMonthCount();
+    }
 }
 

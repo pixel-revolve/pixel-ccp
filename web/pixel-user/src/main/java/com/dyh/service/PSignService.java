@@ -1,5 +1,6 @@
 package com.dyh.service;
 
+import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dyh.entity.PSign;
 
@@ -11,5 +12,12 @@ import com.dyh.entity.PSign;
  */
 public interface PSignService extends IService<PSign> {
 
+    R sign();
+
+    R signWithMySQL();
+
+    R signMonthCount();
+
+    R signContinueCount();
 }
 
