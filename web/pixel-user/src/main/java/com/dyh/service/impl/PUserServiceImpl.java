@@ -11,8 +11,7 @@ import com.dyh.entity.PSign;
 import com.dyh.entity.PUser;
 
 import static com.dyh.constant.RedisConstants.*;
-import static com.dyh.constant.UserConstants.USERNAME_PREFIX;
-import static com.dyh.constant.UserConstants.USER_NICKNAME_PREFIX;
+import static com.dyh.constant.UserConstants.*;
 
 import com.dyh.entity.dto.LoginFormDTO;
 import com.dyh.entity.dto.PUserDTO;
@@ -104,6 +103,7 @@ public class PUserServiceImpl extends ServiceImpl<PUserDao, PUser> implements PU
     public R createUserByPhone(String phone) {
         PUser user=new PUser();
         user.setPhone(phone);
+        user.setId(redisIdWorker.nextId(USER_PREFIX));
         user.setUsername(String.valueOf(redisIdWorker.nextId(USERNAME_PREFIX)));
         user.setNickname(USER_NICKNAME_PREFIX + RandomUtil.randomString(10));
         save(user);

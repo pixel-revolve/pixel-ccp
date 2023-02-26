@@ -14,7 +14,7 @@ spring:
         - id: pixel-user # 路由id，自定义，只要唯一即可
           uri: lb://pixel-user # 路由的目标地址
           predicates: #路由断言，判断请求是否符合路由规则的条件
-            - Path=/api/pUser/** # 这个是按照路径匹配，只要以/api/pUser/开头就符合要求
+            - Path=/api/pUser/**,/api/pFollow/** # 这个是按照路径匹配，只要以/api/pUser/开头就符合要求
         # pixel-auth-server
         - id: pixel-auth-server
           uri: lb://pixel-auth-server

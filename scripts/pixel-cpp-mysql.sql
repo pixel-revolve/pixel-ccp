@@ -379,8 +379,13 @@ CREATE TABLE `p_user`
 -- ----------------------------
 -- Records of p_user
 -- ----------------------------
-INSERT INTO `p_user` VALUES (204085702657, 'user_d19zgsiw51', '120190931746947074', '13770511673', '', '', '', 1, 'http://pixel-revolve.test.upcdn.net/images/avatar/default.png', 0, 0, '2022-11-20 21:22:12', '2022-11-20 21:22:12', NULL, 0);
-INSERT INTO `p_user` VALUES (52483444737, 'user_gytbcm5r9i', '120201016330158084', '13838411438', '', '', '', 1, 'http://pixel-revolve.test.upcdn.net/images/avatar/default.png', 0, 0, '2022-11-20 22:01:20', '2022-11-20 22:01:20', NULL, 0);
+INSERT INTO `p_user` VALUES (52483444737, '小粉丝', '120201016330158084', '13838411438', '', '', '', 1, 'http://pixel-revolve.test.upcdn.net/images/avatar/default.png', 0, 0, '2022-11-20 22:01:20', '2022-11-20 22:01:20', NULL, 0);
+INSERT INTO `p_user` VALUES (204085702657, '熊二', '120190931746947074', '13770511673', '', '', '', 1, 'http://pixel-revolve.test.upcdn.net/images/avatar/default.png', 0, 0, '2022-11-20 21:22:12', '2022-11-20 21:22:12', NULL, 0);
+INSERT INTO `p_user` VALUES (2383742042114, 'pixel-revolve', '2383742042113', '13770909113', '', '', '', 1, 'http://pixel-revolve.test.upcdn.net/images/avatar/default.png', 0, 0, '2023-02-25 23:36:57', '2023-02-25 23:37:49', NULL, 0);
+INSERT INTO `p_user` VALUES (2383747153923, 'ovO', '2383747153922', '13770909114', '', '', '', 1, 'http://pixel-revolve.test.upcdn.net/images/avatar/default.png', 0, 0, '2023-02-25 23:38:15', '2023-02-25 23:38:37', NULL, 0);
+INSERT INTO `p_user` VALUES (2383758622724, '守望时空33', '2383758622723', '13770909115', '', '', '', 1, 'http://pixel-revolve.test.upcdn.net/images/avatar/default.png', 0, 0, '2023-02-25 23:41:10', '2023-02-25 23:42:23', NULL, 0);
+INSERT INTO `p_user` VALUES (2383774154753, '小小小张', '2383774154753', '13770909116', '', '', '', 1, 'http://pixel-revolve.test.upcdn.net/images/avatar/default.png', 0, 0, '2023-02-25 23:45:07', '2023-02-25 23:45:25', NULL, 0);
+INSERT INTO `p_user` VALUES (2383778414594, 'nika_yo_nihao', '2383778414594', '13770909117', '', '', '', 1, 'http://pixel-revolve.test.upcdn.net/images/avatar/default.png', 0, 0, '2023-02-25 23:46:12', '2023-02-25 23:46:47', NULL, 0);
 
 -- ----------------------------
 -- Table structure for p_wallet_recharge
@@ -435,6 +440,22 @@ CREATE TABLE `p_sign`
     `count`   bigint unsigned DEFAULT NULL COMMENT '连续签到的天数',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+-- Table structure for p_follow
+-- ----------------------------
+DROP TABLE IF EXISTS `p_follow`;
+CREATE TABLE `p_follow`
+(
+    `id`          bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `user_id`          bigint unsigned NOT NULL COMMENT '用户id',
+    `follow_user_id`   bigint unsigned NOT NULL COMMENT '关联的用户id',
+    `created_on`  timestamp                                                     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `modified_on` timestamp                                                     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    `deleted_on`  timestamp                                                              DEFAULT NULL COMMENT '删除时间',
+    `is_del`      tinyint unsigned NOT NULL DEFAULT '0' COMMENT '是否删除 0 为未删除、1 为已删除',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=100058 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='关注';
 
 SET
 FOREIGN_KEY_CHECKS = 1;
