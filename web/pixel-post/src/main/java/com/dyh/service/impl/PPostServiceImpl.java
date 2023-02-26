@@ -13,6 +13,7 @@ import com.dyh.dao.PPostCollectionDao;
 import com.dyh.dao.PPostDao;
 import com.dyh.entity.*;
 import com.dyh.entity.dto.PPostContentDTO;
+import com.dyh.entity.po.PFollow;
 import com.dyh.entity.po.PUser;
 import com.dyh.entity.vo.PPostCreateVo;
 import com.dyh.entity.vo.PPostDetailVo;
@@ -157,12 +158,13 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
 
     @Override
     public R createPost(PPostCreateVo pPostCreateVo) throws JsonProcessingException {
+        Long userId = UserHolder.getUser().getId();
+
         // 1.为创建的文章生成分布式ID
         long postId = redisIdWorker.nextId(POST_PREFIX);
         // 2.将vo中需要的内容取出
         List<PPostContentDTO> pPostContentDTOs=pPostCreateVo.getContents();
         List<String> tags=pPostCreateVo.getTags();
-        Long userId=pPostCreateVo.getUserId();
 
         // 3.将文章内容存储到数据库
         pPostContentDTOs.forEach((i)->{
@@ -197,7 +199,20 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
         pPost.setSummary(pPostCreateVo.getSummary());
         pPost.setTags(listToString(tags));
         // 5.保存文章信息
-        save(pPost);
+        boolean isSuccess = save(pPost);
+        if(!isSuccess){
+            return R.failed("新增博文失败!");
+        }
+        // 6.查询笔记作者的所有粉丝 select * from tb_follow where follow_user_id = ?
+        List<PFollow> follows = pUserFeignService.queryFansById(userId).getData();
+        // 7.推送博文id给所有粉丝
+        for (PFollow follow : follows) {
+            // 7.1.获取粉丝id
+            Long fanId = follow.getUserId();
+            // 7.2.推送
+            String key = FEED_KEY + fanId;
+            stringRedisTemplate.opsForZSet().add(key, pPost.getId().toString(), System.currentTimeMillis());
+        }
 
         return R.ok(postId);
     }
@@ -301,6 +316,13 @@ public class PPostServiceImpl extends ServiceImpl<PPostDao, PPost> implements PP
         }
 
         return R.ok(pPostLikeRankVos);
+    }
+
+    @Override
+    public R<List<PPost>> selectBatch(List<Long> idList) {
+        String idStr = StrUtil.join(",", idList);
+        List<PPost> pPosts = query().in("id", idList).last("ORDER BY FIELD(id," + idStr + ")").list();
+        return R.ok(pPosts);
     }
 
     private String listToString(List<String> list){

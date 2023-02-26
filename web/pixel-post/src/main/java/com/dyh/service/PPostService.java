@@ -8,6 +8,9 @@ import com.dyh.entity.PPost;
 import com.dyh.entity.vo.PPostCreateVo;
 import com.dyh.entity.vo.PPostDisplayVo;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * 冒泡/文章(PPost)表服务接口
@@ -28,6 +31,9 @@ public interface PPostService extends IService<PPost> {
     R likePost(Long id);
 
     R postLikeRank();
+
+    R<List<PPost>> selectBatch(List<Long> idList);
+
 }
 
 

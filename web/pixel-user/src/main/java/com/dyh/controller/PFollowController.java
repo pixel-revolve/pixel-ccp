@@ -118,4 +118,26 @@ public class PFollowController extends ApiController {
     public R followCommons(@PathVariable("id") Long id) {
         return  pFollowService.followCommons(id);
     }
+
+    /**
+     * 查询该id的博主的所有粉丝
+     * @param id
+     * @return {@link R}
+     */
+    @GetMapping("/queryFansById/{id}")
+    public R<List<PFollow>> queryFansById(@PathVariable("id") Long id) {
+        return pFollowService.queryFansById(id);
+    }
+
+    /**
+     * 查询关注博主的Feed推文
+     * @param max
+     * @param offset
+     * @return {@link R}
+     */
+    @GetMapping("/queryPostOfFollow/{max}/{offset}")
+    public R queryPostOfFollow(@PathVariable("max") Long max,@PathVariable("offset") Integer offset){
+        return pFollowService.queryPostOfFollow(max,offset);
+    }
+
 }

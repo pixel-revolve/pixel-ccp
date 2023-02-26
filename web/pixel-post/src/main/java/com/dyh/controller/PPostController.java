@@ -140,6 +140,17 @@ public class PPostController extends ApiController {
         return success(this.pPostService.removeByIds(idList));
     }
 
+    /**
+     * 批量查询
+     *
+     * @param idList 主键结合
+     * @return 查询结果
+     */
+    @GetMapping("/selectBatch")
+    public R<List<PPost>> selectBatch(@RequestParam("idList") List<Long> idList) {
+        System.out.println("过来了");
+        return this.pPostService.selectBatch(idList);
+    }
 
     /**
      * 点赞文章

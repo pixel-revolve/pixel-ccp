@@ -13,8 +13,6 @@ import java.util.List;
  */
 @Data
 public class PPostCreateVo {
-    //用户ID
-    private Long userId;
     //用户昵称
     private String nickname;
     //摘要

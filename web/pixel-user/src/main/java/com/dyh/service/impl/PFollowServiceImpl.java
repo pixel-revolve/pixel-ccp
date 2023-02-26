@@ -1,26 +1,31 @@
 package com.dyh.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dyh.dao.PFollowDao;
 import com.dyh.dao.PUserDao;
 import com.dyh.entity.PFollow;
+import com.dyh.entity.PPost;
+import com.dyh.entity.PUser;
 import com.dyh.entity.dto.PUserDTO;
+import com.dyh.entity.dto.ScrollResult;
+import com.dyh.feign.PPostFeignService;
 import com.dyh.service.PFollowService;
 import com.dyh.service.PUserService;
 import com.dyh.utils.UserHolder;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.dyh.constant.RedisConstants.FEED_KEY;
 import static com.dyh.constant.RedisConstants.FOLLOW_KEY;
 
 /**
@@ -37,6 +42,9 @@ public class PFollowServiceImpl extends ServiceImpl<PFollowDao, PFollow> impleme
 
     @Resource
     PUserService userService;
+
+    @Resource
+    PPostFeignService pPostFeignService;
 
     /**
      * 关注service
@@ -111,6 +119,62 @@ public class PFollowServiceImpl extends ServiceImpl<PFollowDao, PFollow> impleme
                 .map(user -> BeanUtil.copyProperties(user, PUserDTO.class))
                 .collect(Collectors.toList());
         return R.ok(users);
+    }
+
+    @Override
+    public R<List<PFollow>> queryFansById(Long id) {
+        List<PFollow> follows = query().eq("follow_user_id", id).list();
+        if(follows==null){
+            return R.failed("查询出错");
+        }
+        return R.ok(follows);
+    }
+
+    /**
+     * 查询关注博主的所有Feed推文
+     * @param max
+     * @param offset
+     * @return {@link R}
+     */
+    @Override
+    public R queryPostOfFollow(Long max, Integer offset) {
+        // 1.获取当前用户
+        Long userId = UserHolder.getUser().getId();
+        // 2.查询收件箱 ZREVRANGEBYSCORE key Max Min LIMIT offset count
+        String key = FEED_KEY + userId;
+        Set<ZSetOperations.TypedTuple<String>> typedTuples = stringRedisTemplate.opsForZSet()
+                .reverseRangeByScoreWithScores(key, 0, max, offset, 2);
+        // 3.非空判断
+        if (typedTuples == null || typedTuples.isEmpty()) {
+            return R.ok("无新推博文");
+        }
+        // 4.解析数据：blogId、minTime（时间戳）、offset
+        List<Long> ids = new ArrayList<>(typedTuples.size());
+        long minTime = 0; // 2
+        int os = 1; // 2
+        for (ZSetOperations.TypedTuple<String> tuple : typedTuples) { // 5 4 4 2 2
+            // 4.1.获取id
+            ids.add(Long.valueOf(Objects.requireNonNull(tuple.getValue())));
+            // 4.2.获取分数(时间戳）
+            long time = Objects.requireNonNull(tuple.getScore()).longValue();
+            if(time == minTime){
+                os++;
+            }else{
+                minTime = time;
+                os = 1;
+            }
+        }
+
+        // 5.根据id查询blog
+        List<PPost> posts = pPostFeignService.selectBatch(ids).getData();
+
+        // 6.封装并返回
+        ScrollResult r = new ScrollResult();
+        r.setList(posts);
+        r.setOffset(os);
+        r.setMinTime(minTime);
+
+        return R.ok(r);
     }
 }
 
