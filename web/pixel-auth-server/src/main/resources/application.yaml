@@ -12,7 +12,7 @@ spring:
       discovery: # nacos客户端注册发现
         server-addr: localhost:8848
   redis:
-    host: 101.34.50.125
+    host: 127.0.0.1
     port: 6379
     lettuce:
       pool:
