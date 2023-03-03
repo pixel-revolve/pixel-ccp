@@ -1,9 +1,6 @@
 <div align=center>
     <h1>像素社区</h1>
     <h3>pixel-ccp</h3>
-    <p align="center">
-  <a href="https://github.com/pixel-revolve/pixel-ccp/stargazers"><img alt="GitHub stars" src="https://img.shields.io/badge/dynamic/json?color=%23FFFF00&label=star&query=%24.data.totalSubs&url=https%3A%2F%2Fgithub.com%2Fpixel-revolve%2Fpixel-ccp%2Fstargazers" /></a>
-</p>
 </div>
 
 目前仍在施工中 🚧，欢迎您的加入！
