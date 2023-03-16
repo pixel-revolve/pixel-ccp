@@ -20,6 +20,9 @@
         <module>pixel-auth-server</module>
         <module>pixel-third-party</module>
         <module>pixel-gateway</module>
+        <module>pixel-test</module>
+        <module>pixel-test/consumer</module>
+        <module>pixel-test/publisher</module>
 
     </modules>
 
