@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 钱包流水(PWalletRecharge)表数据库访问层
  *
  * @author makejava
- * @since 2022-11-20 13:24:40
+ * @since 2023-03-18 21:33:25
  */
 @Mapper
 public interface PWalletRechargeDao extends BaseMapper<PWalletRecharge> {

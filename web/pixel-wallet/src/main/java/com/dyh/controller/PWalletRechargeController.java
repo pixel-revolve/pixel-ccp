@@ -18,7 +18,7 @@ import java.util.List;
  * 钱包流水(PWalletRecharge)表控制层
  *
  * @author makejava
- * @since 2022-11-20 13:24:40
+ * @since 2023-03-18 21:33:23
  */
 @RestController
 @RequestMapping("/api/pWalletRecharge/recharge")
@@ -36,7 +36,7 @@ public class PWalletRechargeController extends ApiController {
      * @param pWalletRecharge 查询实体
      * @return 所有数据
      */
-    @GetMapping("/selectAll")
+    @GetMapping
     public R selectAll(Page<PWalletRecharge> page, PWalletRecharge pWalletRecharge) {
         return success(this.pWalletRechargeService.page(page, new QueryWrapper<>(pWalletRecharge)));
     }
@@ -47,7 +47,7 @@ public class PWalletRechargeController extends ApiController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("/selectOne/{id}")
+    @GetMapping("{id}")
     public R selectOne(@PathVariable Serializable id) {
         return success(this.pWalletRechargeService.getById(id));
     }
@@ -58,7 +58,7 @@ public class PWalletRechargeController extends ApiController {
      * @param pWalletRecharge 实体对象
      * @return 新增结果
      */
-    @PostMapping("/save")
+    @PostMapping
     public R insert(@RequestBody PWalletRecharge pWalletRecharge) {
         return success(this.pWalletRechargeService.save(pWalletRecharge));
     }
@@ -69,7 +69,7 @@ public class PWalletRechargeController extends ApiController {
      * @param pWalletRecharge 实体对象
      * @return 修改结果
      */
-    @PutMapping("/update")
+    @PutMapping
     public R update(@RequestBody PWalletRecharge pWalletRecharge) {
         return success(this.pWalletRechargeService.updateById(pWalletRecharge));
     }
@@ -80,7 +80,7 @@ public class PWalletRechargeController extends ApiController {
      * @param idList 主键结合
      * @return 删除结果
      */
-    @DeleteMapping("/delete")
+    @DeleteMapping
     public R delete(@RequestParam("idList") List<Long> idList) {
         return success(this.pWalletRechargeService.removeByIds(idList));
     }

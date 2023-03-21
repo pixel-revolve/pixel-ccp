@@ -34,5 +34,7 @@ public interface PUserService extends IService<PUser> {
     R getByUsername(String username);
 
     R me();
+
+    R rechargeById(Long id,Long amount);
 }
 

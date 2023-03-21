@@ -87,6 +87,17 @@ public class PUserServiceImpl extends ServiceImpl<PUserDao, PUser> implements PU
         return R.ok(pUserMeVo);
     }
 
+    @Override
+    public R rechargeById(Long id, Long amount) {
+        PUser getUser=this.baseMapper.selectById(id);
+        if(getUser==null){
+            return R.failed("找不到该用户");
+        }
+        getUser.setBalance(getUser.getBalance()+amount);
+        boolean b = getUser.updateById();
+        return R.ok(b);
+    }
+
 
     @Override
     public R getNicknameById(Long id) {

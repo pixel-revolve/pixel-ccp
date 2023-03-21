@@ -148,5 +148,9 @@ public class PUserController extends ApiController {
         return this.pUserService.me();
     }
 
+    @PostMapping("/rechargeById/{id}/{amount}")
+    public R rechargeById(@PathVariable Long id,@PathVariable Long amount){
+        return this.pUserService.rechargeById(id,amount);
+    }
 }
 

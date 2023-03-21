@@ -9,8 +9,9 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-
+    <name>${project.artifactId}</name>
     <artifactId>pixel-common</artifactId>
+    <description>微服务公共的依赖，bean，工具类等</description>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -20,15 +21,12 @@
         <spring-cloud-alibaba.version>2.2.5.RELEASE</spring-cloud-alibaba.version>
     </properties>
 
-    <description>微服务公共的依赖，bean，工具类等</description>
-
     <dependencies>
         <!--openfeign-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-
         <!--feign负载均衡配置-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -58,29 +56,24 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.17</version>
         </dependency>
-
         <!--mybatis-plus-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.2.0</version>
         </dependency>
-
         <!--lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.24</version>
         </dependency>
-
         <!--fastjson-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.78</version>
         </dependency>
-
-
         <!--服务注册/发现，nacos客户端依赖包-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -93,33 +86,22 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
         <!--配置中心来做配置管理-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
-
         <!--防止bootstarp.yaml无效-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
-
         <!--hutool-->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>5.7.17</version>
         </dependency>
-
-        <!--&lt;!&ndash;引用ObjectMapper&ndash;&gt;-->
-        <!--<dependency>-->
-        <!--    <groupId>com.fasterxml.jackson.core</groupId>-->
-        <!--    <artifactId>jackson-databind</artifactId>-->
-        <!--    <version>2.9.8</version>-->
-        <!--</dependency>-->
-
     </dependencies>
 
     <dependencyManagement>

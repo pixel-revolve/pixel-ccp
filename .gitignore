@@ -1,11 +1,13 @@
 *.iml
+*.ipr
+*.iws
 .idea
 target
 *.bkp
 *.dtmp
 .mvn
-.mvnw
-.mvnw.cmd
+mvnw
+mvnw.cmd
 
 # 前端
 frontend/.idea
