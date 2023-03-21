@@ -3,20 +3,20 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>web</artifactId>
+		<artifactId>backend</artifactId>
 		<groupId>com.dyh</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>pixel-comment</artifactId>
+
+	<artifactId>pixel-message</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
-	<description>pixel-comment</description>
+	<description>pixel-message</description>
 
 	<properties>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		<java.version>11</java.version>
-		<!--<spring-cloud.version>Greenwich.SR3</spring-cloud.version>-->
 		<spring-cloud.version>2021.0.0</spring-cloud.version>
 		<spring-cloud-alibaba.version>2.2.5.RELEASE</spring-cloud-alibaba.version>
 	</properties>
@@ -28,7 +28,11 @@
 			<artifactId>pixel-common</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
-
+		<!--redis-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
 		<!--spring-web-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -44,20 +48,12 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
-
 		<!--spring-test-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-		<!--redis-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
-
 	</dependencies>
 
 
@@ -111,5 +107,6 @@
 			</plugin>
 		</plugins>
 	</build>
+
 
 </project>
