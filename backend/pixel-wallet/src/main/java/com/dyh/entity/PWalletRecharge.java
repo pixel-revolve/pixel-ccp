@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 
 /**
- * 钱包流水(PWalletRecharge)表实体类
+ * 钱包充值(PWalletRecharge)表实体类
  *
  * @author makejava
  * @since 2023-03-18 21:33:26

@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 钱包流水(PWalletRecharge)表控制层
+ * 钱包充值(PWalletRecharge)表控制层
  *
  * @author makejava
  * @since 2023-03-18 21:33:23

@@ -9,7 +9,7 @@ import com.dyh.service.PWalletRechargeService;
 import org.springframework.stereotype.Service;
 
 /**
- * 钱包流水(PWalletRecharge)表服务实现类
+ * 钱包充值(PWalletRecharge)表服务实现类
  *
  * @author makejava
  * @since 2023-03-18 21:33:27

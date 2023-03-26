@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.dyh.entity.PWalletRecharge;
 
 /**
- * 钱包流水(PWalletRecharge)表服务接口
+ * 钱包充值(PWalletRecharge)表服务接口
  *
  * @author makejava
  * @since 2023-03-18 21:33:27

@@ -469,7 +469,7 @@ CREATE TABLE `p_wallet_recharge`  (
                                       INDEX `idx_user`(`user_id` ASC) USING BTREE,
                                       INDEX `idx_trade_no`(`trade_no` ASC) USING BTREE,
                                       INDEX `idx_trade_status`(`trade_status` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10023 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '钱包流水' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10023 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '钱包充值' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of p_wallet_recharge

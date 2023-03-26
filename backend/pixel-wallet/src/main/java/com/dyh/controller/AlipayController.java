@@ -56,6 +56,7 @@ public class AlipayController {
 		// 1.获取用户id
 		Long userId = UserHolder.getUser().getId();
 
+		// todo:将这段创建记录代码迁移到返回代码中
 		// 2.下单，创建一个recharge记录
 		long walletRechargeId = redisIdWorker.nextId(WALLET_RECHARGE_PREFIX);
 		PWalletRecharge pWalletRecharge=new PWalletRecharge();
@@ -66,7 +67,7 @@ public class AlipayController {
 		// 2.1.更新用户余额
 		pUserFeignService.rechargeById(userId,amount);
 
-		// 2.加载支付宝各种证书
+		// 3.加载支付宝各种证书
 		//获得初始化的AlipayClient
 		AlipayClient alipayClient = new DefaultAlipayClient(alipayConfig.getGatewayUrl(), alipayConfig.getAppId(), alipayConfig.getMerchantPrivateKey(), "json", alipayConfig.getCharset(), alipayConfig.getAlipayPublicKey(), alipayConfig.getSignType());
 
@@ -123,7 +124,6 @@ public class AlipayController {
 
 		boolean signVerified = AlipaySignature.rsaCheckV1(params, alipayConfig.getAlipayPublicKey(), alipayConfig.getCharset(), alipayConfig.getSignType()); //调用SDK验证签名
 
-		//——请在这里编写您的程序（以下代码仅作参考）——
 		if(signVerified) {
 			//商户订单号
 			String out_trade_no = getRequestParameter(request,"out_trade_no");
@@ -134,6 +134,7 @@ public class AlipayController {
 			// 修改订单状态，改为 支付成功，已付款; 同时新增支付流水
 			pWalletRechargeService.updateOrderStatus(out_trade_no,trade_no,total_amount);
 
+			// todo:增加现金可购买的商品
 			//Orders order = orderService.getOrderById(out_trade_no);
 			//Product product = productService.getProductById(order.getProductId());
 
@@ -161,8 +162,8 @@ public class AlipayController {
 		Map<String,String[]> requestParams = request.getParameterMap();
 		for (String name : requestParams.keySet()) {
 			String valueStr=fromRequestParamsGetName(requestParams, name);
-			//乱码解决，这段代码在出现乱码时使用
-//			valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
+			// 乱码解决，这段代码在出现乱码时使用
+			// valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
 			params.put(name, valueStr);
 		}
 
