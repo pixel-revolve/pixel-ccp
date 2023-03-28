@@ -42,30 +42,6 @@ CREATE TABLE `p_attachment`  (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for p_captcha
--- ----------------------------
-DROP TABLE IF EXISTS `p_captcha`;
-CREATE TABLE `p_captcha`  (
-                              `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '验证码ID',
-                              `phone` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '手机号',
-                              `captcha` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '验证码',
-                              `use_times` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '使用次数',
-                              `expired_on` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '过期时间',
-                              `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-                              `modified_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-                              `deleted_on` timestamp NULL DEFAULT NULL COMMENT '删除时间',
-                              `is_del` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0 为未删除、1 为已删除',
-                              PRIMARY KEY (`id`) USING BTREE,
-                              INDEX `idx_phone`(`phone` ASC) USING BTREE,
-                              INDEX `idx_expired_on`(`expired_on` ASC) USING BTREE,
-                              INDEX `idx_use_times`(`use_times` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1021 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '手机验证码' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of p_captcha
--- ----------------------------
-
--- ----------------------------
 -- Table structure for p_comment
 -- ----------------------------
 DROP TABLE IF EXISTS `p_comment`;
@@ -234,28 +210,6 @@ INSERT INTO `p_post` VALUES (936367067137, 204085702657, 0, 0, 0, 0, '比特币�
 INSERT INTO `p_post` VALUES (981498880004, 204085702657, 0, 0, 0, 0, '龙卷风', 0, 0, 0, 0, 0, '音乐', 0, '', '', '2022-11-26 11:38:20', '2022-11-26 11:38:20', NULL, 0);
 INSERT INTO `p_post` VALUES (986521227272, 204085702657, 0, 0, 0, 0, '泰拉瑞亚新手教程', 0, 0, 0, 0, 0, '游戏', 0, '', '', '2022-11-26 11:42:14', '2022-11-26 11:42:14', NULL, 0);
 INSERT INTO `p_post` VALUES (2387784105985, 2383742042114, 0, 0, 0, 0, 'MySQL索引', 0, 0, 0, 0, 0, 'MySQL', 0, '', '', '2023-02-26 16:44:54', '2023-02-26 16:44:54', NULL, 0);
-
--- ----------------------------
--- Table structure for p_post_attachment_bill
--- ----------------------------
-DROP TABLE IF EXISTS `p_post_attachment_bill`;
-CREATE TABLE `p_post_attachment_bill`  (
-                                           `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '购买记录ID',
-                                           `post_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT 'POST ID',
-                                           `user_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
-                                           `paid_amount` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '支付金额',
-                                           `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-                                           `modified_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-                                           `deleted_on` timestamp NULL DEFAULT NULL COMMENT '删除时间',
-                                           `is_del` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0 为未删除、1 为已删除',
-                                           PRIMARY KEY (`id`) USING BTREE,
-                                           INDEX `idx_post`(`post_id` ASC) USING BTREE,
-                                           INDEX `idx_user`(`user_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5000002 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '冒泡/文章附件账单' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of p_post_attachment_bill
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for p_post_collection
@@ -485,7 +439,7 @@ CREATE TABLE `p_wallet_statement`  (
                                        `change_amount` bigint NOT NULL DEFAULT 0 COMMENT '变动金额',
                                        `balance_snapshot` bigint NOT NULL DEFAULT 0 COMMENT '资金快照',
                                        `reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '变动原因',
-                                       `post_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '关联动态',
+                                       `order_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '关联订单',
                                        `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
                                        `modified_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
                                        `deleted_on` timestamp NULL DEFAULT NULL COMMENT '删除时间',

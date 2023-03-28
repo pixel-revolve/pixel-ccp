@@ -56,16 +56,13 @@ public class AlipayController {
 		// 1.获取用户id
 		Long userId = UserHolder.getUser().getId();
 
-		// todo:将这段创建记录代码迁移到返回代码中
-		// 2.下单，创建一个recharge记录
+		// 2.下单，创建一个充值记录
 		long walletRechargeId = redisIdWorker.nextId(WALLET_RECHARGE_PREFIX);
 		PWalletRecharge pWalletRecharge=new PWalletRecharge();
 		pWalletRecharge.setUserId(userId);
 		pWalletRecharge.setAmount(amount);
 		pWalletRecharge.setId(walletRechargeId);
 		pWalletRechargeService.save(pWalletRecharge);
-		// 2.1.更新用户余额
-		pUserFeignService.rechargeById(userId,amount);
 
 		// 3.加载支付宝各种证书
 		//获得初始化的AlipayClient
@@ -133,10 +130,9 @@ public class AlipayController {
 			String total_amount = getRequestParameter(request,"total_amount");
 			// 修改订单状态，改为 支付成功，已付款; 同时新增支付流水
 			pWalletRechargeService.updateOrderStatus(out_trade_no,trade_no,total_amount);
-
-			// todo:增加现金可购买的商品
-			//Orders order = orderService.getOrderById(out_trade_no);
-			//Product product = productService.getProductById(order.getProductId());
+			PWalletRecharge pWalletRecharge=pWalletRechargeService.getById(out_trade_no);
+			// 更新用户余额
+			pUserFeignService.rechargeById(pWalletRecharge.getUserId(), Long.valueOf(total_amount));
 
 			log.info("********************** 支付成功(支付宝同步通知) **********************");
 			log.info("* 订单号: {}", out_trade_no);
@@ -205,14 +201,10 @@ public class AlipayController {
 				// 修改订单状态，改为 支付成功，已付款; 同时新增支付流水
 				pWalletRechargeService.updateOrderStatus(out_trade_no, trade_no, total_amount);
 
-				// PWalletRecharge pWalletRecharge = pWalletRechargeService.getById(out_trade_no);
-				// Product product = productService.getProductById(order.getProductId());
-
 				log.info("********************** 支付成功(支付宝异步通知) **********************");
 				log.info("* 订单号: {}", out_trade_no);
 				log.info("* 支付宝交易号: {}", trade_no);
 				log.info("* 实付金额: {}", total_amount);
-				//log.info("* 购买产品: {}", product.getName());
 				log.info("* 购买产品: {}", "像素币");
 				log.info("***************************************************************");
 			}

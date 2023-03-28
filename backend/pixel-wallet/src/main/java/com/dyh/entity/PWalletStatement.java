@@ -8,7 +8,7 @@ import java.io.Serializable;
  * 钱包流水(PWalletStatement)表实体类
  *
  * @author makejava
- * @since 2022-11-20 13:24:52
+ * @since 2023-03-26 21:14:24
  */
 @SuppressWarnings("serial")
 public class PWalletStatement extends Model<PWalletStatement> {
@@ -22,8 +22,8 @@ public class PWalletStatement extends Model<PWalletStatement> {
     private Long balanceSnapshot;
     //变动原因
     private String reason;
-    //关联动态
-    private String postId;
+    //关联订单
+    private Long orderId;
     //创建时间
     private Date createdOn;
     //修改时间
@@ -31,7 +31,7 @@ public class PWalletStatement extends Model<PWalletStatement> {
     //删除时间
     private Date deletedOn;
     //是否删除 0 为未删除、1 为已删除
-    private String isDel;
+    private Integer isDel;
 
 
     public Long getId() {
@@ -74,12 +74,12 @@ public class PWalletStatement extends Model<PWalletStatement> {
         this.reason = reason;
     }
 
-    public String getPostId() {
-        return postId;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setPostId(String postId) {
-        this.postId = postId;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public Date getCreatedOn() {
@@ -106,11 +106,11 @@ public class PWalletStatement extends Model<PWalletStatement> {
         this.deletedOn = deletedOn;
     }
 
-    public String getIsDel() {
+    public Integer getIsDel() {
         return isDel;
     }
 
-    public void setIsDel(String isDel) {
+    public void setIsDel(Integer isDel) {
         this.isDel = isDel;
     }
 

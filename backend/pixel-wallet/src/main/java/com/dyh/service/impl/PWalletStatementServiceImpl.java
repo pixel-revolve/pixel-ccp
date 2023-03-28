@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * 钱包流水(PWalletStatement)表服务实现类
  *
  * @author makejava
- * @since 2022-11-20 13:24:52
+ * @since 2023-03-26 21:14:24
  */
 @Service("pWalletStatementService")
 public class PWalletStatementServiceImpl extends ServiceImpl<PWalletStatementDao, PWalletStatement> implements PWalletStatementService {

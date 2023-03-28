@@ -18,10 +18,10 @@ import java.util.List;
  * 钱包流水(PWalletStatement)表控制层
  *
  * @author makejava
- * @since 2022-11-20 13:24:52
+ * @since 2023-03-26 21:14:24
  */
 @RestController
-@RequestMapping("/api/pWalletStatement/statement")
+@RequestMapping("pWalletStatement")
 public class PWalletStatementController extends ApiController {
     /**
      * 服务对象
@@ -36,7 +36,7 @@ public class PWalletStatementController extends ApiController {
      * @param pWalletStatement 查询实体
      * @return 所有数据
      */
-    @GetMapping("/selectAll")
+    @GetMapping
     public R selectAll(Page<PWalletStatement> page, PWalletStatement pWalletStatement) {
         return success(this.pWalletStatementService.page(page, new QueryWrapper<>(pWalletStatement)));
     }
@@ -47,7 +47,7 @@ public class PWalletStatementController extends ApiController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("/selectOne/{id}")
+    @GetMapping("{id}")
     public R selectOne(@PathVariable Serializable id) {
         return success(this.pWalletStatementService.getById(id));
     }
@@ -58,7 +58,7 @@ public class PWalletStatementController extends ApiController {
      * @param pWalletStatement 实体对象
      * @return 新增结果
      */
-    @PostMapping("/save")
+    @PostMapping
     public R insert(@RequestBody PWalletStatement pWalletStatement) {
         return success(this.pWalletStatementService.save(pWalletStatement));
     }
@@ -69,7 +69,7 @@ public class PWalletStatementController extends ApiController {
      * @param pWalletStatement 实体对象
      * @return 修改结果
      */
-    @PutMapping("/update")
+    @PutMapping
     public R update(@RequestBody PWalletStatement pWalletStatement) {
         return success(this.pWalletStatementService.updateById(pWalletStatement));
     }
@@ -80,7 +80,7 @@ public class PWalletStatementController extends ApiController {
      * @param idList 主键结合
      * @return 删除结果
      */
-    @DeleteMapping("/delete")
+    @DeleteMapping
     public R delete(@RequestParam("idList") List<Long> idList) {
         return success(this.pWalletStatementService.removeByIds(idList));
     }
