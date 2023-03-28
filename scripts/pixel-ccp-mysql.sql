@@ -38,10 +38,6 @@ CREATE TABLE `p_attachment`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 100041 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '附件' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of p_attachment
--- ----------------------------
-
--- ----------------------------
 -- Table structure for p_comment
 -- ----------------------------
 DROP TABLE IF EXISTS `p_comment`;
@@ -59,11 +55,6 @@ CREATE TABLE `p_comment`  (
                               INDEX `idx_post`(`post_id` ASC) USING BTREE,
                               INDEX `idx_user`(`user_id` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2162685444101 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '评论' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of p_comment
--- ----------------------------
-INSERT INTO `p_comment` VALUES (2162685444100, 230606983174, 204085702657, '', '', '2023-01-17 22:39:22', '2023-01-17 22:39:22', NULL, 0);
 
 -- ----------------------------
 -- Table structure for p_comment_content
@@ -88,12 +79,6 @@ CREATE TABLE `p_comment_content`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 2162685509637 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '评论内容' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of p_comment_content
--- ----------------------------
-INSERT INTO `p_comment_content` VALUES (2162685444099, 2162685444100, 204085702657, '《反方向的钟》，是周杰伦实验性的一首R&B作品。里边主要涉及到他对中文如何适配西方R&B及嘻哈音乐的探索与发现。', 2, 100, '2023-01-17 22:39:22', '2023-01-17 22:39:22', NULL, 0);
-INSERT INTO `p_comment_content` VALUES (2162685509636, 2162685444100, 204085702657, 'https://www.youtube.com/watch?v=fuM1aVCGR8c', 6, 101, '2023-01-17 22:39:22', '2023-01-17 22:39:22', NULL, 0);
-
--- ----------------------------
 -- Table structure for p_comment_reply
 -- ----------------------------
 DROP TABLE IF EXISTS `p_comment_reply`;
@@ -114,11 +99,6 @@ CREATE TABLE `p_comment_reply`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 2162687213570 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '评论回复' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of p_comment_reply
--- ----------------------------
-INSERT INTO `p_comment_reply` VALUES (2162687213569, 2162685444100, 52483444737, 204085702657, '别的不说，那段rap学的脑壳疼', '', '', '2023-01-17 22:39:48', '2023-01-17 22:39:48', NULL, 0);
-
--- ----------------------------
 -- Table structure for p_follow
 -- ----------------------------
 DROP TABLE IF EXISTS `p_follow`;
@@ -132,13 +112,6 @@ CREATE TABLE `p_follow`  (
                              `is_del` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0 为未删除、1 为已删除',
                              PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1629685010778824707 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '关注' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of p_follow
--- ----------------------------
-INSERT INTO `p_follow` VALUES (1629500679995678721, 52483444737, 204085702657, '2023-02-25 23:16:51', '2023-02-25 23:16:51', NULL, 0);
-INSERT INTO `p_follow` VALUES (1629684097292980226, 204085702657, 2383742042114, '2023-02-26 11:25:41', '2023-02-26 11:25:41', NULL, 0);
-INSERT INTO `p_follow` VALUES (1629685010778824706, 52483444737, 2383742042114, '2023-02-26 11:29:19', '2023-02-26 11:29:19', NULL, 0);
 
 -- ----------------------------
 -- Table structure for p_message
@@ -164,10 +137,6 @@ CREATE TABLE `p_message`  (
                               INDEX `idx_is_read`(`is_read` ASC) USING BTREE,
                               INDEX `idx_type`(`type` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 16000033 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '消息通知' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of p_message
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for p_post
@@ -200,18 +169,6 @@ CREATE TABLE `p_post`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 2387784105986 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '冒泡/文章' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of p_post
--- ----------------------------
-INSERT INTO `p_post` VALUES (101757964293, 204085702657, 0, 0, 0, 0, '晴天', 0, 0, 0, 0, 0, '音乐', 0, '', '', '2022-11-26 11:38:48', '2022-11-26 11:38:48', NULL, 0);
-INSERT INTO `p_post` VALUES (230606983174, 204085702657, 0, 0, 0, 0, '反方向的钟', 0, 0, 0, 0, 0, '音乐', 0, '', '', '2022-11-26 11:39:18', '2022-11-26 11:39:18', NULL, 0);
-INSERT INTO `p_post` VALUES (423880511495, 204085702657, 0, 0, 0, 0, '流沙', 0, 0, 0, 0, 0, '音乐', 0, '', '', '2022-11-26 11:40:03', '2022-11-26 11:40:03', NULL, 0);
-INSERT INTO `p_post` VALUES (531982073865, 204085702657, 0, 0, 0, 0, '厉不厉害你坤哥', 0, 0, 0, 0, 0, '搞笑', 0, '', '', '2022-11-26 11:44:21', '2022-11-26 11:44:21', NULL, 0);
-INSERT INTO `p_post` VALUES (936367067137, 204085702657, 0, 0, 0, 0, '比特币大涨', 0, 0, 0, 0, 0, '区块链', 0, '', '', '2022-11-26 11:26:32', '2022-11-26 11:28:45', NULL, 0);
-INSERT INTO `p_post` VALUES (981498880004, 204085702657, 0, 0, 0, 0, '龙卷风', 0, 0, 0, 0, 0, '音乐', 0, '', '', '2022-11-26 11:38:20', '2022-11-26 11:38:20', NULL, 0);
-INSERT INTO `p_post` VALUES (986521227272, 204085702657, 0, 0, 0, 0, '泰拉瑞亚新手教程', 0, 0, 0, 0, 0, '游戏', 0, '', '', '2022-11-26 11:42:14', '2022-11-26 11:42:14', NULL, 0);
-INSERT INTO `p_post` VALUES (2387784105985, 2383742042114, 0, 0, 0, 0, 'MySQL索引', 0, 0, 0, 0, 0, 'MySQL', 0, '', '', '2023-02-26 16:44:54', '2023-02-26 16:44:54', NULL, 0);
-
--- ----------------------------
 -- Table structure for p_post_collection
 -- ----------------------------
 DROP TABLE IF EXISTS `p_post_collection`;
@@ -227,10 +184,6 @@ CREATE TABLE `p_post_collection`  (
                                       INDEX `idx_post`(`post_id` ASC) USING BTREE,
                                       INDEX `idx_user`(`user_id` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 6000012 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '冒泡/文章收藏' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of p_post_collection
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for p_post_content
@@ -253,27 +206,6 @@ CREATE TABLE `p_post_content`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 9112796585987 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '冒泡/文章内容' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of p_post_content
--- ----------------------------
-INSERT INTO `p_post_content` VALUES (2387784105985, 2387784105985, 2383742042114, 'MySQL索引是一种数据库技术，它可以帮助您快速访问数据库中的特定信息。索引是一个特殊的数据结构，它可以帮助MySQL快速找到所需的行。\nMySQL索引可以使用不同的数据类型，如整数、字符串和日期。MySQL也可以使用多列索引来跨多个字段进行快速访问。此外，MySQL还允许使用全文索引来对文本字段进行快速访问。\nMySQL索引可以大大减少数据库中的读写时间，并且可以显著地减少服务器上的CPU使用量。此外，MySQL还允许在不同表之间创建外键（foreign key）来实现表之间的关联性。\n总之，MySQL索引是一项重要的数据库功能，它可以帮助我们快速、准确地获取所需信息。', 2, 100, '2023-02-26 16:44:54', '2023-02-26 16:44:54', NULL, 0);
-INSERT INTO `p_post_content` VALUES (2387784105986, 2387784105985, 2383742042114, 'https://search.bilibili.com?keyword=MySQL索引', 6, 101, '2023-02-26 16:44:54', '2023-02-26 16:44:54', NULL, 0);
-INSERT INTO `p_post_content` VALUES (2387784105987, 2387784105985, 2383742042114, 'https://pixel-ccp.oss-cn-hangzhou.aliyuncs.com/avatar/2022/11/26/16-39-12/770df013-dfb7-4725-938e-9fc1f1c14704.jpg', 3, 102, '2023-02-26 16:44:54', '2023-02-26 16:44:54', NULL, 0);
-INSERT INTO `p_post_content` VALUES (6598583967745, 936367067137, 204085702657, '比特币昨日涨幅2.76，亏麻了家人们', 2, 100, '2022-11-26 11:34:22', '2022-11-26 11:34:22', NULL, 0);
-INSERT INTO `p_post_content` VALUES (6598609133570, 936367067137, 204085702657, 'https://search.bilibili.com?keyword=比特币', 6, 101, '2022-11-26 11:34:22', '2022-11-26 11:34:22', NULL, 0);
-INSERT INTO `p_post_content` VALUES (7596207562753, 981498880004, 204085702657, '爱像一阵风，吹完它就走', 2, 100, '2022-11-26 11:38:20', '2022-11-26 11:38:20', NULL, 0);
-INSERT INTO `p_post_content` VALUES (7596207562754, 981498880004, 204085702657, 'https://search.bilibili.com?keyword=龙卷风', 6, 101, '2022-11-26 11:38:20', '2022-11-26 11:38:20', NULL, 0);
-INSERT INTO `p_post_content` VALUES (7715485179906, 101757964293, 204085702657, '故事的小黄花，从出生的那天就飘着', 2, 100, '2022-11-26 11:38:48', '2022-11-26 11:38:48', NULL, 0);
-INSERT INTO `p_post_content` VALUES (7715485179907, 101757964293, 204085702657, 'https://search.bilibili.com?keyword=晴天', 6, 101, '2022-11-26 11:38:48', '2022-11-26 11:38:48', NULL, 0);
-INSERT INTO `p_post_content` VALUES (7838327955458, 230606983174, 204085702657, '穿梭时间的画面的钟，从反方向开始移动', 2, 100, '2022-11-26 11:39:18', '2022-11-26 11:39:18', NULL, 0);
-INSERT INTO `p_post_content` VALUES (7838395064322, 230606983174, 204085702657, 'https://search.bilibili.com?keyword=晴天', 6, 101, '2022-11-26 11:39:18', '2022-11-26 11:39:18', NULL, 0);
-INSERT INTO `p_post_content` VALUES (8027885330433, 423880511495, 204085702657, '爱情好像流沙~', 2, 100, '2022-11-26 11:40:03', '2022-11-26 11:40:03', NULL, 0);
-INSERT INTO `p_post_content` VALUES (8027948244993, 423880511495, 204085702657, 'https://search.bilibili.com?keyword=流沙', 6, 101, '2022-11-26 11:40:03', '2022-11-26 11:40:03', NULL, 0);
-INSERT INTO `p_post_content` VALUES (8579536969729, 986521227272, 204085702657, '查一下wiki就好了。我来总结一下。不一定对欢迎来反驳\n1.肉山前只会传播草。范围应该是3\n2肉后会开始传播。石块，冰块，沙子和几种沙子的变种。范围也是3\n3.血腥腐化会把淤泥变成泥土，但是绿叶矿在一定的范围内会组织腐化血腥传播\n4.背景墙不知道~', 2, 100, '2022-11-26 11:42:14', '2022-11-26 11:42:14', NULL, 0);
-INSERT INTO `p_post_content` VALUES (8579536969730, 986521227272, 204085702657, 'https://search.bilibili.com?keyword=泰拉瑞亚新手教程', 6, 101, '2022-11-26 11:42:14', '2022-11-26 11:42:14', NULL, 0);
-INSERT INTO `p_post_content` VALUES (9112729477121, 531982073865, 204085702657, '只因你太美 oh baby\n你干嘛 哎呦', 2, 100, '2022-11-26 11:44:21', '2022-11-26 11:44:21', NULL, 0);
-INSERT INTO `p_post_content` VALUES (9112796585986, 531982073865, 204085702657, 'https://search.bilibili.com?keyword=蔡徐坤', 6, 101, '2022-11-26 11:44:21', '2022-11-26 11:44:21', NULL, 0);
-
--- ----------------------------
 -- Table structure for p_post_star
 -- ----------------------------
 DROP TABLE IF EXISTS `p_post_star`;
@@ -290,9 +222,6 @@ CREATE TABLE `p_post_star`  (
                                 INDEX `idx_user`(`user_id` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 6000028 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '冒泡/文章点赞' ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Records of p_post_star
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for p_sign
@@ -306,9 +235,6 @@ CREATE TABLE `p_sign`  (
                            PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = COMPACT;
 
--- ----------------------------
--- Records of p_sign
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for p_tag
@@ -330,17 +256,6 @@ CREATE TABLE `p_tag`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1629756421308444675 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '标签' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of p_tag
--- ----------------------------
-INSERT INTO `p_tag` VALUES (4269410603010, 204085702657, '区块链', 0, '2022-11-26 10:45:23', '2022-11-26 10:45:23', NULL, 0);
-INSERT INTO `p_tag` VALUES (7151829442561, 204085702657, '后端', 0, '2022-11-26 11:36:34', '2022-11-26 11:36:34', NULL, 0);
-INSERT INTO `p_tag` VALUES (7175409819649, 204085702657, '前端', 0, '2022-11-26 11:36:39', '2022-11-26 11:36:39', NULL, 0);
-INSERT INTO `p_tag` VALUES (7194376462338, 204085702657, '游戏', 0, '2022-11-26 11:36:44', '2022-11-26 11:36:44', NULL, 0);
-INSERT INTO `p_tag` VALUES (7242422214657, 204085702657, '搞笑', 0, '2022-11-26 11:36:55', '2022-11-26 11:36:55', NULL, 0);
-INSERT INTO `p_tag` VALUES (7273183240193, 204085702657, '音乐', 0, '2022-11-26 11:37:03', '2022-11-26 11:37:03', NULL, 0);
-INSERT INTO `p_tag` VALUES (1629756421308444674, 2383742042114, 'MySQL', 0, '2023-02-26 16:13:04', '2023-02-26 16:13:04', NULL, 0);
-
--- ----------------------------
 -- Table structure for p_tag_post
 -- ----------------------------
 DROP TABLE IF EXISTS `p_tag_post`;
@@ -354,20 +269,6 @@ CREATE TABLE `p_tag_post`  (
                                `is_del` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0 为未删除、1 为已删除',
                                PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1629764431657340930 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '标签文章关联表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of p_tag_post
--- ----------------------------
-INSERT INTO `p_tag_post` VALUES (4626015404034, 936367067137, 4269410603010, '2022-11-26 11:26:32', '2022-11-26 11:26:32', NULL, 0);
-INSERT INTO `p_tag_post` VALUES (7596207562755, 981498880004, 7273183240193, '2022-11-26 11:38:20', '2022-11-26 11:38:20', NULL, 0);
-INSERT INTO `p_tag_post` VALUES (7715552288769, 101757964293, 7273183240193, '2022-11-26 11:38:48', '2022-11-26 11:38:48', NULL, 0);
-INSERT INTO `p_tag_post` VALUES (7838457978881, 230606983174, 7273183240193, '2022-11-26 11:39:18', '2022-11-26 11:39:18', NULL, 0);
-INSERT INTO `p_tag_post` VALUES (8027948244994, 423880511495, 7273183240193, '2022-11-26 11:40:03', '2022-11-26 11:40:03', NULL, 0);
-INSERT INTO `p_tag_post` VALUES (8579536969731, 986521227272, 7194376462338, '2022-11-26 11:42:14', '2022-11-26 11:42:14', NULL, 0);
-INSERT INTO `p_tag_post` VALUES (9112796585987, 531982073865, 7242422214657, '2022-11-26 11:44:21', '2022-11-26 11:44:21', NULL, 0);
-INSERT INTO `p_tag_post` VALUES (1629756465587712001, 2387659653122, 1629756421308444674, '2023-02-26 16:13:15', '2023-02-26 16:13:15', NULL, 0);
-INSERT INTO `p_tag_post` VALUES (1629756741338107906, 2387663912963, 1629756421308444674, '2023-02-26 16:14:21', '2023-02-26 16:14:21', NULL, 0);
-INSERT INTO `p_tag_post` VALUES (1629764431657340929, 2387784105985, 1629756421308444674, '2023-02-26 16:44:54', '2023-02-26 16:44:54', NULL, 0);
 
 -- ----------------------------
 -- Table structure for p_user
@@ -395,17 +296,6 @@ CREATE TABLE `p_user`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1629503893927251970 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of p_user
--- ----------------------------
-INSERT INTO `p_user` VALUES (52483444737, '小粉丝', '120201016330158084', '13838411438', '', '', '', 1, 'http://pixel-revolve.test.upcdn.net/images/avatar/default.png', 0, 0, '2022-11-20 22:01:20', '2023-02-26 10:53:27', NULL, 0);
-INSERT INTO `p_user` VALUES (204085702657, '熊二', '120190931746947074', '13770511673', '', '', '', 1, 'http://pixel-revolve.test.upcdn.net/images/avatar/default.png', 0, 0, '2022-11-20 21:22:12', '2023-02-26 11:23:15', NULL, 0);
-INSERT INTO `p_user` VALUES (2383742042114, 'pixel-revolve', '2383742042113', '13770909113', '', '', '', 1, 'http://pixel-revolve.test.upcdn.net/images/avatar/default.png', 0, 0, '2023-02-25 23:36:57', '2023-02-25 23:37:49', NULL, 0);
-INSERT INTO `p_user` VALUES (2383747153923, 'ovO', '2383747153922', '13770909114', '', '', '', 1, 'http://pixel-revolve.test.upcdn.net/images/avatar/default.png', 0, 0, '2023-02-25 23:38:15', '2023-02-25 23:38:37', NULL, 0);
-INSERT INTO `p_user` VALUES (2383758622724, '守望时空33', '2383758622723', '13770909115', '', '', '', 1, 'http://pixel-revolve.test.upcdn.net/images/avatar/default.png', 0, 0, '2023-02-25 23:41:10', '2023-02-25 23:42:23', NULL, 0);
-INSERT INTO `p_user` VALUES (2383774154753, '小小小张', '2383774154753', '13770909116', '', '', '', 1, 'http://pixel-revolve.test.upcdn.net/images/avatar/default.png', 0, 0, '2023-02-25 23:45:07', '2023-02-25 23:45:25', NULL, 0);
-INSERT INTO `p_user` VALUES (2383778414594, 'nika_yo_nihao', '2383778414594', '13770909117', '', '', '', 1, 'http://pixel-revolve.test.upcdn.net/images/avatar/default.png', 0, 0, '2023-02-25 23:46:12', '2023-02-25 23:46:47', NULL, 0);
-
--- ----------------------------
 -- Table structure for p_wallet_recharge
 -- ----------------------------
 DROP TABLE IF EXISTS `p_wallet_recharge`;
@@ -425,9 +315,6 @@ CREATE TABLE `p_wallet_recharge`  (
                                       INDEX `idx_trade_status`(`trade_status` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 10023 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '钱包充值' ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Records of p_wallet_recharge
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for p_wallet_statement
@@ -448,8 +335,135 @@ CREATE TABLE `p_wallet_statement`  (
                                        INDEX `idx_user`(`user_id` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 10010 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '钱包流水' ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Records of p_wallet_statement
--- ----------------------------
 
+-- ----------------------------
+-- Table structure for p_order
+-- ----------------------------
+DROP TABLE IF EXISTS `p_order`;
+CREATE TABLE `p_order`  (
+                            `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '订单ID',
+                            `user_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
+                            `total_amount` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '订单总金额',
+                            `pay_amount` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '应付金额（分）',
+                            `pay_type` tinyint UNSIGNED NOT NULL DEFAULT 1 COMMENT '支付方式：1->像素币；2->支付宝；3->微信； 4->货到付款；',
+                            `order_status` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '订单状态：0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单',
+                            `receiver_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '收货人姓名',
+                            `receiver_phone` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '收货人电话',
+                            `receiver_province` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '省份',
+                            `receiver_city` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '市',
+                            `receiver_detail_address` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '详细地址',
+                            `note` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '订单备注',
+                            `delivery_time` timestamp NULL DEFAULT NULL COMMENT '发货时间',
+                            `receive_time` timestamp NULL DEFAULT NULL COMMENT '确认收货时间',
+                            `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                            `modified_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+                            `deleted_on` timestamp NULL DEFAULT NULL COMMENT '删除时间',
+                            `is_del` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0 为未删除、1 为已删除',
+                            PRIMARY KEY (`id`) USING BTREE,
+                            INDEX `idx_user`(`user_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '订单' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for p_order_item
+-- ----------------------------
+DROP TABLE IF EXISTS `p_order_item`;
+CREATE TABLE `p_order_item`  (
+                                 `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '订单商品ID',
+                                 `order_id` bigint UNSIGNED NOT NULL COMMENT '订单ID',
+                                 `spu_id` bigint UNSIGNED NOT NULL COMMENT '商品ID',
+                                 `category_id` bigint UNSIGNED NOT NULL COMMENT '商品分类ID',
+                                 `pic` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '商品展示图',
+                                 `spu_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '商品名字',
+                                 `quantity` int NOT NULL DEFAULT 0 COMMENT '商品购买数量',
+                                 `price` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品价格（分）',
+                                 `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                 `modified_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+                                 `deleted_on` timestamp NULL DEFAULT NULL COMMENT '删除时间',
+                                 `is_del` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0 为未删除、1 为已删除',
+                                 PRIMARY KEY (`id`) USING BTREE,
+                                 INDEX `idx_order`(`order_id` ASC) USING BTREE,
+                                 INDEX `idx_spu`(`spu_id` ASC) USING BTREE,
+                                 INDEX `idx_category`(`category_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '订单商品' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for p_spu
+-- ----------------------------
+DROP TABLE IF EXISTS `p_spu`;
+CREATE TABLE `p_spu`  (
+                          `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '产品ID',
+                          `category_id` bigint UNSIGNED NOT NULL COMMENT '产品分类ID',
+                          `spu_content_id` bigint UNSIGNED NOT NULL COMMENT '知识附件等产品ID',
+                          `spu_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '商品名',
+                          `pic` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '商品展示图',
+                          `publish_status` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '上架状态：0->下架；1->上架',
+                          `new_status` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '新品状态：0->不是新品；1->新品',
+                          `sale` int NOT NULL DEFAULT 0 COMMENT '销量',
+                          `sort` int NOT NULL DEFAULT 0 COMMENT '排序',
+                          `price` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '价格（分）',
+                          `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
+                          `unit` varchar(16) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '单位',
+                          `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                          `modified_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+                          `deleted_on` timestamp NULL DEFAULT NULL COMMENT '删除时间',
+                          `is_del` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0 为未删除、1 为已删除',
+                          PRIMARY KEY (`id`) USING BTREE,
+                          INDEX `idx_category`(`category_id` ASC) USING BTREE,
+                          INDEX `idx_spu_content`(`spu_content_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '产品表' ROW_FORMAT = Dynamic;
 SET FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
+-- Table structure for p_spu_category
+-- ----------------------------
+DROP TABLE IF EXISTS `p_spu_category`;
+CREATE TABLE `p_spu_category`  (
+                                   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '产品类别ID',
+                                   `parent_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '上机分类的编号：0表示一级分类',
+                                   `category_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '类别名',
+                                   `sort` int NOT NULL DEFAULT 0 COMMENT '排序',
+                                   `category_level` int NOT NULL DEFAULT 0 COMMENT '分类级别：0->1级；1->2级',
+                                   `icon` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '图标',
+                                   `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
+                                   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                   `modified_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+                                   `deleted_on` timestamp NULL DEFAULT NULL COMMENT '删除时间',
+                                   `is_del` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0 为未删除、1 为已删除',
+                                   PRIMARY KEY (`id`) USING BTREE,
+                                   UNIQUE INDEX `p_spu_category_parent_id_uindex`(`parent_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '产品类别' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for p_ware
+-- ----------------------------
+DROP TABLE IF EXISTS `p_ware`;
+CREATE TABLE `p_ware`  (
+                           `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '仓库ID',
+                           `ware_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '仓库名',
+                           `address` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '仓库地址',
+                           `areacode` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '区域编码',
+                           `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                           `modified_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+                           `deleted_on` timestamp NULL DEFAULT NULL COMMENT '删除时间',
+                           `is_del` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0 为未删除、1 为已删除',
+                           PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '仓库' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for p_ware_sku
+-- ----------------------------
+DROP TABLE IF EXISTS `p_ware_sku`;
+CREATE TABLE `p_ware_sku`  (
+                               `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '产品库存ID',
+                               `spu_id` bigint UNSIGNED NOT NULL COMMENT '产品ID',
+                               `ware_id` bigint UNSIGNED NOT NULL COMMENT '仓库ID',
+                               `stock` int NULL DEFAULT NULL COMMENT '库存数',
+                               `stock_locked` int NULL DEFAULT NULL COMMENT '锁定库存',
+                               `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                               `modified_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+                               `deleted_on` timestamp NULL DEFAULT NULL COMMENT '删除时间',
+                               `is_del` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0 为未删除、1 为已删除',
+                               PRIMARY KEY (`id`) USING BTREE,
+                               INDEX `idx_spu`(`spu_id` ASC) USING BTREE,
+                               INDEX `idx_ware`(`ware_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '产品库存' ROW_FORMAT = Dynamic;
