@@ -29,6 +29,9 @@
         <module>pixel-test</module>
         <module>pixel-test/consumer</module>
         <module>pixel-test/publisher</module>
+        <module>pixel-ware</module>
+        <module>pixel-product</module>
+        <module>pixel-order</module>
 
     </modules>
 
@@ -37,6 +40,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <spring-cloud.version>2021.0.0</spring-cloud.version>
+        <spring-cloud-alibaba.version>2.2.5.RELEASE</spring-cloud-alibaba.version>
     </properties>
 
     <build>

@@ -12,14 +12,6 @@
     <artifactId>pixel-gateway</artifactId>
     <name>${project.artifactId}</name>
 
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <java.version>11</java.version>
-        <spring-cloud.version>2021.0.0</spring-cloud.version>
-        <spring-cloud-alibaba.version>2.2.5.RELEASE</spring-cloud-alibaba.version>
-    </properties>
-
     <dependencies>
         <!--网关-->
         <dependency>
