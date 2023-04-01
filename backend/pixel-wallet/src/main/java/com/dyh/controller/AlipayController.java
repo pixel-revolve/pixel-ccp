@@ -6,6 +6,7 @@ import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.dyh.config.AlipayConfig;
+import com.dyh.constants.OrderStatusEnum;
 import com.dyh.entity.PWalletRecharge;
 import com.dyh.feign.PUserFeignService;
 import com.dyh.service.PWalletRechargeService;
@@ -62,6 +63,7 @@ public class AlipayController {
 		pWalletRecharge.setUserId(userId);
 		pWalletRecharge.setAmount(amount);
 		pWalletRecharge.setId(walletRechargeId);
+		pWalletRecharge.setTradeStatus(OrderStatusEnum.WAIT_PAY.key);
 		pWalletRechargeService.save(pWalletRecharge);
 
 		// 3.加载支付宝各种证书
@@ -132,7 +134,8 @@ public class AlipayController {
 			pWalletRechargeService.updateOrderStatus(out_trade_no,trade_no,total_amount);
 			PWalletRecharge pWalletRecharge=pWalletRechargeService.getById(out_trade_no);
 			// 更新用户余额
-			pUserFeignService.rechargeById(pWalletRecharge.getUserId(), Long.valueOf(total_amount));
+			double total_amount_double = Double.parseDouble(total_amount);
+			pUserFeignService.rechargeById(pWalletRecharge.getUserId(), Math.round(total_amount_double));
 
 			log.info("********************** 支付成功(支付宝同步通知) **********************");
 			log.info("* 订单号: {}", out_trade_no);
