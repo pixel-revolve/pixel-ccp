@@ -1,0 +1,33 @@
+pixel:
+  nacos:
+    ip: ${NACOS_IP:@nacos.ip@}
+    port: ${NACOS_PORT:@nacos.port@}
+    namespace: ${NACOS_ID:@nacos.namespace@}
+    username: ${NACOS_USERNAME:@nacos.username@}
+    password: ${NACOS_PASSWORD:@nacos.password@}
+
+spring:
+  application:
+    name: '@project.artifactId@'
+  profiles:
+    active: '@profile.active@'
+  main:
+    allow-circular-references: true
+  cloud:
+    nacos:
+      config:
+        server-addr: ${pixel.nacos.ip}:${pixel.nacos.port}
+        file-extension: yaml
+        namespace: ${pixel.nacos.namespace}
+        username: ${pixel.nacos.username}
+        password: ${pixel.nacos.password}
+        shared-configs:
+          - data-id: redis.yaml
+            refresh: true
+          - data-id: mysql.yaml
+            refresh: true
+      discovery:
+        server-addr: ${pixel.nacos.ip}:${pixel.nacos.port}
+        namespace: ${pixel.nacos.namespace}
+        username: ${pixel.nacos.username}
+        password: ${pixel.nacos.password}
