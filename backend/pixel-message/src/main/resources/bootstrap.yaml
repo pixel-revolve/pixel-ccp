@@ -11,6 +11,8 @@ spring:
     name: '@project.artifactId@'
   profiles:
     active: '@profile.active@'
+  main:
+    allow-circular-references: true
   cloud:
     nacos:
       config:
@@ -19,6 +21,11 @@ spring:
         namespace: ${pixel.nacos.namespace}
         username: ${pixel.nacos.username}
         password: ${pixel.nacos.password}
+        shared-configs:
+          - data-id: redis.yaml
+            refresh: true
+          - data-id: mysql.yaml
+            refresh: true
       discovery:
         server-addr: ${pixel.nacos.ip}:${pixel.nacos.port}
         namespace: ${pixel.nacos.namespace}
