@@ -130,3 +130,35 @@ INSERT INTO `p_user` VALUES (2383778414594, 'nika_yo_nihao', '2383778414594', '1
 -- ----------------------------
 -- Records of p_wallet_statement
 -- ----------------------------
+
+
+-- ----------------------------
+-- Records of p_spu_category
+-- ----------------------------
+INSERT INTO `p_spu_category` VALUES (1, 0, '文章附件', 0, 0, NULL, NULL, '2023-04-01 20:55:42', '2023-04-01 20:55:42', NULL, 0);
+INSERT INTO `p_spu_category` VALUES (2, 0, '社区周边', 0, 0, NULL, NULL, '2023-04-01 20:56:14', '2023-04-01 20:56:14', NULL, 0);
+INSERT INTO `p_spu_category` VALUES (3, 0, '课程', 0, 0, NULL, NULL, '2023-04-01 20:56:28', '2023-04-01 20:56:28', NULL, 0);
+
+-- ----------------------------
+-- Records of p_spu
+-- ----------------------------
+INSERT INTO `p_spu` VALUES (21, 2, 999, 'Steve Campbell', 'VYv8MGBMM3', 1, 1, 157, 98, 627, 'Q65olhq85s', 'Jbyc5ObKGW', '2008-11-06 22:51:46', '2005-01-18 01:38:27', '2001-06-18 12:09:45', 134);
+INSERT INTO `p_spu` VALUES (22, 1, 70, 'Pak Kwok Ming', 'fN2PYDeCIx', 1, 0, 235, 275, 791, 'zrLxiVf40b', 'ue45cOwu2t', '2013-11-10 11:52:19', '2018-08-29 00:39:11', '2019-08-05 17:21:31', 243);
+INSERT INTO `p_spu` VALUES (23, 1, 760, 'Zhu Shihan', 'sakcuEH0Tw', 1, 1, 180, 956, 689, '94fo2kv0jT', 'mpEQ1jBjRT', '2021-12-02 12:41:52', '2011-08-08 10:07:06', '2002-03-11 19:50:37', 195);
+INSERT INTO `p_spu` VALUES (24, 1, 113, 'Watanabe Hazuki', 'WZCgpawyES', 0, 0, 965, 481, 469, 'evMjNvxvBm', 'VBqfpCiz5I', '2005-08-04 06:44:18', '2006-04-17 06:51:26', '2010-05-13 14:55:22', 191);
+INSERT INTO `p_spu` VALUES (25, 0, 432, 'Hayashi Rena', 'q1V5q5PcsD', 1, 0, 262, 493, 6, 'grTD5iPYJP', 'vG7GgfgJXd', '2003-02-08 00:41:57', '2004-05-04 08:22:53', '2009-09-19 01:57:21', 35);
+INSERT INTO `p_spu` VALUES (26, 1, 669, 'Zheng Jialun', 'DwcIGCVPSI', 0, 1, 29, 431, 928, 'FSUhwsS3dD', 'WJzpo1E89Z', '2016-11-13 23:20:40', '2014-08-27 15:02:57', '2007-08-02 06:31:02', 153);
+INSERT INTO `p_spu` VALUES (27, 1, 288, 'Siu Ling Ling', 'U5TsJjtsuy', 1, 1, 179, 668, 941, 'wF3GQUL7Lo', 'CaSiPkl7es', '2003-03-29 01:00:20', '2004-12-26 16:45:46', '2001-12-17 08:16:54', 90);
+INSERT INTO `p_spu` VALUES (28, 0, 594, 'Ishikawa Hazuki', 'ubknjSsY2K', 0, 1, 670, 336, 976, 'QellpjAKQO', 'lDa29XB1yu', '2022-01-16 11:15:24', '2011-10-02 16:52:54', '2009-06-11 04:44:56', 11);
+INSERT INTO `p_spu` VALUES (29, 0, 909, 'Matsumoto Ryota', 'uX4S53MNGx', 1, 0, 996, 513, 844, 'K3NqvLZnJl', 'VbUOeH8wtB', '2022-10-27 13:03:13', '2003-03-08 11:57:07', '2018-01-07 10:32:03', 123);
+INSERT INTO `p_spu` VALUES (30, 1, 925, 'Xu Jiehong', 'IWts5Sn5XW', 1, 0, 487, 879, 1, 'QumSfT67TG', 'h0PsTWS2uy', '2016-11-28 06:30:47', '2013-03-11 06:51:00', '2005-08-15 02:21:44', 249);
+INSERT INTO `p_spu` VALUES (31, 1, 673, 'Barbara Hernandez', 'N345t07OGf', 1, 1, 834, 185, 419, 'OK3pItBBWj', 'WkVlkLZ4Xv', '2007-12-27 22:47:32', '2006-10-29 05:48:43', '2010-10-18 15:46:40', 190);
+INSERT INTO `p_spu` VALUES (32, 1, 886, 'Zhao Yuning', 'ASplBYOVdV', 0, 0, 830, 993, 992, '0cFeucwR0I', 'qeKIz2Fea1', '2008-08-13 05:03:06', '2021-12-15 23:00:56', '2012-09-13 07:21:42', 14);
+INSERT INTO `p_spu` VALUES (33, 0, 134, 'Yuen Fat', 'jLCV6YITon', 0, 1, 387, 274, 258, '5xIbX38NqP', 'mo4Dxr6hSD', '2016-05-19 20:36:38', '2016-10-22 23:24:23', '2009-09-30 20:42:20', 134);
+INSERT INTO `p_spu` VALUES (34, 0, 92, 'Diane Mendoza', 'xfSo3frqHI', 0, 1, 24, 719, 800, 'Ntkw1Svqod', 'KRTq0AC0pv', '2012-12-22 13:18:48', '2008-10-08 00:59:07', '2001-05-06 09:43:06', 172);
+INSERT INTO `p_spu` VALUES (35, 2, 728, 'Janet Wells', 'JwmOH0MzkS', 1, 0, 199, 171, 974, 'e3PIa3nxq1', 'QHoEGPigVt', '2016-02-14 21:46:09', '2014-11-06 09:46:37', '2002-01-15 01:06:44', 14);
+INSERT INTO `p_spu` VALUES (36, 0, 448, 'Norman Young', 'qJM8F0mbzd', 0, 0, 304, 176, 443, 'YnhNXpbPe3', '1s2CMCYwvA', '2018-10-03 11:32:20', '2020-06-28 00:30:08', '2000-07-07 18:18:18', 138);
+INSERT INTO `p_spu` VALUES (37, 1, 171, 'Hasegawa Rin', 'ZJcQczE5jl', 1, 1, 814, 957, 918, 'iuO4cwFNoZ', 'ge02pgO24c', '2017-07-15 00:06:39', '2001-04-16 07:41:38', '2010-11-12 03:57:09', 84);
+INSERT INTO `p_spu` VALUES (38, 2, 561, 'Yuan Lan', 'tRogs6mL5U', 0, 1, 452, 135, 447, '9TGl9UNRm4', 'YurubSl3ls', '2014-06-06 13:52:17', '2000-03-02 08:26:37', '2000-05-07 14:36:53', 182);
+INSERT INTO `p_spu` VALUES (39, 1, 919, 'Yan Xiaoming', 'nLHihMqOyt', 1, 0, 430, 358, 965, 'n8V14a3VuW', 'g1pQcthxcn', '2017-02-23 13:52:30', '2001-09-22 21:18:53', '2015-10-07 14:34:55', 39);
+INSERT INTO `p_spu` VALUES (40, 0, 238, 'Miyamoto Miu', 'ZNQyWwjCPw', 1, 1, 113, 154, 640, '3NU4jfc5kq', 'mzorUGvAIX', '2010-07-05 12:20:47', '2008-08-11 03:35:28', '2010-02-08 03:16:27', 200);

@@ -419,7 +419,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 DROP TABLE IF EXISTS `p_spu_category`;
 CREATE TABLE `p_spu_category`  (
                                    `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '产品类别ID',
-                                   `parent_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '上机分类的编号：0表示一级分类',
+                                   `parent_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '上级分类的编号：0表示一级分类',
                                    `category_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '类别名',
                                    `sort` int NOT NULL DEFAULT 0 COMMENT '排序',
                                    `category_level` int NOT NULL DEFAULT 0 COMMENT '分类级别：0->1级；1->2级',
@@ -429,8 +429,7 @@ CREATE TABLE `p_spu_category`  (
                                    `modified_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
                                    `deleted_on` timestamp NULL DEFAULT NULL COMMENT '删除时间',
                                    `is_del` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0 为未删除、1 为已删除',
-                                   PRIMARY KEY (`id`) USING BTREE,
-                                   UNIQUE INDEX `p_spu_category_parent_id_uindex`(`parent_id` ASC) USING BTREE
+                                   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '产品类别' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
