@@ -21,13 +21,22 @@ import java.util.List;
  * @since 2023-04-01 19:08:05
  */
 @RestController
-@RequestMapping("pWare")
+@RequestMapping("/api/pWare")
 public class PWareController extends ApiController {
     /**
      * 服务对象
      */
     @Resource
     private PWareService pWareService;
+
+    /**
+     * 获取运费信息
+     * @return
+     */
+    @GetMapping(value = "/getFare")
+    public R getFare(@RequestParam("addrId") Long addrId) {
+        return success(this.pWareService.getFare(addrId));
+    }
 
     /**
      * 分页查询所有数据

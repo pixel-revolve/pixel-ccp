@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dyh.dao.PWareSkuDao">
+
+    <resultMap type="com.dyh.entity.PWareSku" id="wareSkuMap">
+        <result property="id" column="id"/>
+        <result property="skuId" column="sku_id"/>
+        <result property="wareId" column="ware_id"/>
+        <result property="stock" column="stock"/>
+        <result property="stockLocked" column="stock_locked"/>
+    </resultMap>
+
+
+    <select id="getSkuStock" resultType="java.lang.Long">
+        SELECT SUM(stock - stock_locked) FROM p_ware_sku WHERE sku_id = #{skuId}
+    </select>
+
+    <update id="lockSkuStock">
+        UPDATE p_ware_sku
+        SET stock_locked = stock_locked + #{num}
+        WHERE
+            spu_id = #{spuId}
+          AND ware_id = #{wareId}
+          AND stock - stock_locked > 0
+    </update>
+
+    <update id="unLockStock">
+        UPDATE p_ware_sku
+        SET stock_locked = stock_locked - #{num}
+        WHERE
+            spu_id = ${spuId}
+          AND ware_id = #{wareId}
+    </update>
+
+    <select id="listWareIdHasSkuStock" resultType="java.lang.Long">
+        SELECT
+            ware_id
+        FROM
+            p_ware_sku
+        WHERE
+            spu_id = #{spuId}
+          AND stock - stock_locked > 0
+    </select>
+</mapper>

@@ -21,7 +21,7 @@ import java.util.List;
  * @since 2023-04-01 19:05:24
  */
 @RestController
-@RequestMapping("pOrderItem")
+@RequestMapping("/api/pOrderItem")
 public class POrderItemController extends ApiController {
     /**
      * 服务对象

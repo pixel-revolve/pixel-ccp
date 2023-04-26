@@ -32,7 +32,8 @@ public class RedisConstants {
     // feed流
     public static final String FEED_KEY = UNIFORM_PREFIX+"feed:";
 
-    // 商店模块
-    public static final String SECKILL_STOCK_KEY = UNIFORM_PREFIX+"seckill:stock:";
-    public static final String SHOP_GEO_KEY = UNIFORM_PREFIX+"shop:geo:";
+    // 购物车
+    public static final String CART_KEY =UNIFORM_PREFIX+"cart:";
+
+
 }

@@ -9,9 +9,11 @@ import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.enums.ApiErrorCode;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dyh.dao.PPostCollectionDao;
 import com.dyh.dao.PPostDao;
-import com.dyh.entity.*;
+import com.dyh.entity.PPost;
+import com.dyh.entity.PPostContent;
+import com.dyh.entity.PTag;
+import com.dyh.entity.PTagPost;
 import com.dyh.entity.dto.PPostContentDTO;
 import com.dyh.entity.po.PFollow;
 import com.dyh.entity.po.PUser;
@@ -25,7 +27,6 @@ import com.dyh.utils.RedisIdWorker;
 import com.dyh.utils.UserHolder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.ibatis.jdbc.Null;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -35,16 +36,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 import static com.dyh.constant.PostConstants.POST_CONTENT_PREFIX;
 import static com.dyh.constant.PostConstants.POST_PREFIX;
 import static com.dyh.constant.RedisConstants.*;
-import static com.dyh.constant.RedisConstants.POST_LIKED_KEY;
 
 /**
  * 冒泡/文章(PPost)表服务实现类

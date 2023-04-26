@@ -8,7 +8,7 @@ import java.io.Serializable;
  * 订单(POrder)表实体类
  *
  * @author makejava
- * @since 2023-04-01 19:05:23
+ * @since 2023-04-12 11:27:04
  */
 @SuppressWarnings("serial")
 public class POrder extends Model<POrder> {
@@ -20,9 +20,11 @@ public class POrder extends Model<POrder> {
     private Long totalAmount;
     //应付金额（分）
     private Long payAmount;
+    //运费金额（分）
+    private Long freightAmount;
     //支付方式：1->像素币；2->支付宝；3->微信； 4->货到付款；
     private Integer payType;
-    //订单状态：0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单
+    //订单状态：0->待付款；1->已付款；2->已发货；3->已完成；4->已关闭；5->售后中；6->售后完成
     private Integer orderStatus;
     //收货人姓名
     private String receiverName;
@@ -80,6 +82,14 @@ public class POrder extends Model<POrder> {
 
     public void setPayAmount(Long payAmount) {
         this.payAmount = payAmount;
+    }
+
+    public Long getFreightAmount() {
+        return freightAmount;
+    }
+
+    public void setFreightAmount(Long freightAmount) {
+        this.freightAmount = freightAmount;
     }
 
     public Integer getPayType() {

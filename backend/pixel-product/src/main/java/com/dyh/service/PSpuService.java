@@ -1,5 +1,6 @@
 package com.dyh.service;
 
+import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dyh.entity.PSpu;
 
@@ -10,6 +11,10 @@ import com.dyh.entity.PSpu;
  * @since 2023-04-01 18:54:53
  */
 public interface PSpuService extends IService<PSpu> {
+
+    R selectSpuInfoBySkuId(Long spuId);
+
+    R<Long> getPriceBySkuId(Long spuId);
 
 }
 

@@ -1,7 +1,6 @@
 package com.dyh.controller;
 
 
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
@@ -21,13 +20,35 @@ import java.util.List;
  * @since 2023-04-01 18:54:53
  */
 @RestController
-@RequestMapping("pSpu")
+@RequestMapping("/api/pProduct")
 public class PSpuController extends ApiController {
     /**
      * 服务对象
      */
     @Resource
     private PSpuService pSpuService;
+
+    /**
+     * 通过skuId查询Price
+     *
+     * @param skuId sku id
+     * @return {@link R}<{@link Long}>
+     */
+    @GetMapping("/getPriceBySkuId/{skuId}")
+    R<Long> getPriceBySkuId(@PathVariable("skuId") Long skuId) {
+        return pSpuService.getPriceBySkuId(skuId);
+    }
+
+    /**
+     * 通过spuId查询Spu信息
+     *
+     * @param skuId spu id
+     * @return {@link R}
+     */
+    @GetMapping("/selectSpuInfoBySkuId/{skuId}")
+    R selectSpuInfoBySkuId(@PathVariable("skuId") Long skuId) {
+        return pSpuService.selectSpuInfoBySkuId(skuId);
+    }
 
     /**
      * 分页查询所有数据

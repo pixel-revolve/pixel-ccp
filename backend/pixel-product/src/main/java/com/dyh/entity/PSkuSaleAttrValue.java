@@ -5,27 +5,25 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 
 /**
- * 产品类别(PSpuCategory)表实体类
+ * 产品库存销售属性值(PSkuSaleAttrValue)表实体类
  *
  * @author makejava
- * @since 2023-04-01 18:58:08
+ * @since 2023-04-23 17:18:12
  */
 @SuppressWarnings("serial")
-public class PSpuCategory extends Model<PSpuCategory> {
-    //产品类别ID
+public class PSkuSaleAttrValue extends Model<PSkuSaleAttrValue> {
+    //主键
     private Long id;
-    //上机分类的编号：0表示一级分类
-    private Long parentId;
-    //类别名
-    private String categoryName;
-    //排序
-    private Integer sort;
-    //分类级别：0->1级；1->2级
-    private Integer categoryLevel;
-    //图标
-    private String icon;
-    //描述
-    private String description;
+    //商品skuID
+    private Long skuId;
+    //属性ID
+    private Long attrId;
+    //销售属性名
+    private String attrName;
+    //销售属性值
+    private String attrValue;
+    //顺序
+    private Integer attrSort;
     //创建时间
     private Date createdOn;
     //修改时间
@@ -44,52 +42,44 @@ public class PSpuCategory extends Model<PSpuCategory> {
         this.id = id;
     }
 
-    public Long getParentId() {
-        return parentId;
+    public Long getSkuId() {
+        return skuId;
     }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setSkuId(Long skuId) {
+        this.skuId = skuId;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public Long getAttrId() {
+        return attrId;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setAttrId(Long attrId) {
+        this.attrId = attrId;
     }
 
-    public Integer getSort() {
-        return sort;
+    public String getAttrName() {
+        return attrName;
     }
 
-    public void setSort(Integer sort) {
-        this.sort = sort;
+    public void setAttrName(String attrName) {
+        this.attrName = attrName;
     }
 
-    public Integer getCategoryLevel() {
-        return categoryLevel;
+    public String getAttrValue() {
+        return attrValue;
     }
 
-    public void setCategoryLevel(Integer categoryLevel) {
-        this.categoryLevel = categoryLevel;
+    public void setAttrValue(String attrValue) {
+        this.attrValue = attrValue;
     }
 
-    public String getIcon() {
-        return icon;
+    public Integer getAttrSort() {
+        return attrSort;
     }
 
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAttrSort(Integer attrSort) {
+        this.attrSort = attrSort;
     }
 
     public Date getCreatedOn() {

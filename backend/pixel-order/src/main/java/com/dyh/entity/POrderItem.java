@@ -2,15 +2,22 @@ package com.dyh.entity;
 
 import java.util.Date;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.*;
+
 import java.io.Serializable;
 
 /**
  * 订单商品(POrderItem)表实体类
  *
  * @author makejava
- * @since 2023-04-01 19:05:24
+ * @since 2023-04-23 17:29:58
  */
 @SuppressWarnings("serial")
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class POrderItem extends Model<POrderItem> {
     //订单商品ID
     private Long id;
@@ -18,16 +25,24 @@ public class POrderItem extends Model<POrderItem> {
     private Long orderId;
     //商品ID
     private Long spuId;
+    //商品名
+    private String spuName;
+    //商品图片
+    private String spuPic;
     //商品分类ID
     private Long categoryId;
+    //商品skuID
+    private Long skuId;
     //商品展示图
-    private String pic;
+    private String skuPic;
     //商品名字
-    private String spuName;
+    private String skuName;
     //商品购买数量
-    private Integer quantity;
+    private Integer skuQuantity;
     //商品价格（分）
-    private Long price;
+    private Long skuPrice;
+    //商品销售属性组合（JSON）
+    private String skuAttrsVals;
     //创建时间
     private Date createdOn;
     //修改时间
@@ -62,22 +77,6 @@ public class POrderItem extends Model<POrderItem> {
         this.spuId = spuId;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getPic() {
-        return pic;
-    }
-
-    public void setPic(String pic) {
-        this.pic = pic;
-    }
-
     public String getSpuName() {
         return spuName;
     }
@@ -86,20 +85,68 @@ public class POrderItem extends Model<POrderItem> {
         this.spuName = spuName;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public String getSpuPic() {
+        return spuPic;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setSpuPic(String spuPic) {
+        this.spuPic = spuPic;
     }
 
-    public Long getPrice() {
-        return price;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setPrice(Long price) {
-        this.price = price;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Long getSkuId() {
+        return skuId;
+    }
+
+    public void setSkuId(Long skuId) {
+        this.skuId = skuId;
+    }
+
+    public String getSkuPic() {
+        return skuPic;
+    }
+
+    public void setSkuPic(String skuPic) {
+        this.skuPic = skuPic;
+    }
+
+    public String getSkuName() {
+        return skuName;
+    }
+
+    public void setSkuName(String skuName) {
+        this.skuName = skuName;
+    }
+
+    public Integer getSkuQuantity() {
+        return skuQuantity;
+    }
+
+    public void setSkuQuantity(Integer skuQuantity) {
+        this.skuQuantity = skuQuantity;
+    }
+
+    public Long getSkuPrice() {
+        return skuPrice;
+    }
+
+    public void setSkuPrice(Long skuPrice) {
+        this.skuPrice = skuPrice;
+    }
+
+    public String getSkuAttrsVals() {
+        return skuAttrsVals;
+    }
+
+    public void setSkuAttrsVals(String skuAttrsVals) {
+        this.skuAttrsVals = skuAttrsVals;
     }
 
     public Date getCreatedOn() {

@@ -8,14 +8,14 @@ import java.io.Serializable;
  * 产品库存(PWareSku)表实体类
  *
  * @author makejava
- * @since 2023-04-01 19:08:05
+ * @since 2023-04-23 17:22:01
  */
 @SuppressWarnings("serial")
 public class PWareSku extends Model<PWareSku> {
     //产品库存ID
     private Long id;
-    //产品ID
-    private Long spuId;
+    //skuID
+    private Long skuId;
     //仓库ID
     private Long wareId;
     //库存数
@@ -40,12 +40,12 @@ public class PWareSku extends Model<PWareSku> {
         this.id = id;
     }
 
-    public Long getSpuId() {
-        return spuId;
+    public Long getSkuId() {
+        return skuId;
     }
 
-    public void setSpuId(Long spuId) {
-        this.spuId = spuId;
+    public void setSkuId(Long skuId) {
+        this.skuId = skuId;
     }
 
     public Long getWareId() {

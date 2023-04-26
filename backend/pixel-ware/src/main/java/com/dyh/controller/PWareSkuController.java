@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dyh.entity.PWareSku;
+import com.dyh.entity.vo.PSkuHasStockVo;
+import com.dyh.entity.vo.PWareSkuLockVo;
 import com.dyh.service.PWareSkuService;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,13 +23,39 @@ import java.util.List;
  * @since 2023-04-01 19:08:05
  */
 @RestController
-@RequestMapping("pWareSku")
+@RequestMapping("/api/pWareSku")
 public class PWareSkuController extends ApiController {
+
     /**
      * 服务对象
      */
     @Resource
     private PWareSkuService pWareSkuService;
+
+    /**
+     * 查询sku是否有库存
+     * @return
+     */
+    @PostMapping(value = "/getSkuHasStock")
+    public R<List<PSkuHasStockVo>> getSkuHasStock(@RequestBody List<Long> skuIds) {
+        return pWareSkuService.getSkuHasStock(skuIds);
+    }
+
+    /**
+     * 锁定库存
+     * @param vo
+     *
+     * 库存解锁的场景
+     *      1）、下订单成功，订单过期没有支付被系统自动取消或者被用户手动取消，都要解锁库存
+     *      2）、下订单成功，库存锁定成功，接下来的业务调用失败，导致订单回滚。之前锁定的库存就要自动解锁
+     *      3）、
+     *
+     * @return
+     */
+    @PostMapping(value = "/orderLockStock")
+    public R orderLockStock(@RequestBody PWareSkuLockVo vo) {
+        return pWareSkuService.orderLockStock(vo);
+    }
 
     /**
      * 分页查询所有数据
